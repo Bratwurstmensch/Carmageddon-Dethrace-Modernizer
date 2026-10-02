@@ -17,6 +17,8 @@ The long-term goal is a reproducible, user-friendly modernizer that can combine:
 
 **Source-port milestone: validated.** The widescreen/menu/mouse/HUD behavior has been confirmed in both Carmageddon and Splat Pack.
 
+**Installer milestone: validated.** The Windows installer has completed a real install → main-game/Splat Pack launch → uninstall cycle successfully, including backup restoration and automatic Splat Pack detection.
+
 The original private/tested **v1.5** proof-of-concept is functionally complete for the 16:9 and XInput work. Its behavior has been validated with both the main game and Splat Pack.
 
 The v1.5 widescreen work has now also been reproduced as a **clean Dethrace v0.10.1 source port**, built successfully in GitHub Actions and visually validated with both Carmageddon and Splat Pack on Windows. The patched proof-of-concept executable itself is still not committed here.

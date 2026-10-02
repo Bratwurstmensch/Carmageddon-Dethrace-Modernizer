@@ -78,3 +78,21 @@ The tested launcher configuration additionally uses:
 The normal non-controller launchers use:
 
 `-hires --opengl`
+
+
+## Installer validation
+
+The v0.1 Windows installer was validated on 2026-10-02 against an existing Carmageddon/Dethrace installation that already contained earlier Modernizer files.
+
+Observed result:
+
+- installation completed successfully,
+- `DATA/GENERAL.TXT` detection passed,
+- Splat Pack was detected automatically,
+- main-game and Splat Pack launchers remained functional,
+- pre-existing Modernizer files were treated as replaceable/backup-managed files,
+- uninstall completed successfully,
+- the installer state directory was removed after uninstall,
+- original `dethrace.exe` and original game data were left untouched.
+
+File timestamps are not used as installation-state evidence; the installer tracks prior existence and backups in its install manifest.

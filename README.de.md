@@ -30,3 +30,15 @@ Die deutsche Integration ist ein Projektziel. Öffentlich soll keine Sammlung or
 Das Projekt baut auf Dethrace auf. Die 16:9-Untersuchung, die Patches, das Packaging und die Controller-Werkzeuge wurden von **Bratwurstmensch** mit umfangreicher Unterstützung durch **ChatGPT von OpenAI** entwickelt.
 
 Weitere Hinweise: [docs/CREDITS.md](docs/CREDITS.md).
+
+
+## Aktueller Validierungsstand
+
+- 16:9-Source-Port gegen Dethrace v0.10.1: validiert
+- Hauptspiel: validiert
+- Splat Pack: validiert
+- Windows-Installer: kompletter Installations- und Deinstallationsdurchlauf erfolgreich getestet
+- vorhandene Modernizer-Dateien werden vor dem Überschreiben gesichert und beim Uninstall wiederhergestellt
+- normale `dethrace.exe` und originale Spieldaten bleiben unangetastet
+
+**Installer-Meilenstein: validiert.**

@@ -31,3 +31,10 @@ The German localization integration is deliberately not part of this first insta
 ## Uninstaller user experience
 
 The uninstaller restores/removes managed files first, prints the final result and waits for user acknowledgement. Only after the user closes the success prompt are the two Modernizer uninstaller files cleaned up by a temporary helper.
+
+
+## Real-world validation
+
+The v0.1 installer completed a full real-world install/uninstall cycle successfully on 2026-10-02, including automatic Splat Pack detection and restoration of pre-existing Modernizer-managed files.
+
+The installation-state directory exists only while the Modernizer is installed. Its absence after a successful uninstall is expected.
