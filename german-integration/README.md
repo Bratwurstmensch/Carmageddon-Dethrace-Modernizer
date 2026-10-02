@@ -10,10 +10,10 @@ The currently validated installation has been reconstructed from the archived de
 - Splat Pack: **275 files** (253 FLI, 12 WAV, 10 TXT)
 
 Main target manifest identity:
-`e78c70a2e403ff85731cd0fa377aab3b355a920c0faef31518f1b0557b181c83`
+`7cb50ad5e3b1bfca6a021ccc8210b975f27419446286c8441e34800da971fd27`
 
 Splat target manifest identity:
-`260ad711d576223d22ec2fc823d428a061d887547ffc403f7c050dc141b79c13`
+`19832c80860d00393b20ade338c09f8f30f65a614243a10d59d71a18544964fe`
 
 ## Splat reconstruction
 
@@ -28,3 +28,13 @@ All 69 have corresponding files in the recovered original Splat source set.
 A local source-verified delta proof of concept rebuilt all 275 targets and verified every SHA-256 successfully.
 
 The binary delta payloads are intentionally not committed yet.
+
+
+## Canonical manifest identity
+
+For audit builds the identity is SHA-256 over the complete sorted target set. Each line is:
+
+`lowercase-relative-path<TAB>file-sha256<LF>`
+
+This makes the identity independent of ZIP timestamps, archive ordering or compression.
+The private archived development packages are not part of the public repository; `reconstruct_from_archives.py` consumes them locally and verifies the complete rebuilt target set.
