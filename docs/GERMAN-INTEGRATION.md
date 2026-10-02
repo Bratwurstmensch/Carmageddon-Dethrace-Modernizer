@@ -92,8 +92,8 @@ Therefore the Splat German integration can be made reproducible without shipping
 
 For deterministic auditing, the sorted path+SHA-256 target sets have these aggregate identifiers:
 
-- main-game final German set: `e78c70a2e403ff85731cd0fa377aab3b355a920c0faef31518f1b0557b181c83`
-- Splat Pack final German set: `260ad711d576223d22ec2fc823d428a061d887547ffc403f7c050dc141b79c13`
+- main-game final German set: `7cb50ad5e3b1bfca6a021ccc8210b975f27419446286c8441e34800da971fd27`
+- Splat Pack final German set: `19832c80860d00393b20ade338c09f8f30f65a614243a10d59d71a18544964fe`
 
 These are manifest identity hashes, not hashes of a ZIP archive.
 
@@ -114,6 +114,18 @@ for a total of **275 Splat target files**.
 
 Every generated file passed its individual SHA-256 check and the resulting complete target set matched manifest identity:
 
-`260ad711d576223d22ec2fc823d428a061d887547ffc403f7c050dc141b79c13`
+`19832c80860d00393b20ade338c09f8f30f65a614243a10d59d71a18544964fe`
 
 The current experimental delta format is `CGDX1`: exact-source SHA-256 validation, a compressed XOR delta, then exact-target SHA-256 validation. The reference implementation is in `german-integration/cgdx.py`.
+
+
+## Canonical identity definition
+
+The final-set identity is computed from all reconstructed files after overlaying the known-good private development stack. Paths are converted to lower-case backslash form, sorted, and serialized as:
+
+`path<TAB>sha256<LF>`
+
+The SHA-256 of that serialization is the manifest identity. A local audit rebuild has verified both complete target sets:
+
+- main: 250 files -> `7cb50ad5e3b1bfca6a021ccc8210b975f27419446286c8441e34800da971fd27`
+- Splat: 275 files -> `19832c80860d00393b20ade338c09f8f30f65a614243a10d59d71a18544964fe`
