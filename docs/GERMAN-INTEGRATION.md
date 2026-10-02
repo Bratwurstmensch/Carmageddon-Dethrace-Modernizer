@@ -96,3 +96,24 @@ For deterministic auditing, the sorted path+SHA-256 target sets have these aggre
 - Splat Pack final German set: `260ad711d576223d22ec2fc823d428a061d887547ffc403f7c050dc141b79c13`
 
 These are manifest identity hashes, not hashes of a ZIP archive.
+
+
+## Delta proof of concept
+
+A source-verified binary-delta proof of concept has now been completed for the **69 Splat-specific files**.
+
+Starting from:
+- the validated 250-file German main-game target set, and
+- the recovered original `Carmageddon-SplatPack-SourceForGermanPatch-v2` source set,
+
+the prototype rebuilt:
+- 206 Splat files by exact byte reuse from the main-game German set,
+- 69 Splat files by source-verified binary delta,
+
+for a total of **275 Splat target files**.
+
+Every generated file passed its individual SHA-256 check and the resulting complete target set matched manifest identity:
+
+`260ad711d576223d22ec2fc823d428a061d887547ffc403f7c050dc141b79c13`
+
+The current experimental delta format is `CGDX1`: exact-source SHA-256 validation, a compressed XOR delta, then exact-target SHA-256 validation. The reference implementation is in `german-integration/cgdx.py`.
