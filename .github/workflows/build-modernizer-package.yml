@@ -1,0 +1,125 @@
+name: Build Modernizer installer test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - installer-v0.1
+    paths:
+      - "installer/**"
+      - "package/**"
+      - "source-port/**"
+      - ".github/workflows/build-modernizer-package.yml"
+
+jobs:
+  windows-x64:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout Modernizer
+        uses: actions/checkout@v4
+        with:
+          path: modernizer
+
+      - name: Checkout Dethrace v0.10.1
+        uses: actions/checkout@v4
+        with:
+          repository: dethrace-labs/dethrace
+          ref: v0.10.1
+          submodules: recursive
+          path: dethrace
+
+      - name: Apply validated v1.5 source port
+        run: |
+          python modernizer/source-port/apply-v1.5-source-port.py dethrace
+          git -C dethrace diff --check
+
+      - name: Set up Ninja
+        uses: aseprite/get-ninja@main
+
+      - name: Set up MSVC x64
+        uses: ilammy/msvc-dev-cmd@v1.13.0
+        with:
+          arch: x64
+
+      - name: Set up SDL
+        uses: libsdl-org/setup-sdl@main
+        with:
+          add-to-environment: true
+          build-type: Release
+          cmake-generator: Ninja
+          discriminator: x64
+          version: 3-latest
+          version-sdl2-compat: 2-head
+          version-sdl12-compat: 1-head
+
+      - name: Configure
+        run: |
+          cmake -S dethrace -B dethrace/build -GNinja \
+            -DCMAKE_BUILD_TYPE=Release \
+            -DBUILD_TESTS=OFF \
+            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+            -DDETHRACE_PLATFORM_SDL1=ON \
+            -DDETHRACE_PLATFORM_SDL2=ON \
+            -DDETHRACE_PLATFORM_SDL3=ON \
+            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build Dethrace
+        run: cmake --build dethrace/build --target dethrace
+
+      - name: Assemble installer package
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $out = Join-Path $PWD "dist\Carmageddon-Dethrace-Modernizer-v0.1-test"
+          New-Item -ItemType Directory -Path $out -Force | Out-Null
+
+          $exe = Get-ChildItem -Path "dethrace\build" -Filter "dethrace.exe" -Recurse | Select-Object -First 1
+          if (-not $exe) { throw "Built dethrace.exe not found" }
+
+          Copy-Item $exe.FullName (Join-Path $out "dethrace-16x9-v1.5.exe")
+
+          Copy-Item "modernizer\package\Start-Carmageddon-16x9.cmd" $out
+          Copy-Item "modernizer\package\Start-Carmageddon-16x9-XInput.cmd" $out
+          Copy-Item "modernizer\package\Start-CARSPLAT-16x9.cmd" $out
+          Copy-Item "modernizer\package\Start-CARSPLAT-16x9-XInput.cmd" $out
+          Copy-Item "modernizer\package\Controller" (Join-Path $out "Controller") -Recurse
+
+          Copy-Item "modernizer\installer\Install-Modernizer.ps1" $out
+          Copy-Item "modernizer\installer\Install-Modernizer.cmd" $out
+          Copy-Item "modernizer\installer\Uninstall-Modernizer.ps1" $out
+          Copy-Item "modernizer\installer\Uninstall-Modernizer.cmd" $out
+          Copy-Item "modernizer\LICENSE" (Join-Path $out "LICENSE-GPL-3.0.txt")
+          Copy-Item "modernizer\README.de.md" (Join-Path $out "README.de.md")
+          Copy-Item "modernizer\docs\CREDITS.md" (Join-Path $out "CREDITS.md")
+
+          $hash = (Get-FileHash (Join-Path $out "dethrace-16x9-v1.5.exe") -Algorithm SHA256).Hash.ToLowerInvariant()
+          @"
+          Carmageddon Dethrace Modernizer v0.1 test
+          Built from Dethrace v0.10.1 plus the validated Modernizer v1.5 source port.
+
+          Dethrace upstream:
+          https://github.com/dethrace-labs/dethrace
+
+          Modernizer source:
+          https://github.com/Bratwurstmensch/Carmageddon-Dethrace-Modernizer
+
+          Built Modernizer EXE SHA-256:
+          $hash
+
+          No original Carmageddon game data is included.
+          "@ | Set-Content (Join-Path $out "SOURCE.txt") -Encoding UTF8
+
+          $zip = Join-Path $PWD "dist\Carmageddon-Dethrace-Modernizer-v0.1-test.zip"
+          Compress-Archive -Path (Join-Path $out "*") -DestinationPath $zip -Force
+
+      - name: Upload installer package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Carmageddon-Dethrace-Modernizer-v0.1-test
+          path: dist/Carmageddon-Dethrace-Modernizer-v0.1-test.zip
+          if-no-files-found: error
