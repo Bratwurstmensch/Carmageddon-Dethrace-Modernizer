@@ -22,7 +22,7 @@ function Select-GameFolder {
     Add-Type -AssemblyName System.Windows.Forms
 
     $dialog = New-Object System.Windows.Forms.FolderBrowserDialog
-    $dialog.Description = "Carmageddon / Dethrace Hauptordner auswählen"
+    $dialog.Description = "Carmageddon / Dethrace Hauptordner auswaehlen"
     $dialog.ShowNewFolderButton = $false
 
     if ($dialog.ShowDialog() -ne [System.Windows.Forms.DialogResult]::OK) {
@@ -39,7 +39,7 @@ $GameDir = [System.IO.Path]::GetFullPath($GameDir.Trim('"'))
 $general = Join-Path $GameDir "DATA\GENERAL.TXT"
 
 if (-not (Test-Path -LiteralPath $general -PathType Leaf)) {
-    Fail "DATA\GENERAL.TXT wurde nicht gefunden. Bitte den Dethrace-Hauptordner auswählen."
+    Fail "DATA\GENERAL.TXT wurde nicht gefunden. Bitte den Dethrace-Hauptordner auswaehlen."
 }
 
 $sourceExe = Join-Path $PackageRoot "dethrace-16x9-v1.5.exe"
@@ -124,7 +124,7 @@ try {
 }
 catch {
     Write-Host ""
-    Write-Host "Installation fehlgeschlagen. Bereits kopierte Dateien werden soweit möglich zurückgesetzt." -ForegroundColor Red
+    Write-Host "Installation fehlgeschlagen. Bereits kopierte Dateien werden soweit moeglich zurueckgesetzt." -ForegroundColor Red
 
     $rollbackRecords = @($records)
     [array]::Reverse($rollbackRecords)
@@ -157,7 +157,7 @@ else {
     Write-Host "Splat Pack: nicht erkannt; Splat-Starter wurden nicht installiert"
 }
 Write-Host ""
-Write-Host "Deine normale dethrace.exe und die Spieldaten wurden nicht verändert."
+Write-Host "Deine normale dethrace.exe und die Spieldaten wurden nicht veraendert."
 Write-Host ""
 Write-Host "Start:"
 Write-Host "  Start-Carmageddon-16x9.cmd"

@@ -39,7 +39,7 @@ foreach ($record in $reverseFiles) {
 
     if ([bool]$record.existedBefore) {
         if ([string]::IsNullOrWhiteSpace([string]$record.backupPath)) {
-            throw "Backup-Angabe fehlt für $($record.path)"
+            throw "Backup-Angabe fehlt fuer $($record.path)"
         }
 
         $backupPath = Join-Path $backupDir ([string]$record.backupPath)
@@ -67,5 +67,5 @@ if (Test-Path -LiteralPath $controllerDir -PathType Container) {
 
 Write-Host ""
 Write-Host "Modernizer wurde entfernt; vorhandene Dateien wurden aus dem Backup wiederhergestellt." -ForegroundColor Green
-Write-Host "Originale Spieldaten und die normale dethrace.exe wurden nicht verändert."
+Write-Host "Originale Spieldaten und die normale dethrace.exe wurden nicht veraendert."
 Write-Host ""
