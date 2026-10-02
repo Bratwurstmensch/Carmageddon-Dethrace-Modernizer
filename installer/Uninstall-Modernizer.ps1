@@ -7,13 +7,21 @@ Set-StrictMode -Version Latest
 
 $GameDir = Split-Path -Parent $MyInvocation.MyCommand.Path
 $stateDir = Join-Path $GameDir ".dethrace-modernizer"
+$legacyStateDir = Join-Path $GameDir ".modernizer"
+
+if (-not (Test-Path -LiteralPath (Join-Path $stateDir "install.json") -PathType Leaf)) {
+    if (Test-Path -LiteralPath (Join-Path $legacyStateDir "install.json") -PathType Leaf) {
+        $stateDir = $legacyStateDir
+    }
+}
+
 $manifestPath = Join-Path $stateDir "install.json"
 $backupDir = Join-Path $stateDir "backup"
 
 if (-not (Test-Path -LiteralPath $manifestPath -PathType Leaf)) {
     Write-Host ""
     Write-Host "Keine Modernizer-Installationsdaten gefunden." -ForegroundColor Yellow
-    Write-Host "Es wurde nichts verändert."
+    Write-Host "Es wurde nichts veraendert."
     exit 1
 }
 
@@ -23,7 +31,10 @@ $files = @($manifest.files)
 Write-Host ""
 Write-Host "Carmageddon Dethrace Modernizer wird entfernt..."
 
-foreach ($record in ($files | Select-Object -Reverse)) {
+$reverseFiles = @($files)
+[array]::Reverse($reverseFiles)
+
+foreach ($record in $reverseFiles) {
     $destination = Join-Path $GameDir ([string]$record.path)
 
     if ([bool]$record.existedBefore) {

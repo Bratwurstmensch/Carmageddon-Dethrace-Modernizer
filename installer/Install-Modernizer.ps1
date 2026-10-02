@@ -126,7 +126,9 @@ catch {
     Write-Host ""
     Write-Host "Installation fehlgeschlagen. Bereits kopierte Dateien werden soweit möglich zurückgesetzt." -ForegroundColor Red
 
-    foreach ($record in @($records) | Select-Object -Reverse) {
+    $rollbackRecords = @($records)
+    [array]::Reverse($rollbackRecords)
+    foreach ($record in $rollbackRecords) {
         $destination = Join-Path $GameDir $record.path
         if ($record.existedBefore -and $record.backupPath) {
             $backupPath = Join-Path $backupDir $record.backupPath
