@@ -55,3 +55,19 @@ Against the final target:
 - a full local rebuild from the German retail source reproduced all 250 final files byte-for-byte and matched the canonical final identity.
 
 This means the public German-main-game integration does not need to redistribute complete German assets and does not require an English/GOG source for those 250 localized paths. The Modernizer can keep an uncut Dethrace/GOG installation as the gameplay/data base and transform only the verified localization paths from user-owned German retail source data.
+
+
+## v0.2b integrated installer runtime validation
+
+Validated on 2026-10-02 against the user's working Carmageddon/Dethrace installation:
+
+- installer recovery from an incomplete prior install: passed
+- Modernizer install: passed
+- German/Uncut main-game target verification: passed
+- German Splat Pack target verification: passed
+- Start-Carmageddon-16x9.cmd: passed
+- Start-CARSPLAT-16x9.cmd: passed
+- Start-Carmageddon-16x9-XInput.cmd: passed
+- Start-CARSPLAT-16x9-XInput.cmd: passed
+
+Uninstall confirmation is tracked separately before calling the full v0.2b install/run/uninstall cycle complete.
