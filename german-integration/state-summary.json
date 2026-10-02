@@ -3,7 +3,11 @@
   "validated_at": "2026-10-02",
   "main": {
     "file_count": 250,
-    "extensions": { ".fli": 229, ".wav": 12, ".txt": 9 },
+    "extensions": {
+      ".fli": 229,
+      ".wav": 12,
+      ".txt": 9
+    },
     "manifest_identity_sha256": "7cb50ad5e3b1bfca6a021ccc8210b975f27419446286c8441e34800da971fd27",
     "validated_stack": [
       "Carmageddon-German-Uncut-Dethrace-v1.6",
@@ -15,11 +19,23 @@
       "v1.6d-UmlautTest",
       "v1.6d2-UmlautGlyphFix",
       "v1.6d3-AllUmlautTest"
-    ]
+    ],
+    "source_profile": {
+      "description": "German retail DATA tree recovered from the project's exoDOS source archive",
+      "coverage": 250,
+      "byte_identical": 48,
+      "delta_required": 202,
+      "validated_rebuild": true,
+      "approximate_delta_bytes": 4408884
+    }
   },
   "splat": {
     "file_count": 275,
-    "extensions": { ".fli": 253, ".wav": 12, ".txt": 10 },
+    "extensions": {
+      ".fli": 253,
+      ".wav": 12,
+      ".txt": 10
+    },
     "manifest_identity_sha256": "19832c80860d00393b20ade338c09f8f30f65a614243a10d59d71a18544964fe",
     "copy_from_main": 206,
     "patch_from_original_splat": 69,
@@ -34,6 +50,9 @@
       "TEXT.TXT"
     ],
     "splat_only_count": 61,
-    "splat_only_breakdown": { ".fli": 60, ".txt": 1 }
+    "splat_only_breakdown": {
+      ".fli": 60,
+      ".txt": 1
+    }
   }
 }
