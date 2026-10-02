@@ -38,3 +38,28 @@ The uninstaller restores/removes managed files first, prints the final result an
 The v0.1 installer completed a full real-world install/uninstall cycle successfully on 2026-10-02, including automatic Splat Pack detection and restoration of pre-existing Modernizer-managed files.
 
 The installation-state directory exists only while the Modernizer is installed. Its absence after a successful uninstall is expected.
+
+
+## Planned component selection
+
+The public installer must not require the German localization.
+
+The user first selects the Carmageddon installation to modernize, then chooses independent components:
+
+- 16:9 source port
+- XInput controller support
+- German/Uncut localization
+
+16:9 and XInput must work without any German source files.
+
+Only when German/Uncut localization is selected does the installer request additional source installations:
+
+1. German Carmageddon installation
+2. Original/English Carmageddon installation
+
+For both source installations the installer automatically detects:
+
+- main game: DATA
+- Splat Pack: CARSPLAT/DATA
+
+Splat Pack support is applied only when the required Splat data is present; the user should not have to select separate main/Splat source folders manually.
