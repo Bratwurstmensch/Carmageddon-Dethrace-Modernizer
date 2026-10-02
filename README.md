@@ -15,9 +15,11 @@ The long-term goal is a reproducible, user-friendly modernizer that can combine:
 
 ## Current status
 
-The private/tested **v1.5** proof-of-concept is functionally complete for the 16:9 and XInput work. Its behavior has been validated with both the main game and Splat Pack.
+**Source-port milestone: validated.** The widescreen/menu/mouse/HUD behavior has been confirmed in both Carmageddon and Splat Pack.
 
-The patched executable itself is **not** committed here. The next public-development step is to turn the validated binary proof-of-concept into a reproducible source-level Dethrace modification and/or installer workflow.
+The original private/tested **v1.5** proof-of-concept is functionally complete for the 16:9 and XInput work. Its behavior has been validated with both the main game and Splat Pack.
+
+The v1.5 widescreen work has now also been reproduced as a **clean Dethrace v0.10.1 source port**, built successfully in GitHub Actions and visually validated with both Carmageddon and Splat Pack on Windows. The patched proof-of-concept executable itself is still not committed here.
 
 ### Confirmed in the v1.5 proof-of-concept
 

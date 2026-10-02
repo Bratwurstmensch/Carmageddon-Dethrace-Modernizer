@@ -40,16 +40,31 @@ The work was investigated against **Dethrace v0.10.1**, especially:
 
 The exact proof-of-concept RVA changes are preserved in [../patches/v1.5-patch-manifest.json](../patches/v1.5-patch-manifest.json).
 
+## Source-port validation
+
+The v1.5 behavior has now been reproduced from clean **Dethrace v0.10.1** source using the source-port patcher in this repository.
+
+Validation status:
+
+- GitHub Actions Windows x64 build: **passed**
+- Carmageddon main game visual/runtime test: **passed**
+- Splat Pack visual/runtime test: **passed**
+- 16:9 3D presentation: **passed**
+- centered menus/videos: **passed**
+- corrected centered-menu mouse mapping: **passed**
+- centered countdown/checkpoint/bonus/points messages: **passed**
+- top HUD positioning: **passed**
+
 ## Public implementation plan
 
 The preferred public form is **not** a mystery binary patch.
 
-The goal is to:
+The remaining goals are:
 
-1. reproduce the validated behavior as readable Dethrace source changes,
-2. build the modified executable from source,
-3. keep original Carmageddon data outside the repository,
-4. provide a deterministic installer/packager that works from user-owned data,
+1. keep the validated source port reproducible,
+2. keep original Carmageddon data outside the repository,
+3. provide a deterministic installer/packager that works from user-owned data,
+4. integrate the German-data workflow without redistributing original copyrighted assets,
 5. publish source and release artifacts in a GPL-compliant way.
 
 ## Controller layer
