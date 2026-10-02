@@ -1,8 +1,9 @@
-[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
-$OutputEncoding = [Console]::OutputEncoding
 param(
     [string]$GameDir
 )
+
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding = [Console]::OutputEncoding
 
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest

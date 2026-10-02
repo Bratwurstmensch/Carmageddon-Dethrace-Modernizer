@@ -1,6 +1,7 @@
+param()
+
 [Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
 $OutputEncoding = [Console]::OutputEncoding
-param()
 
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
