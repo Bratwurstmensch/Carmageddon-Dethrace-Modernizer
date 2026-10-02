@@ -164,10 +164,20 @@ def patch_loading(path: Path) -> None:
             case eHeadupSlot_timer:
             case eHeadupSlot_lap_count:
             case eHeadupSlot_cars_out_count:
-                headup_slot->x += 107;
-                if (headup_slot->dimmed_background) {
-                    headup_slot->dim_left += 107;
-                    headup_slot->dim_right += 107;
+                /*
+                 * Older private Modernizer tests already changed these
+                 * HEADUP.TXT X positions by +107. Values from the original
+                 * 640-wide data cannot exceed 640, so only shift slots that
+                 * are still in the original coordinate range. This keeps the
+                 * source port compatible with both clean and already-patched
+                 * local test data.
+                 */
+                if (headup_slot->x <= 640) {
+                    headup_slot->x += 107;
+                    if (headup_slot->dimmed_background) {
+                        headup_slot->dim_left += 107;
+                        headup_slot->dim_right += 107;
+                    }
                 }
                 break;
 

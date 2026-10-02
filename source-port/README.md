@@ -38,6 +38,6 @@ The script intentionally checks that every expected v0.10.1 source fragment occu
 
 ## Data files
 
-For source-port testing, use original/unmodified HEADUP data. The source port now performs the HUD shifts at runtime, so using the already modified private-test HEADUP files would shift those HUD elements twice.
+The source port accepts both original HEADUP data and the already modified HEADUP files created by the earlier private Modernizer tests. For the five right-side HUD slots it detects whether the X coordinate is still inside the original 640-wide range before applying the +107 shift, so those local test files are not shifted twice.
 
-Original Carmageddon and Splat Pack data are not part of this repository.
+For a future public release, original/unmodified game data remains the preferred input. Original Carmageddon and Splat Pack data are not part of this repository.
