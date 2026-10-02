@@ -1,0 +1,92 @@
+name: Build portable v1.5 runtime
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - "source-port/**"
+      - ".github/workflows/build-portable-v15-runtime.yml"
+
+jobs:
+  windows-x64:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout Modernizer
+        uses: actions/checkout@v4
+        with:
+          path: modernizer
+
+      - name: Checkout Dethrace v0.10.1
+        uses: actions/checkout@v4
+        with:
+          repository: dethrace-labs/dethrace
+          ref: v0.10.1
+          submodules: recursive
+          path: dethrace
+
+      - name: Apply validated v1.5 source port
+        run: python modernizer/source-port/apply-v1.5-source-port.py dethrace
+
+      - name: Set up Ninja
+        uses: aseprite/get-ninja@main
+
+      - name: Set up MSVC x64
+        uses: ilammy/msvc-dev-cmd@v1.13.0
+        with:
+          arch: x64
+
+      - name: Set up SDL
+        uses: libsdl-org/setup-sdl@main
+        with:
+          add-to-environment: true
+          build-type: Release
+          cmake-generator: Ninja
+          discriminator: x64
+          version: 3-latest
+          version-sdl2-compat: 2-head
+          version-sdl12-compat: 1-head
+
+      - name: Configure portable runtime
+        run: |
+          cmake -S dethrace -B dethrace/build -GNinja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DBUILD_TESTS=OFF \
+            -DDETHRACE_INSTALL=ON \
+            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+            -DDETHRACE_PLATFORM_SDL1=ON \
+            -DDETHRACE_PLATFORM_SDL2=ON \
+            -DDETHRACE_PLATFORM_SDL3=ON \
+            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build
+        run: cmake --build dethrace/build --target dethrace
+
+      - name: Install runtime
+        run: cmake --install dethrace/build --prefix portable-runtime
+
+      - name: Inspect runtime
+        shell: pwsh
+        run: |
+          Get-ChildItem -LiteralPath portable-runtime -File -Recurse |
+            Select-Object FullName, Length
+
+      - name: Rename Modernizer executable
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem -LiteralPath portable-runtime -Filter dethrace.exe -File -Recurse | Select-Object -First 1
+          if (-not $exe) { throw "Installed dethrace.exe not found" }
+          Rename-Item -LiteralPath $exe.FullName -NewName "dethrace-16x9-v1.5.exe"
+
+      - name: Upload portable runtime
+        uses: actions/upload-artifact@v4
+        with:
+          name: dethrace-v0.10.1-modernizer-v1.5-portable-runtime
+          path: portable-runtime/**
+          if-no-files-found: error
