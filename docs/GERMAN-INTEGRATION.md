@@ -144,4 +144,11 @@ Validated on 2026-10-02 against the user's working Carmageddon/Dethrace installa
 - Start-Carmageddon-16x9-XInput.cmd: passed
 - Start-CARSPLAT-16x9-XInput.cmd: passed
 
-Uninstall confirmation is tracked separately before calling the full v0.2b install/run/uninstall cycle complete.
+Uninstall completed successfully. The full v0.2b install -> main game -> Splat Pack -> XInput -> uninstall cycle is validated on the already-localized working installation.
+
+
+### Remaining release-gate test
+
+The validated runtime cycle above used an installation whose German/Uncut main and Splat targets were already correct, so the installer correctly verified them without rewriting them.
+
+The **clean-source transformation path still requires one Windows end-to-end test**: German retail source -> 250 main targets and original Splat source -> 275 Splat targets through the actual PowerShell installer. The underlying delta reconstruction has already been verified independently; this final test is specifically for the installer wiring before a public release candidate.
