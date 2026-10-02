@@ -4,7 +4,7 @@
   "main": {
     "file_count": 250,
     "extensions": { ".fli": 229, ".wav": 12, ".txt": 9 },
-    "manifest_identity_sha256": "e78c70a2e403ff85731cd0fa377aab3b355a920c0faef31518f1b0557b181c83",
+    "manifest_identity_sha256": "7cb50ad5e3b1bfca6a021ccc8210b975f27419446286c8441e34800da971fd27",
     "validated_stack": [
       "Carmageddon-German-Uncut-Dethrace-v1.6",
       "Carmageddon-German-Uncut-v1.6a-RaceCards",
@@ -20,7 +20,7 @@
   "splat": {
     "file_count": 275,
     "extensions": { ".fli": 253, ".wav": 12, ".txt": 10 },
-    "manifest_identity_sha256": "260ad711d576223d22ec2fc823d428a061d887547ffc403f7c050dc141b79c13",
+    "manifest_identity_sha256": "19832c80860d00393b20ade338c09f8f30f65a614243a10d59d71a18544964fe",
     "copy_from_main": 206,
     "patch_from_original_splat": 69,
     "same_path_but_different": [
