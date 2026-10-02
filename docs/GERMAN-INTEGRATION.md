@@ -13,57 +13,86 @@ It records:
 
 It does **not** modify game data and intentionally does not copy bulk FLI/PIX/sound assets into the diagnostic ZIP.
 
+## Recovered validated final German state
 
-## Recovered validated payload structure
+The user's currently working German/uncut installation was inventoried and then cross-checked against the complete archived patch history on 2026-10-02.
 
-A read-only inventory of the user's currently working German/uncut installation was analysed on 2026-10-02.
+This corrected reconstruction supersedes the earlier intermediate 196/257-file count.
 
-The recovered payload structure is unusually clean:
+### Carmageddon main game: 250 final files
 
-### Carmageddon main game
+The exact current main-game state is reproduced by this confirmed stack:
 
-Exactly **196 localization payload files** were identified:
+1. `Carmageddon-German-Uncut-Dethrace-v1.6`
+2. `v1.6a-RaceCards`
+3. `v1.6b-Resttext`
+4. `v1.6c-PartsShop`
 
-- 175 FLI files
-- 9 TXT files
-- 12 WAV files
+Unique final files:
 
-194 of these share the original German-integration installation timestamp; `RACES.TXT` and `TEXT.TXT` are the two later corrected text files. Together this reconstructs the previously known 196-file main-game payload exactly.
+- 229 FLI
+- 12 WAV
+- 9 TXT
+- **250 files total**
 
-### Splat Pack
+Every one of these 250 reconstructed target hashes matches the current working installation.
 
-The working Splat Pack German integration contains **257 payload files**:
+The later `v1.6d`, `v1.6d2` and `v1.6d3` umlaut packages were experiments/tests and are **not** part of the current validated final installation.
 
-- 235 FLI files
-- 10 TXT files
-- 12 WAV files
+### Splat Pack: 275 final files
 
-This consists of:
+The exact current Splat Pack state is reproduced by the archived Splat Germanization sequence through `v0.13-FinalGraphics`.
 
-- the same 196 logical localization paths used for the main game,
-- plus **61 Splat-specific files**:
-  - 60 FLI files,
-  - `DPOWERUP.TXT`.
+Unique final files:
 
-Of the 196 shared paths, **188 are byte-identical** between the working main-game and Splat Pack installs. Eight same-path text/config files are Splat-specific and must not simply be copied from the main game:
+- 253 FLI
+- 12 WAV
+- 10 TXT
+- **275 files total**
 
-- `DARES.TXT`
-- `NETRACES.TXT`
-- `OPPONENT.TXT`
-- `PEDRACES.TXT`
-- `POWERUP.TXT`
-- `RACES.TXT`
-- `SOUND/SOUND.TXT`
-- `TEXT.TXT`
+Every one of these 275 reconstructed target hashes matches the current working installation.
 
-The diagnostic also confirms that the Splat-specific text is genuinely adapted content rather than a blind copy; for example, the working `TEXT.TXT` contains Splat Pack-specific wording.
+### Main/Splat relationship
 
-### Consequence for the public installer
+Comparing the two final logical payload sets:
 
-The installer must therefore treat German integration as three layers:
+- 214 paths exist in both
+- **206 are byte-identical**
+  - 193 FLI
+  - 12 WAV
+  - 1 TXT
+- **8 same-path files are intentionally different** between main game and Splat Pack:
+  - `DARES.TXT`
+  - `NETRACES.TXT`
+  - `OPPONENT.TXT`
+  - `PEDRACES.TXT`
+  - `POWERUP.TXT`
+  - `RACES.TXT`
+  - `SOUND/SOUND.TXT`
+  - `TEXT.TXT`
+- 36 files are main-game-only, all FLI race-card graphics
+- 61 files are Splat-only:
+  - 60 FLI
+  - `DPOWERUP.TXT`
 
-1. reusable German Carmageddon assets that can be sourced from a user-owned German installation,
-2. Splat-specific translated/configuration files,
-3. Splat-specific FLI transformations.
+This gives a clean public-integration strategy: reuse the 206 identical localized files, keep the eight game-specific text/config files separate, and generate/patch only the game-specific graphics/text from user-owned source data.
 
-The repository must not contain the original copyrighted game assets themselves. The intended public form is source detection/copying plus reproducible transformations or binary deltas generated against user-owned source data.
+### Recovered source provenance
+
+The archived `Carmageddon-SplatPack-SourceForGermanPatch-v2` source set was also recovered. All **69** Splat-specific/different final files (the eight different shared paths plus the 61 Splat-only files) have corresponding original Splat source files.
+
+Therefore the Splat German integration can be made reproducible without shipping the finished copyrighted assets:
+
+1. reuse the 206 final files shared with the main-game German integration,
+2. verify the user's original Splat source files by SHA-256,
+3. transform/patch the remaining 69 Splat files,
+4. verify every produced target by SHA-256.
+
+### Final-state identity
+
+For deterministic auditing, the sorted path+SHA-256 target sets have these aggregate identifiers:
+
+- main-game final German set: `e78c70a2e403ff85731cd0fa377aab3b355a920c0faef31518f1b0557b181c83`
+- Splat Pack final German set: `260ad711d576223d22ec2fc823d428a061d887547ffc403f7c050dc141b79c13`
+
+These are manifest identity hashes, not hashes of a ZIP archive.
