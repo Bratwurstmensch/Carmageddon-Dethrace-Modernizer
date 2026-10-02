@@ -1,0 +1,63 @@
+{
+  "base_sha256": "595f9efecd8d6c63be0a1d310977680bdd052aff7530784d0b1182b2025158a8",
+  "output_sha256": "132cbc140e73bb3e1d640be915c9269bc0b317e5d50a67105ccaa7a8d73a1ec4",
+  "patches": [
+    {
+      "rva": "0xe38e4",
+      "before": "e84878f2ff",
+      "after": "e817e73900",
+      "purpose": "Center RGB565 menu/video copy by 107 pixels"
+    },
+    {
+      "rva": "0xe3907",
+      "before": "e88202f2ff",
+      "after": "e842e73900",
+      "purpose": "Center indexed menu/video copy by 107 pixels"
+    },
+    {
+      "rva": "0xe3879",
+      "before": "80020000",
+      "after": "56030000",
+      "purpose": "Clear full 854-pixel width in interface mode"
+    },
+    {
+      "rva": "0xe3884",
+      "before": "28000000",
+      "after": "e0010000",
+      "purpose": "Clear full interface destination before drawing, removing stale race borders"
+    },
+    {
+      "rva": "0xe389a",
+      "before": "80020000",
+      "after": "56030000",
+      "purpose": "Clear full width of bottom margin"
+    },
+    {
+      "rva": "0xe2e1d",
+      "before": "486305acb43100",
+      "after": "e97af239009090",
+      "purpose": "Map menu mouse coordinates to centered 640x400 surface"
+    },
+    {
+      "rva": "0x35380",
+      "before": "ffc54883c328",
+      "after": "e97ecd440090",
+      "purpose": "Center event slots 4,5,6,9,10,11 from x=320 to x=427 on 854-pixel output only"
+    }
+  ],
+  "new_section_rva": "0x482000",
+  "labels": {
+    "rgb": "0x482000",
+    "rgb_copy": "0x482026",
+    "indexed": "0x48204e",
+    "indexed_copy": "0x482074",
+    "mouse": "0x48209c",
+    "mouse_scaled": "0x4820dc",
+    "mouse_original": "0x4820f7",
+    "event_center": "0x482103",
+    "event_done": "0x48215d"
+  },
+  "release_name": "Carmageddon Dethrace 16:9 v1.5 Final",
+  "release_executable": "dethrace-16x9-v1.5.exe",
+  "notes": "Final release packaging of the confirmed v1.5b test build. Executable bytes are unchanged; only the filename and launcher references changed."
+}

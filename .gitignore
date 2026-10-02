@@ -1,0 +1,37 @@
+# Never commit original game data
+/DATA/
+/CARSPLAT/
+
+# Game/disc images and archives
+*.iso
+*.bin
+*.cue
+*.img
+*.mdf
+*.mds
+*.nrg
+*.zip
+*.7z
+*.rar
+
+# Built binaries belong in reproducible releases, not source history
+*.exe
+*.dll
+*.pdb
+
+# Common build output
+/build/
+/out/
+/dist/
+.vs/
+.vscode/
+CMakeFiles/
+CMakeCache.txt
+
+# Local backups / scratch
+*.bak
+*.tmp
+*.orig
+*.rej
+Thumbs.db
+Desktop.ini
