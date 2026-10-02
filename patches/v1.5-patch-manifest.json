@@ -35,7 +35,7 @@
     {
       "rva": "0xe2e1d",
       "before": "486305acb43100",
-      "after": "e97af239009090",
+      "after": "e97ecd440090",
       "purpose": "Map menu mouse coordinates to centered 640x400 surface"
     },
     {
