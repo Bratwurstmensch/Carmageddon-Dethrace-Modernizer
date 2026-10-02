@@ -129,3 +129,19 @@ The SHA-256 of that serialization is the manifest identity. A local audit rebuil
 
 - main: 250 files -> `7cb50ad5e3b1bfca6a021ccc8210b975f27419446286c8441e34800da971fd27`
 - Splat: 275 files -> `19832c80860d00393b20ade338c09f8f30f65a614243a10d59d71a18544964fe`
+
+
+## v0.2b integrated installer runtime validation
+
+Validated on 2026-10-02 against the user's working Carmageddon/Dethrace installation:
+
+- installer recovery from an incomplete prior install: passed
+- Modernizer install: passed
+- German/Uncut main-game target verification: passed
+- German Splat Pack target verification: passed
+- Start-Carmageddon-16x9.cmd: passed
+- Start-CARSPLAT-16x9.cmd: passed
+- Start-Carmageddon-16x9-XInput.cmd: passed
+- Start-CARSPLAT-16x9-XInput.cmd: passed
+
+Uninstall confirmation is tracked separately before calling the full v0.2b install/run/uninstall cycle complete.
