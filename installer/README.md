@@ -63,3 +63,30 @@ For both source installations the installer automatically detects:
 - Splat Pack: CARSPLAT/DATA
 
 Splat Pack support is applied only when the required Splat data is present; the user should not have to select separate main/Splat source folders manually.
+
+
+## Target-first installation model
+
+The public installer should use a target-first, non-destructive workflow.
+
+1. **Target directory**
+   - The user selects where the finished Modernizer installation should live.
+   - This is the only directory the installer writes to.
+   - Prefer a new/empty folder; an existing supported target may be used only after validation and backup.
+
+2. **Original/English source installation**
+   - Read-only source for the base Carmageddon data.
+   - The installer automatically detects both `DATA` and optional `CARSPLAT/DATA`.
+   - The source installation is never modified.
+
+3. **German source installation (optional)**
+   - Requested only when German/Uncut is selected.
+   - Also treated read-only.
+   - The installer automatically detects main-game and Splat Pack data.
+
+4. **Component selection**
+   - 16:9 source port
+   - XInput support
+   - German/Uncut localization
+
+All selected components are assembled into the target directory. Source installations remain untouched.
