@@ -26,3 +26,8 @@ Files that existed before installation are restored from the backup. Files creat
 ## Not included yet
 
 The German localization integration is deliberately not part of this first installer test. That workflow will be added separately after the base installer has been validated.
+
+
+## Uninstaller user experience
+
+The uninstaller restores/removes managed files first, prints the final result and waits for user acknowledgement. Only after the user closes the success prompt are the two Modernizer uninstaller files cleaned up by a temporary helper.

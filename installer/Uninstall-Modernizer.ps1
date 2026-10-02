@@ -36,6 +36,10 @@ $reverseFiles = @($files)
 [array]::Reverse($reverseFiles)
 
 foreach ($record in $reverseFiles) {
+    if ($record.path -eq "Uninstall-Modernizer.ps1" -or $record.path -eq "Uninstall-Modernizer.cmd") {
+        continue
+    }
+
     $destination = Join-Path $GameDir ([string]$record.path)
 
     if ([bool]$record.existedBefore) {
@@ -70,3 +74,4 @@ Write-Host ""
 Write-Host "Modernizer wurde entfernt; vorhandene Dateien wurden aus dem Backup wiederhergestellt." -ForegroundColor Green
 Write-Host "Originale Spieldaten und die normale dethrace.exe wurden nicht veraendert."
 Write-Host ""
+Write-Host "Nach dem Schliessen dieses Fensters werden die beiden Uninstaller-Dateien noch entfernt."
