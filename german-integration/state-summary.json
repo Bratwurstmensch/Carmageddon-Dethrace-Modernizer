@@ -1,0 +1,39 @@
+{
+  "version": "german-integration-v0.1",
+  "validated_at": "2026-10-02",
+  "main": {
+    "file_count": 250,
+    "extensions": { ".fli": 229, ".wav": 12, ".txt": 9 },
+    "manifest_identity_sha256": "e78c70a2e403ff85731cd0fa377aab3b355a920c0faef31518f1b0557b181c83",
+    "validated_stack": [
+      "Carmageddon-German-Uncut-Dethrace-v1.6",
+      "Carmageddon-German-Uncut-v1.6a-RaceCards",
+      "Carmageddon-German-Uncut-v1.6b-Resttext",
+      "Carmageddon-German-Uncut-v1.6c-PartsShop"
+    ],
+    "excluded_experiments": [
+      "v1.6d-UmlautTest",
+      "v1.6d2-UmlautGlyphFix",
+      "v1.6d3-AllUmlautTest"
+    ]
+  },
+  "splat": {
+    "file_count": 275,
+    "extensions": { ".fli": 253, ".wav": 12, ".txt": 10 },
+    "manifest_identity_sha256": "260ad711d576223d22ec2fc823d428a061d887547ffc403f7c050dc141b79c13",
+    "copy_from_main": 206,
+    "patch_from_original_splat": 69,
+    "same_path_but_different": [
+      "DARES.TXT",
+      "NETRACES.TXT",
+      "OPPONENT.TXT",
+      "PEDRACES.TXT",
+      "POWERUP.TXT",
+      "RACES.TXT",
+      "SOUND/SOUND.TXT",
+      "TEXT.TXT"
+    ],
+    "splat_only_count": 61,
+    "splat_only_breakdown": { ".fli": 60, ".txt": 1 }
+  }
+}
