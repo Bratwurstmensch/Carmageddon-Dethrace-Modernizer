@@ -90,3 +90,21 @@ The public installer should use a target-first, non-destructive workflow.
    - German/Uncut localization
 
 All selected components are assembled into the target directory. Source installations remain untouched.
+
+
+## Public installer language and 16:9 HUD data
+
+The public installer UI, launcher error messages, controller error messages and uninstaller should use **English by default** for an international audience. Documentation may remain multilingual (for example README.md + README.de.md).
+
+The 16:9 component must also install the previously validated Damage HUD right-edge correction. The target-first copy otherwise restores the original centered Damage HUD coordinates.
+
+Validated correction coverage:
+
+- 21 main-game high-resolution CAR files
+- 28 Splat Pack high-resolution CAR files
+- 49 files total
+- damage X offset: +214
+- damage background X: +214
+- first external damage dim rectangle left/right: +214
+
+For the development test package this validated payload is bundled directly. Before a public release candidate, prefer converting it to source-verified generated deltas/transformations so complete modified game-data files are not published in the repository.
