@@ -38,3 +38,20 @@ For audit builds the identity is SHA-256 over the complete sorted target set. Ea
 
 This makes the identity independent of ZIP timestamps, archive ordering or compression.
 The private archived development packages are not part of the public repository; `reconstruct_from_archives.py` consumes them locally and verifies the complete rebuilt target set.
+
+
+## German retail source profile
+
+The original `exoDOS Version` archive used during the project was recovered and inspected.
+Its `DATA` tree is the German retail/censored source: decoded `TEXT.TXT` contains the original German localization including the Android censorship wording.
+
+All **250** validated final main-game localization paths exist in this German retail source.
+
+Against the final target:
+
+- 48 files are already byte-identical and can be copied directly.
+- 202 files require a CGDX delta.
+- the generated main-game delta payload is about **4.2 MiB** before outer ZIP packaging.
+- a full local rebuild from the German retail source reproduced all 250 final files byte-for-byte and matched the canonical final identity.
+
+This means the public German-main-game integration does not need to redistribute complete German assets and does not require an English/GOG source for those 250 localized paths. The Modernizer can keep an uncut Dethrace/GOG installation as the gameplay/data base and transform only the verified localization paths from user-owned German retail source data.
