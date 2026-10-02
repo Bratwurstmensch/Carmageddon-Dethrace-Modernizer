@@ -1,3 +1,5 @@
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding = [Console]::OutputEncoding
 param(
     [string]$GameDir
 )
@@ -45,11 +47,11 @@ if (-not (Test-Path -LiteralPath $sourceExe -PathType Leaf)) {
     Fail "dethrace-16x9-v1.5.exe fehlt im Modernizer-Paket."
 }
 
-$stateDir = Join-Path $GameDir ".modernizer"
+$stateDir = Join-Path $GameDir ".dethrace-modernizer"
 $manifestPath = Join-Path $stateDir "install.json"
 
 if (Test-Path -LiteralPath $manifestPath) {
-    Fail "Der Modernizer ist in diesem Ordner bereits installiert. Bitte zuerst Uninstall-Modernizer.cmd ausführen."
+    Fail "Der Carmageddon Dethrace Modernizer ist in diesem Ordner bereits installiert. Bitte zuerst Uninstall-Modernizer.cmd ausfuehren."
 }
 
 $backupDir = Join-Path $stateDir "backup"

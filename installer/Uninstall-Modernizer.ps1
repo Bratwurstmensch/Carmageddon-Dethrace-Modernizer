@@ -1,10 +1,12 @@
+[Console]::OutputEncoding = [System.Text.UTF8Encoding]::new($false)
+$OutputEncoding = [Console]::OutputEncoding
 param()
 
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
 $GameDir = Split-Path -Parent $MyInvocation.MyCommand.Path
-$stateDir = Join-Path $GameDir ".modernizer"
+$stateDir = Join-Path $GameDir ".dethrace-modernizer"
 $manifestPath = Join-Path $stateDir "install.json"
 $backupDir = Join-Path $stateDir "backup"
 

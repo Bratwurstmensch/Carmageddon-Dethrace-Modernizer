@@ -13,7 +13,7 @@ The installer:
 3. detects `CARSPLAT/DATA`,
 4. backs up any files that would be replaced,
 5. installs the Modernizer executable and launchers,
-6. stores an uninstall manifest under `.modernizer/`.
+6. stores an uninstall manifest under `.dethrace-modernizer/`.
 
 Splat Pack launchers are only installed when `CARSPLAT/DATA` exists.
 
