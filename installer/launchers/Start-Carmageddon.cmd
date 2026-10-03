@@ -11,7 +11,8 @@ if not exist "%RUNTIME%\dethrace-4x3-v0.10.1.exe" goto missingruntime
 
 "%RUNTIME%\dethrace-4x3-v0.10.1.exe" --dir "%ROOT%" -hires --opengl
 set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" pause
+if not "%RC%"=="0" echo Press any key to continue . . .
+pause >nul
 exit /b %RC%
 
 :missing
@@ -19,11 +20,13 @@ echo Carmageddon data not found:
 echo %ROOT%\DATA\GENERAL.TXT
 echo.
 echo The Modernizer target installation is incomplete.
-pause
+echo Press any key to continue . . .
+pause >nul
 exit /b 2
 
 :missingruntime
 echo Standard Dethrace runtime not found:
 echo %RUNTIME%\dethrace-4x3-v0.10.1.exe
-pause
+echo Press any key to continue . . .
+pause >nul
 exit /b 3
