@@ -13,7 +13,8 @@ if not exist "%RUNTIME%\dethrace-4x3-v0.10.1.exe" goto missingruntime
 cd /d "%SPLAT%"
 "%RUNTIME%\dethrace-4x3-v0.10.1.exe" --dir "%SPLAT%" -hires --opengl
 set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" pause
+if not "%RC%"=="0" echo Press any key to continue . . .
+pause >nul
 exit /b %RC%
 
 :missing
@@ -21,11 +22,13 @@ echo Splat Pack data not found:
 echo %SPLAT%\DATA\RACES\CASTLE2.TXT
 echo.
 echo The complete CARSPLAT folder must be inside the Dethrace main folder.
-pause
+echo Press any key to continue . . .
+pause >nul
 exit /b 2
 
 :missingruntime
 echo Standard Dethrace runtime not found:
 echo %RUNTIME%\dethrace-4x3-v0.10.1.exe
-pause
+echo Press any key to continue . . .
+pause >nul
 exit /b 3
