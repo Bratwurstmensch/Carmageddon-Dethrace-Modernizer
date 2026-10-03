@@ -263,6 +263,54 @@ def patch_loading(path: Path) -> None:
     path.write_text(text, encoding="utf-8")
 
 
+
+def patch_extended_draw_distance(init_path: Path, depth_path: Path, brucetrk_path: Path) -> None:
+    # Experimental Modernizer rendering-distance test for the 854-wide path.
+    # Keep the original game/config values intact for 4:3, but use a very
+    # generous far plane for the widescreen build and force track-column
+    # selection to the earliest (1.0) YonFactor.
+    init_text = init_path.read_text(encoding="utf-8")
+
+    old_init = "        camera_ptr->yon_z = gCamera_yon;"
+    new_init = "        camera_ptr->yon_z = gGraf_spec_index == 1 ? 500.0f : gCamera_yon;"
+    count = init_text.count(old_init)
+    if count != 2:
+        raise RuntimeError(f"extended draw distance: expected 2 AllocateCamera yon assignments, found {count}")
+    init_text = init_text.replace(old_init, new_init)
+
+    init_text = replace_once(
+        init_text,
+        "        camera_ptr->yon_z = gYon_multiplier * gCamera_yon;",
+        "        camera_ptr->yon_z = gGraf_spec_index == 1 ? 500.0f : gYon_multiplier * gCamera_yon;",
+        "extended draw distance forward camera",
+    )
+    init_path.write_text(init_text, encoding="utf-8")
+
+    depth_text = depth_path.read_text(encoding="utf-8")
+    depth_text = replace_once(
+        depth_text,
+        "        camera_ptr->yon_z = gYon_multiplier * gCamera_yon;",
+        "        camera_ptr->yon_z = gGraf_spec_index == 1 ? 500.0f : gYon_multiplier * gCamera_yon;",
+        "extended draw distance AssertYons",
+    )
+
+    old_setyon = """            camera_ptr = gCamera_list[i]->type_data;
+            camera_ptr->yon_z = pYon;"""
+    new_setyon = """            camera_ptr = gCamera_list[i]->type_data;
+            camera_ptr->yon_z = gGraf_spec_index == 1 ? 500.0f : pYon;"""
+    depth_text = replace_once(depth_text, old_setyon, new_setyon, "extended draw distance SetYon")
+    depth_path.write_text(depth_text, encoding="utf-8")
+
+    bruce_text = brucetrk_path.read_text(encoding="utf-8")
+    old_term = "camera->yon_z * gYon_factor"
+    new_term = "camera->yon_z * (gGraf_spec_index == 1 ? 1.0f : gYon_factor)"
+    count = bruce_text.count(old_term)
+    if count != 3:
+        raise RuntimeError(f"extended draw distance: expected 3 track yon-factor terms, found {count}")
+    bruce_text = bruce_text.replace(old_term, new_term)
+    brucetrk_path.write_text(bruce_text, encoding="utf-8")
+
+
 def main() -> int:
     if len(sys.argv) != 2:
         print(f"Usage: {Path(sys.argv[0]).name} /path/to/dethrace-v0.10.1", file=sys.stderr)
@@ -273,8 +321,11 @@ def main() -> int:
     grafdata = root / "src/DETHRACE/common/grafdata.c"
     displays = root / "src/DETHRACE/common/displays.c"
     loading = root / "src/DETHRACE/common/loading.c"
+    init = root / "src/DETHRACE/common/init.c"
+    depth = root / "src/DETHRACE/common/depth.c"
+    brucetrk = root / "src/DETHRACE/common/brucetrk.c"
 
-    for path in (allsys, grafdata, displays, loading):
+    for path in (allsys, grafdata, displays, loading, init, depth, brucetrk):
         if not path.is_file():
             raise FileNotFoundError(path)
 
@@ -282,8 +333,9 @@ def main() -> int:
     patch_grafdata(grafdata)
     patch_displays(displays)
     patch_loading(loading)
+    patch_extended_draw_distance(init, depth, brucetrk)
 
-    print("Applied Modernizer v1.5 source port to Dethrace v0.10.1")
+    print("Applied Modernizer v1.5 source port + 500-unit draw-distance test to Dethrace v0.10.1")
     return 0
 
 
