@@ -11,7 +11,7 @@ $OutputEncoding = [Console]::OutputEncoding
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
-$ModernizerVersion = "0.8.0-rc2"
+$ModernizerVersion = "0.9.0-v19-integration-test"
 $EngineVersion = "v1.5-source-port"
 $PackageRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $MainDeltaRoot = Join-Path $PackageRoot "German\Main"
@@ -600,16 +600,17 @@ if ($Install16x9) {
     if ($splatDetected) { $payload += "Start-CARSPLAT-16x9.cmd" }
 }
 if ($InstallXInput) {
+    # 4:3 + XInput is always available for users who prefer the original aspect ratio.
+    $payload += @("Start-Carmageddon-XInput.cmd", "Controller\Carmageddon-XInput-Native.ps1")
+    if ($splatDetected) {
+        $payload += @("Start-CARSPLAT-XInput.cmd", "Controller\Carmageddon-SplatPack-XInput-Native.ps1")
+    }
+
+    # When widescreen is selected, add the native-analog 16:9 XInput launchers as well.
     if ($Install16x9) {
         $payload += @("Start-Carmageddon-16x9-XInput.cmd", "Controller\Carmageddon-XInput.ps1")
         if ($splatDetected) {
             $payload += @("Start-CARSPLAT-16x9-XInput.cmd", "Controller\Carmageddon-SplatPack-XInput.ps1")
-        }
-    }
-    else {
-        $payload += @("Start-Carmageddon-XInput.cmd", "Controller\Carmageddon-XInput-Native.ps1")
-        if ($splatDetected) {
-            $payload += @("Start-CARSPLAT-XInput.cmd", "Controller\Carmageddon-SplatPack-XInput-Native.ps1")
         }
     }
 }
