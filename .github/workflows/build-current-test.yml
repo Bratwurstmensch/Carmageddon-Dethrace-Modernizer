@@ -3,7 +3,7 @@ name: Build current Modernizer test
 on:
   push:
     branches:
-      - chatgpt/release-candidate-1-20261003
+      - chatgpt/cockpit-rendererfix-v19-20261004
     paths:
       - "source-port/**"
       - ".github/workflows/build-current-test.yml"
@@ -87,8 +87,11 @@ jobs:
         run: python modernizer/source-port/apply-ped-completion-guard-v18.py dethrace
 
       - name: Apply RC1 authoritative pedestrian completion
+        run: python modernizer/source-port/apply-release-candidate-1.py dethrace
+
+      - name: Apply cockpit renderer stability v19
         run: |
-          python modernizer/source-port/apply-release-candidate-1.py dethrace
+          python modernizer/source-port/apply-cockpit-rendererfix-v19.py dethrace
           git -C dethrace diff --check
 
       - name: Set up Ninja
@@ -139,6 +142,6 @@ jobs:
       - name: Upload test runtime
         uses: actions/upload-artifact@v4
         with:
-          name: Carmageddon-Modernizer-RC1-Test
+          name: Carmageddon-Modernizer-Cockpit-Renderer-v19-Test
           path: portable-runtime/**
           if-no-files-found: error
