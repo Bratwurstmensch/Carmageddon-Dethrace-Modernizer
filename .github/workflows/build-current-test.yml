@@ -3,7 +3,7 @@ name: Build current Modernizer test
 on:
   push:
     branches:
-      - chatgpt/cockpit-overlay-alignment-20261003
+      - chatgpt/cockpit-instruments-damage-20261003
     paths:
       - "source-port/**"
       - ".github/workflows/build-current-test.yml"
@@ -39,8 +39,11 @@ jobs:
         run: python modernizer/source-port/apply-current-fixes-v2.py dethrace
 
       - name: Apply remaining overlay alignment fixes
+        run: python modernizer/source-port/apply-overlay-alignment-v3.py dethrace
+
+      - name: Apply final cockpit speed gear and damage alignment
         run: |
-          python modernizer/source-port/apply-overlay-alignment-v3.py dethrace
+          python modernizer/source-port/apply-cockpit-final-overlays-v4.py dethrace
           git -C dethrace diff --check
 
       - name: Set up Ninja
@@ -91,6 +94,6 @@ jobs:
       - name: Upload test runtime
         uses: actions/upload-artifact@v4
         with:
-          name: Carmageddon-Modernizer-Cockpit-Overlay-Alignment-Test
+          name: Carmageddon-Modernizer-Cockpit-Final-Overlay-Test
           path: portable-runtime/**
           if-no-files-found: error
