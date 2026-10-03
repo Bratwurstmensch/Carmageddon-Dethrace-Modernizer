@@ -35,16 +35,42 @@ public static class CarmaXInput
     [DllImport("user32.dll", SetLastError=true)]
     private static extern void keybd_event(byte bVk, byte bScan, uint dwFlags, UIntPtr dwExtraInfo);
 
+    private const uint KEYEVENTF_EXTENDEDKEY = 0x0001;
     private const uint KEYEVENTF_KEYUP = 0x0002;
+
+    private static bool IsExtendedKey(int vk)
+    {
+        switch (vk)
+        {
+            case 0x21: // Page Up
+            case 0x22: // Page Down
+            case 0x23: // End
+            case 0x24: // Home
+            case 0x25: // Left
+            case 0x26: // Up
+            case 0x27: // Right
+            case 0x28: // Down
+            case 0x2D: // Insert
+            case 0x2E: // Delete
+                return true;
+            default:
+                return false;
+        }
+    }
 
     public static void KeyDown(int vk)
     {
-        keybd_event((byte)vk, 0, 0, UIntPtr.Zero);
+        uint flags = IsExtendedKey(vk) ? KEYEVENTF_EXTENDEDKEY : 0;
+        keybd_event((byte)vk, 0, flags, UIntPtr.Zero);
     }
 
     public static void KeyUp(int vk)
     {
-        keybd_event((byte)vk, 0, KEYEVENTF_KEYUP, UIntPtr.Zero);
+        uint flags = KEYEVENTF_KEYUP;
+        if (IsExtendedKey(vk)) {
+            flags |= KEYEVENTF_EXTENDEDKEY;
+        }
+        keybd_event((byte)vk, 0, flags, UIntPtr.Zero);
     }
 }
 '@
