@@ -3,7 +3,7 @@ name: Build current Modernizer test
 on:
   push:
     branches:
-      - chatgpt/analog-controls-v13-20261003
+      - chatgpt/cockpit-crashdiag-v14-20261003
     paths:
       - "source-port/**"
       - ".github/workflows/build-current-test.yml"
@@ -69,8 +69,11 @@ jobs:
         run: python modernizer/source-port/apply-cockpit-final-v12.py dethrace
 
       - name: Apply native analog XInput v13
+        run: python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace
+
+      - name: Apply cockpit crash diagnostic v14
         run: |
-          python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace
+          python modernizer/source-port/apply-cockpit-crashdiag-v14.py dethrace
           git -C dethrace diff --check
 
       - name: Set up Ninja
@@ -121,6 +124,6 @@ jobs:
       - name: Upload test runtime
         uses: actions/upload-artifact@v4
         with:
-          name: Carmageddon-Modernizer-Analog-XInput-v13-Test
+          name: Carmageddon-Modernizer-Cockpit-CrashDiag-v14-Test
           path: portable-runtime/**
           if-no-files-found: error
