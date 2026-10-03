@@ -177,3 +177,16 @@ Validated successfully in real-world testing:
 For the tested paths, both Carmageddon and Splat Pack launch successfully where applicable, XInput works, German/Uncut integration works, the source-verified 16:9 Damage HUD correction remains correct, and the target-first uninstaller removes the generated target installation successfully.
 
 This completes validation of the core RC1 component combinations.
+
+
+## v0.8.0 RC2
+
+RC2 is a release-cleanup build based on the validated RC1 functionality.
+
+Changes:
+- the two remaining Splat Pack XInput error messages are now English;
+- command-window pause prompts are explicitly English instead of inheriting the Windows UI language;
+- package documentation reflects the completed validation of `2`, `3`, `12` and `123`;
+- the original German localization string `TRF.` remains unchanged by design.
+
+No gameplay, widescreen, XInput, German/Uncut or Damage HUD patch logic was intentionally changed.
