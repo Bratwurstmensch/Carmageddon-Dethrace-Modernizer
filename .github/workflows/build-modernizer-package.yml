@@ -170,7 +170,11 @@ jobs:
           New-Item -ItemType Directory -Path (Join-Path $out "Runtime4x3") -Force | Out-Null
 
           # Exact in-place/GOG scripts from the previously tested package.
-          $bundleText = (Get-Content "modernizer\installer\inplace-gog-scripts-v19.zip.b64" -Raw).Trim()
+          $bundleText = (
+            (Get-Content "modernizer\installer\inplace-gog-scripts-v19.zip.b64" -Raw) +
+            (Get-Content "modernizer\installer\inplace-gog-scripts-v19.zip.b64.part2" -Raw) +
+            (Get-Content "modernizer\installer\inplace-gog-scripts-v19.zip.b64.part3" -Raw)
+          ).Trim()
           $bundleZip = Join-Path $PWD "inplace-gog-scripts-v19.zip"
           [System.IO.File]::WriteAllBytes($bundleZip, [Convert]::FromBase64String($bundleText))
           Expand-Archive -LiteralPath $bundleZip -DestinationPath $out -Force
