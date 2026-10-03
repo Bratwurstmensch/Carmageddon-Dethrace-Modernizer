@@ -5,8 +5,9 @@ apply-v1.5-source-port.py against a clean Dethrace v0.10.1 tree.
 Test scope:
 - keep extended 16:9 detail changes (500 far plane, YonFactor 1.0,
   full opponent models, distant static pedestrian rendering, 1024 lollipops)
-- keep right-anchored A/P/O damage HUD (+214)
-- centre cockpit and full-screen map content in 854x480 (+107)
+- keep the 500-unit far plane independent of per-race Yon multipliers
+- right-anchor A/P/O (+214); external damage HUD is data-patched by installer
+- centre cockpit/map 2D content (+107) while rendering cockpit 3D at full 854 width
 """
 from pathlib import Path
 import sys
@@ -48,6 +49,28 @@ def patch_brucetrk(path: Path) -> None:
         "    /* Modernizer widescreen runtime: always use the full configured far plane. */\n"
         "    gYon_factor = 1.0f;\n}",
         "YonFactor 1.0",
+    )
+    path.write_text(text, encoding="utf-8")
+
+
+def patch_world(path: Path) -> None:
+    text = path.read_text(encoding="utf-8")
+    text = replace_once(
+        text,
+        """    if (gRace_file_version < 5) {
+        gYon_multiplier = 1.0;
+    } else {
+        gYon_multiplier = GetAScalar(f);
+    }""",
+        """    if (gRace_file_version < 5) {
+        gYon_multiplier = 1.0;
+    } else {
+        /* Consume the race-file value for format compatibility, but do not
+         * let individual tracks shorten the Modernizer's 500-unit far plane. */
+        (void)GetAScalar(f);
+        gYon_multiplier = 1.0f;
+    }""",
+        "per-race Yon multiplier",
     )
     path.write_text(text, encoding="utf-8")
 
@@ -191,18 +214,11 @@ def patch_graphics(path: Path) -> None:
         "cockpit artwork centering (software)",
     )
 
-    text = replace_once(
-        text,
-        "        gRearview_screen->base_x = MAX(0, gScreen_wobble_x + gProgram_state.current_car.mirror_left);",
-        "        gRearview_screen->base_x = MAX(0, gScreen_wobble_x + gProgram_state.current_car.mirror_left + (gBack_screen->width == 854 ? 107 : 0));",
-        "rearview base X (fixed bugs)",
-    )
-    text = replace_once(
-        text,
-        "        gRearview_screen->base_x = gScreen_wobble_x + gProgram_state.current_car.mirror_left;",
-        "        gRearview_screen->base_x = gScreen_wobble_x + gProgram_state.current_car.mirror_left + (gBack_screen->width == 854 ? 107 : 0);",
-        "rearview base X",
-    )
+    /*
+     * Rear-view OpenGL placement is handled by the centred sub-pixelmap
+     * allocation in init.c. Do not add +107 again to base_x here; doing so
+     * shifts the rendered mirror image inside its cockpit frame.
+     */
     text = replace_once(
         text,
         "                    gScreen_wobble_x + gProgram_state.current_car.mirror_left,",
@@ -220,12 +236,19 @@ def patch_init(path: Path) -> None:
         "        gProgram_state.current_render_left = gProgram_state.current_car.render_left[gProgram_state.cockpit_image_index];\n"
         "        gProgram_state.current_render_top = gProgram_state.current_car.render_top[gProgram_state.cockpit_image_index];\n"
         "        gProgram_state.current_render_right = gProgram_state.current_car.render_right[gProgram_state.cockpit_image_index];",
-        "        gProgram_state.current_render_left = gProgram_state.current_car.render_left[gProgram_state.cockpit_image_index]\n"
-        "            + (gGraf_specs[gGraf_spec_index].total_width == 854 ? 107 : 0);\n"
-        "        gProgram_state.current_render_top = gProgram_state.current_car.render_top[gProgram_state.cockpit_image_index];\n"
-        "        gProgram_state.current_render_right = gProgram_state.current_car.render_right[gProgram_state.cockpit_image_index]\n"
-        "            + (gGraf_specs[gGraf_spec_index].total_width == 854 ? 107 : 0);",
-        "cockpit 3D viewport centering",
+        "        if (gGraf_specs[gGraf_spec_index].total_width == 854) {\n"
+        "            /* Render the 3D world across the full 16:9 width behind the\n"
+        "             * centred 640-wide cockpit artwork. Keep the original vertical\n"
+        "             * cockpit opening so the dashboard still masks the scene. */\n"
+        "            gProgram_state.current_render_left = 0;\n"
+        "            gProgram_state.current_render_top = gProgram_state.current_car.render_top[gProgram_state.cockpit_image_index];\n"
+        "            gProgram_state.current_render_right = gGraf_specs[gGraf_spec_index].total_width;\n"
+        "        } else {\n"
+        "            gProgram_state.current_render_left = gProgram_state.current_car.render_left[gProgram_state.cockpit_image_index];\n"
+        "            gProgram_state.current_render_top = gProgram_state.current_car.render_top[gProgram_state.cockpit_image_index];\n"
+        "            gProgram_state.current_render_right = gProgram_state.current_car.render_right[gProgram_state.cockpit_image_index];\n"
+        "        }",
+        "cockpit full-width 3D viewport",
     )
     text = replace_once(
         text,
@@ -255,15 +278,10 @@ def patch_displays(path: Path) -> None:
         "        the_wobble_x = gScreen_wobble_x + (gBack_screen->width == 854 ? 107 : 0);\n"
         "        the_wobble_y = gScreen_wobble_y;\n"
         "    } else {\n"
-        "        the_wobble_x = gProgram_state.current_car.damage_x_offset + (gBack_screen->width == 854 ? 214 : 0);",
-        "damage HUD X offsets",
-    )
-    text = replace_once(
-        text,
-        "                gProgram_state.current_car.damage_background_x,\n                gProgram_state.current_car.damage_background_y,",
-        "                gProgram_state.current_car.damage_background_x + (gBack_screen->width == 854 ? 214 : 0),\n"
-        "                gProgram_state.current_car.damage_background_y,",
-        "damage HUD background X",
+        "        /* External damage coordinates are already shifted +214 by the\n"
+        "         * installer's source-verified CAR-data patch. Do not double-shift. */\n"
+        "        the_wobble_x = gProgram_state.current_car.damage_x_offset;",
+        "damage HUD cockpit/external X offsets",
     )
     text = replace_once(
         text,
@@ -273,6 +291,31 @@ def patch_displays(path: Path) -> None:
         "        } else {\n"
         "            the_wobble_x = 0;",
         "cockpit instrument X centering",
+    )
+    text = replace_once(
+        text,
+        "        x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_bar_x_pitch * pIndex;",
+        "        x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_bar_x_pitch * pIndex\n"
+        "            + (gBack_screen->width == 854 ? 214 : 0);",
+        "A/P/O bar right-edge X",
+    )
+    text = replace_once(
+        text,
+        "        gCurrent_graf_data->ps_dim_left,\n"
+        "        gCurrent_graf_data->ps_dim_top,\n"
+        "        gCurrent_graf_data->ps_dim_right,",
+        "        gCurrent_graf_data->ps_dim_left + (gBack_screen->width == 854 ? 214 : 0),\n"
+        "        gCurrent_graf_data->ps_dim_top,\n"
+        "        gCurrent_graf_data->ps_dim_right + (gBack_screen->width == 854 ? 214 : 0),",
+        "A/P/O dim rectangle right-edge X",
+    )
+    text = replace_once(
+        text,
+        "        gCurrent_graf_data->ps_name_left,\n"
+        "        gCurrent_graf_data->ps_name_top,",
+        "        gCurrent_graf_data->ps_name_left + (gBack_screen->width == 854 ? 214 : 0),\n"
+        "        gCurrent_graf_data->ps_name_top,",
+        "A/P/O labels right-edge X",
     )
     path.write_text(text, encoding="utf-8")
 
@@ -286,6 +329,7 @@ def main() -> int:
     files = {
         "loading": root / "src/DETHRACE/common/loading.c",
         "brucetrk": root / "src/DETHRACE/common/brucetrk.c",
+        "world": root / "src/DETHRACE/common/world.c",
         "car": root / "src/DETHRACE/common/car.c",
         "pedestrn": root / "src/DETHRACE/common/pedestrn.c",
         "graphics_h": root / "src/DETHRACE/common/graphics.h",
@@ -299,6 +343,7 @@ def main() -> int:
 
     patch_loading(files["loading"])
     patch_brucetrk(files["brucetrk"])
+    patch_world(files["world"])
     patch_car(files["car"])
     patch_pedestrians(files["pedestrn"])
     patch_graphics_h(files["graphics_h"])
