@@ -1,0 +1,840 @@
+{
+  "format": "Carmageddon-Dethrace-Modernizer-DamageHUD-SourcePatch-v1",
+  "description": "Source-verified binary line replacements. No complete game-data files are included.",
+  "shift_pixels": 214,
+  "files": [
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\ANNBLAK.TXT",
+      "clean_sha256": "8d0b747db4b6c2017e455301b43acd08423967376a1df23281f3fb144287520b",
+      "patched_sha256": "ffc2032b902ae24fbc8dc7355f5a18f30f9b4b6f8b8f23807f2119fcc40f2c35",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHgicihVOy82gCBXf3KaOE+PT5ItV15QXA==",
+          "new_b64": "QFIqfCJyKFU5LjKAIFd/cpo4T49Pki1XXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7LygJJlhhaG5WN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45KSgJJlhhZmxQN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\ANNBLUE.TXT",
+      "clean_sha256": "8d0b747db4b6c2017e455301b43acd08423967376a1df23281f3fb144287520b",
+      "patched_sha256": "ffc2032b902ae24fbc8dc7355f5a18f30f9b4b6f8b8f23807f2119fcc40f2c35",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHgicihVOy82gCBXf3KaOE+PT5ItV15QXA==",
+          "new_b64": "QFIqfCJyKFU5LjKAIFd/cpo4T49Pki1XXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7LygJJlhhaG5WN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45KSgJJlhhZmxQN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\ANNGREE.TXT",
+      "clean_sha256": "8d0b747db4b6c2017e455301b43acd08423967376a1df23281f3fb144287520b",
+      "patched_sha256": "ffc2032b902ae24fbc8dc7355f5a18f30f9b4b6f8b8f23807f2119fcc40f2c35",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHgicihVOy82gCBXf3KaOE+PT5ItV15QXA==",
+          "new_b64": "QFIqfCJyKFU5LjKAIFd/cpo4T49Pki1XXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7LygJJlhhaG5WN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45KSgJJlhhZmxQN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\ANNIECAR.TXT",
+      "clean_sha256": "8d0b747db4b6c2017e455301b43acd08423967376a1df23281f3fb144287520b",
+      "patched_sha256": "ffc2032b902ae24fbc8dc7355f5a18f30f9b4b6f8b8f23807f2119fcc40f2c35",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHgicihVOy82gCBXf3KaOE+PT5ItV15QXA==",
+          "new_b64": "QFIqfCJyKFU5LjKAIFd/cpo4T49Pki1XXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7LygJJlhhaG5WN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45KSgJJlhhZmxQN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\ANNRED.TXT",
+      "clean_sha256": "8d0b747db4b6c2017e455301b43acd08423967376a1df23281f3fb144287520b",
+      "patched_sha256": "ffc2032b902ae24fbc8dc7355f5a18f30f9b4b6f8b8f23807f2119fcc40f2c35",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHgicihVOy82gCBXf3KaOE+PT5ItV15QXA==",
+          "new_b64": "QFIqfCJyKFU5LjKAIFd/cpo4T49Pki1XXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7LygJJlhhaG5WN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45KSgJJlhhZmxQN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\ANNWHT.TXT",
+      "clean_sha256": "8d0b747db4b6c2017e455301b43acd08423967376a1df23281f3fb144287520b",
+      "patched_sha256": "ffc2032b902ae24fbc8dc7355f5a18f30f9b4b6f8b8f23807f2119fcc40f2c35",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHgicihVOy82gCBXf3KaOE+PT5ItV15QXA==",
+          "new_b64": "QFIqfCJyKFU5LjKAIFd/cpo4T49Pki1XXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7LygJJlhhaG5WN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45KSgJJlhhZmxQN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\BIGAPC.TXT",
+      "clean_sha256": "4f3c55f4db56792e6c72b27ec6374b859e69c6c3469a3e327de6b73dbdd3906f",
+      "patched_sha256": "c04a80f57812caf93f259a3889b6f57cd793ce0319533fd271f5bb2fe6748c03",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCdNfXJqVCNnPWokVUtBUGhSLHlwjylD",
+          "new_b64": "QDadK019cmhWKWc9aiRVS0FQaFIseXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QGpUKWc9ai9VOCg3gCdWdUFAf4RkIWWGCX52TEJ4YDx7gY6N",
+          "new_b64": "QGhVLWc9ai9VNiszgCdWdUFAf4RkIWWGCX52TEJ4YDx7gY6N"
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\BLKEAGLE.TXT",
+      "clean_sha256": "28e687e99e3b1179f9beb4d07baca1c5d33c8b7cebe6f05a0b6aaa9dada5dc13",
+      "patched_sha256": "5bb19b380b932770298b1f325d3b3813f00eb7254de64c3d4710c37bebf3c3db",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LygJJlJhaG1TN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSgJJlJhZmxXN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\BUSTER.TXT",
+      "clean_sha256": "77525da0c6bc9330dc0826aa47a5fcbef1b66ad404ac6f5b89d4f84549dfed40",
+      "patched_sha256": "1dc88a81753cfa98ccd18b2be4359f861048ef6cc54243ae215049db89687003",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QD0pPIA+UHlyalUvZz1oLlVLQVBoUix+cI8pQw==",
+          "new_b64": "QDsrNoA+UHlyaFYjZz1oLlVLQVBoUix+cI8pQw=="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7KygJJVRhaG1YN385b4NmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE44LygJJVRhZmtSN385b4NmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\DUMP.TXT",
+      "clean_sha256": "6b4dad3c4a65e7ff904f6d9c1f29f8e5eb4a62653f8b7329b76a271463a82072",
+      "patched_sha256": "8dc18d34fb42b7c57a70a571431c77e6efc700b1472c4174e784467dd12150e8",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHw+cy9VOy40gCBUdXKaOE+PT5JdV15QXA==",
+          "new_b64": "QDaUJ01+cmhYL2c9aiRVS0FQaFIsjHCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LSgJJlFhaG1WN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45ISgJJlFhZmtQN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\EAGBLAK.TXT",
+      "clean_sha256": "fdd909daff78a126536f98d5fe0ca28337137a34d45697720922d29a28c3fc05",
+      "patched_sha256": "677ef3b8067b77f6375f53085f8668cc445df3419ea17ca62ff96a9180d75772",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LygJJlJhaG1TN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSgJJlJhZmxXN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\EAGBLUE.TXT",
+      "clean_sha256": "fdd909daff78a126536f98d5fe0ca28337137a34d45697720922d29a28c3fc05",
+      "patched_sha256": "677ef3b8067b77f6375f53085f8668cc445df3419ea17ca62ff96a9180d75772",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LygJJlJhaG1TN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSgJJlJhZmxXN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\EAGGREE.TXT",
+      "clean_sha256": "fdd909daff78a126536f98d5fe0ca28337137a34d45697720922d29a28c3fc05",
+      "patched_sha256": "677ef3b8067b77f6375f53085f8668cc445df3419ea17ca62ff96a9180d75772",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LygJJlJhaG1TN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSgJJlJhZmxXN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\EAGWHIE.TXT",
+      "clean_sha256": "fdd909daff78a126536f98d5fe0ca28337137a34d45697720922d29a28c3fc05",
+      "patched_sha256": "677ef3b8067b77f6375f53085f8668cc445df3419ea17ca62ff96a9180d75772",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LygJJlJhaG1TN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSgJJlJhZmxXN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\EAGYELE.TXT",
+      "clean_sha256": "fdd909daff78a126536f98d5fe0ca28337137a34d45697720922d29a28c3fc05",
+      "patched_sha256": "677ef3b8067b77f6375f53085f8668cc445df3419ea17ca62ff96a9180d75772",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LygJJlJhaG1TN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSgJJlJhZmxXN384aINmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\IVAN.TXT",
+      "clean_sha256": "f0d991d8b46afacaaf1b24cf26bd635529a0fea4e56e05890778cc2a5a573c75",
+      "patched_sha256": "b02f6dc36be085ab8bb94d187124bf466fa310046642f1a9e4e40ba0926cdd34",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QFMvZyNuKFU7LzyAIFR9cpo4T49PkiVXXlBc",
+          "new_b64": "QDwtPIA+UHlyaFgpZz1qLFVLQVBoUix0cI8pQw=="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QGpWL2c9aixVOCsxgCdWfUFAf4RkIWWGCX52TEJ4YDx7gY6N",
+          "new_b64": "QGhXI2c9aixVNio9gCdWfUFAf4RkIWWGCX52TEJ4YDx7gY6N"
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\OTIS.TXT",
+      "clean_sha256": "670412c62bf3569cb1e1a1430ad8e1fcc195ac99115cdb107b5e0e9174514601",
+      "patched_sha256": "769d259a903e4b2c07bf551d287db8bee7b9eb161bb8643c23ea2769678ff6b8",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QDeUP0x5cmpXKWc9aiRVS0FQaFIseHCPKUM=",
+          "new_b64": "QFIueSJyKFU5ITKAIFR1cpo4T49PkilXXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LygJJlVhaG1WN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSgJJlVhZmtQN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\PITBULL.TXT",
+      "clean_sha256": "1b96b18738e0738430254f4044d0c4ba1ac972bb4b9b143ca4b1fe360ee8f407",
+      "patched_sha256": "70494f17195ef5832198345797f6b246178c07819cb77e45298e5b8ba9c3c548",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHkicitVOy02gCBVe3KaOE+PT5IqV15QXA==",
+          "new_b64": "QFIqfSJyK1U5LDKAIFV7cpo4T49PkipXXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw9LygJJ1BhaG5RN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE47KSgJJ1BhZm1VN385aoNmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\SCREWIE.TXT",
+      "clean_sha256": "38bdaad28883b634ecd0fdcece8467c115aef9442c7f258a10e656f78304ac21",
+      "patched_sha256": "84daf84e512f92485152a618e60b63afd82a95216fb2cce4631aae5f76f73200",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqViNnPWsvVUtBUGhSLH9wjylD",
+          "new_b64": "QDadJ019cmhYKWc9ay9VS0FQaFIsf3CPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4KygJJ1JhaGxUN385b4NmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45LygJJ1JhZmtYN385b4NmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\TASSLE.TXT",
+      "clean_sha256": "53223b8b098a17503bc16dde625120f3add181c8490b73e9c0081e9e436418cf",
+      "patched_sha256": "31e0cea3d0db2eb99193dd1b39641b6d38c43f3db6f8e710372e7f01a04cf2ca",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCJNfXJqVitnPWksVUtBUGhSLHVwjylD",
+          "new_b64": "QDadJk19cmhXL2c9aSxVS0FQaFIsdXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7KygJJlRhaG5WN385b4NmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE44LygJJlRhZmxQN385b4NmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "DATA\\64X48X8\\CARS\\VLAD.TXT",
+      "clean_sha256": "254ec3d308474419c788b4eba6fc24d6ec1c7390ceb0dc7f459c9f31f7cf54df",
+      "patched_sha256": "a7ce27e2a3d931168c3868d7e1b6b66e443aab9d008fd81c74d2b05de0f8b6e6",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QD0pPIA+U39yalcrZz1qL1VLQVBoUix6cI8pQw==",
+          "new_b64": "QDsrNoA+U39yaFgvZz1qL1VLQVBoUix6cI8pQw=="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4KigJJlBhaG5ZN385b4NmkYabgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45LigJJlBhZmxTN385b4NmkYabgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\333.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\AMBLANCE.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\BIGAPC.TXT",
+      "clean_sha256": "10bd85cb16fa50220c1828db09db01f01907888d437965c0cc5e4fd97e107e3d",
+      "patched_sha256": "d3ca6f0e6e8836f215584fafd4815c0e25873f5895d4af47dbf7ee615e4cf63e",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCdNfXJqVCNnPWokVUtBUGhSLHlwjylD",
+          "new_b64": "QDadK019cmhWKWc9aiRVS0FQaFIseXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QGpUKWc9ai9VOCg3CSdWdV5fYJtkIWWGn352TEJ4YDx7gY6N",
+          "new_b64": "QGhVLWc9ai9VNiszCSdWdV5fYJtkIWWGn352TEJ4YDx7gY6N"
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\BLKEAGLE.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\BUGGIT.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\BUSTER.TXT",
+      "clean_sha256": "d252cc4c1f0b059ccb42d44fc0459086e67f1ea4c2a793eb7499344796c9fe90",
+      "patched_sha256": "d100f63b1fdec124ae988f59367fdde8fa8cb8c0116ec8e3a9c22cbdab23f9e8",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QD0pPAk+UHlyalUvZz1oLlVLQVBoUix+cI8pQw==",
+          "new_b64": "QDsrNgk+UHlyaFYjZz1oLlVLQVBoUix+cI8pQw=="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7KyifJVRhaG1YN385b5x5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE44LyifJVRhZmtSN385b5x5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\DOOZER.TXT",
+      "clean_sha256": "24fc1b8c5748f632fb9d166a2628f1239175cf33b3131c346a98a56bfed8580d",
+      "patched_sha256": "63f6feffd66646c1b795a5e12d39782ea2e290c677495d3aa08a910e3f1702c2",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QGxmUzdmP2cwTDstKJ8kU2GbhzRfikNmLVdeUFw=",
+          "new_b64": "QGtvVzdmP2cwTjghKJ8kU2GbhzRfikNmLVdeUFw="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7KyifJVRhaG1YN384a5x5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE44LyifJVRhZmtSN384a5x5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\DUMP.TXT",
+      "clean_sha256": "f6edc5f455ac766f4df0e57ddec10141596d7295066b61b7e1fbcfb7d9043942",
+      "patched_sha256": "40aadb3c5a75a0ba25e8db25b29a94ab17a47ed09a8fcc101a7ae4394853dc02",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHw+cy9VOy40CSBUdXKaOE+PT5JdV15QXA==",
+          "new_b64": "QDaUJ01+cmhYL2c9aiRVS0FQaFIsjHCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LSifJlFhaG1WN385apx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45ISifJlFhZmtQN385apx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\IVAN.TXT",
+      "clean_sha256": "2fa4d2e20236e32f2780ca9f958d851b10b868dd041a82ec61e443088dc76656",
+      "patched_sha256": "783dd8271d315469b6b72f419470a561032d67c05f00d733d862de41565aacd2",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QFMvZyNuKFU7LzwJIFR9cpo4T49PkiVXXlBc",
+          "new_b64": "QDwtPAk+UHlyaFgpZz1qLFVLQVBoUix0cI8pQw=="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QGpWL2c9aixVOCsxCSdWfV5fYJtkIWWGn352TEJ4YDx7gY6N",
+          "new_b64": "QGhXI2c9aixVNio9CSdWfV5fYJtkIWWGn352TEJ4YDx7gY6N"
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\JAQUES.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\MINI.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\MONSTER.TXT",
+      "clean_sha256": "d21362b96fc35af0c3f823e394500e8e133a6d158e418de8c3830ea2bd8a195e",
+      "patched_sha256": "2a295c018281ca1579b2f575ae8c4bb0df9d376ce4cd8f6be6f0f01295f07134",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCo8CT5VYWtqWTd4OGcwPFZNQG1eWH9wjylDS45fM1YzMl9KenM4NY+MjJuUJDaZYSWeXzdtcTWDmpyWlihuVmt6Rw==",
+          "new_b64": "QG1VKWcjazBOOSoonyVZYZuHNF+KQ2YuV15QXCyTYWJxRoaJn5YiJ1Z6OFpOeHUpepSRSIpbPG5Wdi5KQ3p5cTWeTpE="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7LiifJVJhaGxXN385bZx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45KCifJVJhZmpRN385bZx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\MUSCLE.TXT",
+      "clean_sha256": "d87fff035e5f43e37d0da06305604fc0e52ab5dd6a9b3d5e878ede7057cbfd85",
+      "patched_sha256": "42ab7b7139add7cf7476cb524358a8574e2a72e8d7090ad8b09c3d1d15821546",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCo8CT5VYWtoVDd4OG8wPFZNQG1eWHlwjylDS45fM1YzMl9KenM4NY+MjJuUJDaZYSWeXzdtcTWDmpyWlihuVmt6Rw==",
+          "new_b64": "QG1VKWcjazBONiEonyVRYZuHNF+KQ2YoV15QXCyTYWJxRoaJn5YiJ1Z6OFpOeHUpepSRSIpbPG5Wdi5KQ3p5cTWeTpE="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QGpWI2c9ailVOCs8CSdWdV5fYJtkIWWGn352TEJ4YDx7gY6N",
+          "new_b64": "QGhYKWc9ailVNi02CSdWdV5fYJtkIWWGn352TEJ4YDx7gY6N"
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\NEWANNIE.TXT",
+      "clean_sha256": "8583cbb892693615d467c8c460f208cfb0b5f6d2ccfb6bc5288441d538d2478f",
+      "patched_sha256": "76d6d053cbd767986f598d0882e0fefaecd3df1bcf7580fa18b9db22e1d56d3c",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHgicihVOy82CSBXf3KaOE+PT5ItV15QXA==",
+          "new_b64": "QFIqfCJyKFU5LjIJIFd/cpo4T49Pki1XXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7LyifJlhhaG5WN385apx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45KSifJlhhZmxQN385apx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\NEWEAGLE.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\OTIS.TXT",
+      "clean_sha256": "44e0bdec9d8857991b22341c02a12e3dc3a4ac0a84d0df3f70e7ea36315e810d",
+      "patched_sha256": "888c4a38c80bf84a993d8eb3e049227232d7f4563c2ec2a1184de9e257fbec6b",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QDeUP0x5cmpXKWc9aiRVS0FQaFIseHCPKUM=",
+          "new_b64": "QFIueSJyKFU5ITIJIFR1cpo4T49PkilXXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlVhaG1WN385apx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlVhZmtQN385apx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\PITBULL.TXT",
+      "clean_sha256": "54354ef7c276b28056d65eab17035fcf86e43c9f1772fa331ab06e55fd3a8a00",
+      "patched_sha256": "e279332c326e8dbdd28a1f255f5b0d44387a5c2e1d1c34f51c070da5bb5c1c19",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHkicitVOy02CSBVe3KaOE+PT5IqV15QXA==",
+          "new_b64": "QFIqfSJyK1U5LDIJIFV7cpo4T49PkipXXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw9LyifJ1BhaG5RN385apx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE47KSifJ1BhZm1VN385apx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\PORK.TXT",
+      "clean_sha256": "8ccc11b8bd5fa7fa15ee160428dc4a27ccb2c277155e0f9d73b669afa6e5f501",
+      "patched_sha256": "62f5f5947b51226ebbeeffd44e278b04b940ae772bc40073d3327f8b3ec4a0aa",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QHsibzBMOyEonyVTYZuHNF+KQ2YvV15QXA==",
+          "new_b64": "QFIqfyJvME45KyifJVNhm4c0X4pDZi9XXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7KiifJlRhaG5WN384Zpx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE44LiifJlRhZmxQN384Zpx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\ROADHOG.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\SCREWIE.TXT",
+      "clean_sha256": "64de3f4c5d5120a7ada3c2bd694774503785698a94286ce00e92c36991cbc1fc",
+      "patched_sha256": "bf7f8d5454a39d57f9f24b514f8094d8430e3756c72c468ecab556caaac1f878",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqViNnPWsvVUtBUGhSLH9wjylD",
+          "new_b64": "QDadJ019cmhYKWc9ay9VS0FQaFIsf3CPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4KyifJ1JhaGxUN385b5x5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45LyifJ1JhZmtYN385b5x5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\SEMI.TXT",
+      "clean_sha256": "0d607ba70f0357eeadb109775198d18726fbbbbd3eda57cd008bcec6ad6c4c77",
+      "patched_sha256": "972267bde8dcd0f04ef445abe4b2ae0f6822f1fda66b06b37f6b24e25ebec2c5",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QH8ibzBMOiEonyZZYZuHNF+KQ2YsV15QXA==",
+          "new_b64": "QFIqcyJvME44KyifJllhm4c0X4pDZixXXlBc"
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QGpUKWc9ai9VOCg3CSdWdV5fYJtkIWWGn352TEJ4YDx7gY6N",
+          "new_b64": "QGhVLWc9ai9VNiszCSdWdV5fYJtkIWWGn352TEJ4YDx7gY6N"
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\SLED.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\SUBFRAME.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\SZ.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\TASSLE.TXT",
+      "clean_sha256": "875124c9cae27b618ff80a204f9af88f7eb67d4d7db8a8428757e1d2bccf404b",
+      "patched_sha256": "c665b49f40858be1640b1660ac094f089d12ed2529894f626931410a27c1c4ba",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCJNfXJqVitnPWksVUtBUGhSLHVwjylD",
+          "new_b64": "QDadJk19cmhXL2c9aSxVS0FQaFIsdXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw7KyifJlRhaG5WN385b5x5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE44LyifJlRhZmxQN385b5x5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\TOOHORSE.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\VLAD2.TXT",
+      "clean_sha256": "26d6ae7e2f2c852c6ab9f787b09bbc039771a93e07ee38a1639839856829d78a",
+      "patched_sha256": "cb5ee397f6c4906ba4bef57ddf554149ab697e113c91d8a786d264ab8708f09f",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QD0pPAk+U39yalcrZz1qL1VLQVBoUix6cI8pQw==",
+          "new_b64": "QDsrNgk+U39yaFgvZz1qL1VLQVBoUix6cI8pQw=="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4KiifJlBhaG5ZN385b5x5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE45LiifJlBhZmxTN385b5x5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    },
+    {
+      "relative_path": "CARSPLAT\\DATA\\64X48X8\\CARS\\XJ220.TXT",
+      "clean_sha256": "4fe1dce0b1495557e226ff80dd0446c31a631db9038c641998c53f9ccb4a4968",
+      "patched_sha256": "c9204cda49aba222d7eb96ec522eb82c4f1074f8588999125ca3c2e4d6f62cb0",
+      "patches": [
+        {
+          "purpose": "damage offsets/background +214",
+          "old_b64": "QCNNfXJqVypnPWorVUtBUGhSLH1wjylD",
+          "new_b64": "QDadJ019cmhYLmc9aitVS0FQaFIsfXCPKUM="
+        },
+        {
+          "purpose": "external damage dim rectangle +214",
+          "old_b64": "QEw4LyifJlJhaG1TN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww==",
+          "new_b64": "QE42KSifJlJhZmxXN384aJx5jpmEgzw0mXyLQpqXlDEjmHQ6Ww=="
+        }
+      ]
+    }
+  ]
+}

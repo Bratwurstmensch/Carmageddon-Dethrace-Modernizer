@@ -1,0 +1,1000 @@
+{
+  "format": "CGDX2-raw-xor",
+  "profile": "carmageddon-splat-german-v0.2",
+  "counts": {
+    "copy_from_main": 206,
+    "xor_from_splat": 69,
+    "total": 275
+  },
+  "target_manifest_identity": "19832c80860d00393b20ade338c09f8f30f65a614243a10d59d71a18544964fe",
+  "files": [
+    {
+      "path": "ANIM\\ARM1.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11252,
+      "target_sha256": "631efacba53bc59f7cf62b85f016120fa025f012bd14a85685f92598318f7ad7"
+    },
+    {
+      "path": "ANIM\\ARM2.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11252,
+      "target_sha256": "760229a59d8eaf8cbda9e9d5dc6f47d90edc3daa4f208e5e392f50d5ce6b7f76"
+    },
+    {
+      "path": "ANIM\\ARM3.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11252,
+      "target_sha256": "37f8109967b7fd5ca588a6427754da4d696299bba340b84e0b579c01d4e95bac"
+    },
+    {
+      "path": "ANIM\\ARM4.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11252,
+      "target_sha256": "7ba61514cc431ea923f1e52c60c54651ae87b02ecca746e9fd4096ea9bfb9102"
+    },
+    {
+      "path": "ANIM\\ARM5.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11252,
+      "target_sha256": "79a293e26358d653ed3b90ab9b6f30442a89b4fa9529814ff804c308d656314f"
+    },
+    {
+      "path": "ANIM\\ARM6.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11252,
+      "target_sha256": "2a65a1e46dfcfeb3461764a3ed5960588d9fc137ba2e476a7cae929eae481289"
+    },
+    {
+      "path": "ANIM\\BKBUT8IN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2314,
+      "target_sha256": "4e6c660d3fafc067d67e32c61dd06da3859848a15c21222d65a0eaf207372464"
+    },
+    {
+      "path": "ANIM\\BKBUTOFF.FLI",
+      "mode": "copy_from_main",
+      "target_size": 3722,
+      "target_sha256": "210d85963805875aec5f404f86b46faa1f78f5e7a60529fd2de29a77d61fe82e"
+    },
+    {
+      "path": "ANIM\\BKBUTON.FLI",
+      "mode": "copy_from_main",
+      "target_size": 3722,
+      "target_sha256": "e6bb86232c3c46c0c371c43a77a05839ea5b04918e961e7cb1d84a7d2ee3a6d4"
+    },
+    {
+      "path": "ANIM\\CANBUTIN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 5328,
+      "target_sha256": "a80e74d968673c59c5da952202b80e683bc08786cf20decdff6c0179d4c25d2f"
+    },
+    {
+      "path": "ANIM\\CASTLE2M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "5f446329f4c9e97a04e5480ba9c92bdcef3b86d666d1fe74e1ca59920a05f354",
+      "target_size": 17056,
+      "target_sha256": "7eca54c3e8341288cce6523890de75d5212c20ed5a614f9c25c398fd9b0cecb9",
+      "patch": "patches/001-dc922db63497.xor"
+    },
+    {
+      "path": "ANIM\\CASTLE3M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "a3fe2d33153c457c702245280d73bbd240787d1f2e529603fc266adc586c0ccb",
+      "target_size": 17056,
+      "target_sha256": "5df12421e18b921e47af2cc86c6044c107e421f37e25cac57b3e7edddaca1555",
+      "patch": "patches/002-3bfc0671b3f2.xor"
+    },
+    {
+      "path": "ANIM\\CHCRAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 292622,
+      "source_sha256": "6e8c029fac484af9a8b61d27564fcb9afd7f16d7857bc878b330887a67f2187e",
+      "target_size": 449060,
+      "target_sha256": "3cd060ab7da10d0a13acbb68efd67226cbe7cac1dcc7b3f1d6549a62bb1a864d",
+      "patch": "patches/003-18cbf5c85eb6.xor"
+    },
+    {
+      "path": "ANIM\\CHCRCOME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "d7c47d9a844492583dafd7319a6e49857e790a8b7d4917bcb4fe05d3bfb757ae"
+    },
+    {
+      "path": "ANIM\\CHRCAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 332026,
+      "source_sha256": "27845335edcfb67288324cf1fcb799c7bf761ac2a986d076166a2eb12114e43c",
+      "target_size": 449060,
+      "target_sha256": "937df472b2d5774e538f809dbce9e583f76c214ee37334ee8f285d0edfe278f4",
+      "patch": "patches/004-08bd27516eda.xor"
+    },
+    {
+      "path": "ANIM\\CHRCCOME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "b03bdd89524b85d73232697b7d6d7273508485e5a28cd337edaa01565884cbdb"
+    },
+    {
+      "path": "ANIM\\CIRCUT1M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "af6f1215a25b91addccc21e3f4b9bd4425d34c89d0cacfed48c902b4bc3a3756",
+      "target_size": 17056,
+      "target_sha256": "5eb9036d0edba54de9130b347f6cb7d3a4b5144fd7bc5e1ab4fd92185bb84443",
+      "patch": "patches/005-ea8ee85779e6.xor"
+    },
+    {
+      "path": "ANIM\\CIRCUT2M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "a77b4654ae3cf73f78c5f9d768e994245cae8ea96562c7d5ae1aa6eb3574d71b",
+      "target_size": 17056,
+      "target_sha256": "4840d245f869e88fb65f138b7b9fa52aa09fdfa1e34e43cde938a8ea0693ca26",
+      "patch": "patches/006-9059289663ae.xor"
+    },
+    {
+      "path": "ANIM\\CITY01M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "9a06db91106aaf5cfba89456c33743e47d954035c793676cee5f1f588910db98",
+      "target_size": 17056,
+      "target_sha256": "ff5db45ce0e6a5d455c14c5240ba16a9755673dc6174cf443b359665931d39a4",
+      "patch": "patches/007-80f76165f632.xor"
+    },
+    {
+      "path": "ANIM\\CITY02M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "19a6da37946d37308978801d59cc682517d475aea44206cb1053bb86bae063a7",
+      "target_size": 17056,
+      "target_sha256": "820aa01d029594ce28cdf11fe5242ba66bdda40241f3493a6c2207cb97c2bf73",
+      "patch": "patches/008-1ac3c1d83591.xor"
+    },
+    {
+      "path": "ANIM\\CITY03M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "2616476fad698004bd3a4e1ff3520db0c48402f68cafbb74adcd619e7001f97c",
+      "target_size": 17056,
+      "target_sha256": "c24714f1af8cb75bffce6db0256a5a60d92bd9b9de7727eb332fb624b3ace398",
+      "patch": "patches/009-401fa9d5dce1.xor"
+    },
+    {
+      "path": "ANIM\\CNTL00FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2350,
+      "target_sha256": "1cff1c8221527f7170363fb2b5c02a1d515aae6a823df2b56000956bac42bf1b"
+    },
+    {
+      "path": "ANIM\\CNTL00GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2350,
+      "target_sha256": "c41c3e4823dcf02a81d5cca0d23c9415c0b321878c2ee48f2cd4bf8a2cc084c7"
+    },
+    {
+      "path": "ANIM\\CNTLAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 273828,
+      "source_sha256": "a4ee049100da0df3f440ef38566508f1ff62ed1006d22ea776a7c58b161c6a3d",
+      "target_size": 449060,
+      "target_sha256": "9b2658015357b56e9384d0461f6300a4a2d87147e13fc3c339c5d338b6a7f2ad",
+      "patch": "patches/010-d0d4de301bc1.xor"
+    },
+    {
+      "path": "ANIM\\CNTLCAIN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2116,
+      "target_sha256": "312a67f664d6eb26e216098264895975959603a2ada3dc87107c6a09c1759835"
+    },
+    {
+      "path": "ANIM\\CNTLCOME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "f6d181cadf0d8a1bdb20fcad6b7c73a856262201c467eca2622033baf62980e7"
+    },
+    {
+      "path": "ANIM\\CNTLDFIN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9376,
+      "target_sha256": "147ca043b3cb6ce2fbbbefc4b781cf3a09fd4d10aa251604a0ad85ce7e5bb4f6"
+    },
+    {
+      "path": "ANIM\\CNTLMRIN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2116,
+      "target_sha256": "02269feb5ca8f71c05bf6dcf69c67ba239e2af4808709537c5c6491a2f90d385"
+    },
+    {
+      "path": "ANIM\\CNTLSTIL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 65728,
+      "target_sha256": "cbdfb226b345423b7657dc658adb9b36a67f3daf4977cdfc4fbbb4aec6e00e67"
+    },
+    {
+      "path": "ANIM\\CSTL01.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "504d80cd8b9bc1bce4affd93d6ecb99acf52afc28ad6552054a7710ab08d9ea0",
+      "target_size": 17056,
+      "target_sha256": "3e822f56cfbd15c531af21f222ca682959768984bb638785d223239c7d2677e0",
+      "patch": "patches/011-d7cf01f5967b.xor"
+    },
+    {
+      "path": "ANIM\\DAM01M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "42d87d56145514340948e073b68808fed69ea090f4920bfadc95065b16722575",
+      "target_size": 17056,
+      "target_sha256": "02a0315c0f62fd6ff534785f485978479e8d00028af52d456259ce49ac076133",
+      "patch": "patches/012-125e038a232c.xor"
+    },
+    {
+      "path": "ANIM\\DAM02M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "3401cc3b693e612f3e20536cdbd0ba1ff46e507485faea5874606941200f2960",
+      "target_size": 17056,
+      "target_sha256": "501ba2a5f5b79d2d46e7080564de8f4049e411e82a129b7026163d9c01f314d5",
+      "patch": "patches/013-77c2867db655.xor"
+    },
+    {
+      "path": "ANIM\\DAM03M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "cfab4e2d7f535c37a1b4275b45bcd5685c677581b2b8e1d1579e03f4349e712d",
+      "target_size": 17056,
+      "target_sha256": "5b4becf02915f0f38c8ebb50d63ba2f7fd597e6391b49044c6cb4e398f384839",
+      "patch": "patches/014-55abf445c35f.xor"
+    },
+    {
+      "path": "ANIM\\DAREACIN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2380,
+      "target_sha256": "5fd64bdceec3bb9765b666442addfb5f0406bac90ee9b545170aa96d3647bddf"
+    },
+    {
+      "path": "ANIM\\DARECHIN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2380,
+      "target_sha256": "37085a81c6c29d32d4d32420f17c64ab3e6b2cc80104e7cb98bbc2e8192ad17c"
+    },
+    {
+      "path": "ANIM\\DARECOME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "db730c44b99467578709126b74d03760ef33d82a037350a05bbe6fdb17e953af"
+    },
+    {
+      "path": "ANIM\\DNBUT8IN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2314,
+      "target_sha256": "8f5fb0b0827be5148ca4b7364870dd942088f087576e4e72446ba7edda07c922"
+    },
+    {
+      "path": "ANIM\\DNEBUTIN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 5130,
+      "target_sha256": "b5e2405e708b183e0ba353c045f767122d33aba2b1eee8ac857e23e55b7c7796"
+    },
+    {
+      "path": "ANIM\\GRIDAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 275934,
+      "source_sha256": "19988a775a633593aa3b51e44d34fb99d3f367762a254bdeeae5540603f0e648",
+      "target_size": 449060,
+      "target_sha256": "117458bda3d7baaacb82af04ca202bd6aaddb8ba5425314f1b4cf9133dcb2a02",
+      "patch": "patches/015-a664c0893f09.xor"
+    },
+    {
+      "path": "ANIM\\GRIDCOME.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 144268,
+      "source_sha256": "c733b82b24c625e7d9f41f598943c880023a88268ea6e6ae82c75c09344d4d51",
+      "target_size": 192972,
+      "target_sha256": "8a49a3a7d2f361624c45678f205096095d46afe9b584d5e91841aee47b059875",
+      "patch": "patches/016-ce4971456eb1.xor"
+    },
+    {
+      "path": "ANIM\\GRIDSTIL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 65728,
+      "target_sha256": "621862bb4f6b63e0d7dcc095377273489fef65f8e3e4fb0613c1b550562a71c6"
+    },
+    {
+      "path": "ANIM\\GRPH00FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "bdc561a882c39ece9f2d41094b1fe3402250754fe67ee830224c9e73709c0686"
+    },
+    {
+      "path": "ANIM\\GRPH00GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "bf272fb47c64330122fd197dd21526f0cba1a9d1134d4787ba07c0014d8c0e23"
+    },
+    {
+      "path": "ANIM\\GRPH01FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "b4a3087f823e15754fd6b572314e0b6360d0274001c047afbe937d1e98bf5853"
+    },
+    {
+      "path": "ANIM\\GRPH01GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "25f136f2d2e54658f61b8c1ab6e081c7bcbc2a79ae6d8b5ebf607425f1953990"
+    },
+    {
+      "path": "ANIM\\GRPH02FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "01769e16e0385ccbba4991bb1378acc057216d22e39ce37a87982809be6a79f0"
+    },
+    {
+      "path": "ANIM\\GRPH02GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "5438f874775381e7cbb2a00992529c15e094fcb902f8e17bb17c4309cf04dcd9"
+    },
+    {
+      "path": "ANIM\\GRPH03FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "9d84eb60669f7e4df4a45b0ff2d43f6ab2cc7742088d580a3e51b5d2c108cf11"
+    },
+    {
+      "path": "ANIM\\GRPH03GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "3d09362331255ec9ba2d989aa3c9e6fdba03cb4a2a714d4ee97de20fc335a364"
+    },
+    {
+      "path": "ANIM\\GRPH04FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "01bc9387f06e06ceb868b2cac8df459e55f631d4d9aa5092373e47f8089ffde3"
+    },
+    {
+      "path": "ANIM\\GRPH04GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "d6ec74d4802dc7157d5ca24bd476ab9ed0e80e3529dffbe7c20118eb5955713e"
+    },
+    {
+      "path": "ANIM\\GRPH05FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "b38dc505a50b7e0bc35c44ef222de6481ec5b3d9f30216f1a8446d16c32affeb"
+    },
+    {
+      "path": "ANIM\\GRPH05GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "3cf4df4dc6b104fcdbf3f2fb3df76b0162860cf45c9d3fb27cda584c1a8c4412"
+    },
+    {
+      "path": "ANIM\\GRPH06FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "fb1501bd9fd6a700c70ad19a6e34b3f621799844ae79a87fc6ac285d15f28f9c"
+    },
+    {
+      "path": "ANIM\\GRPH06GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "04a13e0624508e763d834dd6a95f1a8caf3c4113704d7b75315a9196c2ab178d"
+    },
+    {
+      "path": "ANIM\\GRPH07FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "94d00928bb8557ca1b1b9271f514f4508a693f760914b4b23c80bfd0706eebbf"
+    },
+    {
+      "path": "ANIM\\GRPH07GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "fa777db7cb72f748a3ef4a43b9e9e81ae25969c2688a1905d54ba5cfb9ab8926"
+    },
+    {
+      "path": "ANIM\\GRPH08FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "3dc3d4aaac9f84d49a70e0b8e9cc9b1270c61ff4921a8d5b600e18d2d5e6c1f5"
+    },
+    {
+      "path": "ANIM\\GRPH08GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "82e61d0cb0ac5b61622a963efc0be05d57911275972bf46673ea841b7253f3d1"
+    },
+    {
+      "path": "ANIM\\GRPH09FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "548b2f9edf369e425c69d0e79237718c35483380795a5beca7a82ea121d273a9"
+    },
+    {
+      "path": "ANIM\\GRPH09GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "38636bcfdcd807523ed474f4acee0fb8119daf6a8ea582f352642c88c067bc1c"
+    },
+    {
+      "path": "ANIM\\GRPH10FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "186053e2e99bd5d9581bcf5d0ee8eaaf78ae3cdc7d6afe93cc0693ffc5f52442"
+    },
+    {
+      "path": "ANIM\\GRPH10GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "aba16711b809ead96bf44ce4777cdc5d7d0ddb09be545b3b0a1ad0b3d3608b0d"
+    },
+    {
+      "path": "ANIM\\GRPH11FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "e5379f1ff4b35d3e6c928b25e87082d259b2d0ecd604ba5f794cf6c9955010c7"
+    },
+    {
+      "path": "ANIM\\GRPH11GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2124,
+      "target_sha256": "6b788d281066484f88848944639db5670b9e43001e000ed9913f37620266dc64"
+    },
+    {
+      "path": "ANIM\\GRPHAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 282188,
+      "source_sha256": "b9f89cf873935eb136902f6b0eb2ff643be1932e245096ddfa1de57984998057",
+      "target_size": 449060,
+      "target_sha256": "cdbdabcf2d8e29ddc8942e61091e70a85cb36dec82a775090f937b66344e292d",
+      "patch": "patches/017-9c8391acc4b8.xor"
+    },
+    {
+      "path": "ANIM\\GRPHCOME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "24156b392fa30433b8f8dc23c4c1e1731bc765f07580ef365e040a0017d241a8"
+    },
+    {
+      "path": "ANIM\\HELL01M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "47305df7bee289d0332164850499a10bb50ed82bb2704d8d7263d1f37a1a6b35",
+      "target_size": 17056,
+      "target_sha256": "2535f995a8b529385e14e9abe12f7df89b94138ecfa3bc00521344c01a003c0d",
+      "patch": "patches/018-f30d38ab9880.xor"
+    },
+    {
+      "path": "ANIM\\ICERIG2M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "b32fce0b0d796a7ff340b094b9a02f1a2c2e5e4c3c25e02104ac483a0d0db1dc",
+      "target_size": 17056,
+      "target_sha256": "507379ec458a07a6e4f412d49db5531fce26311387d1d0b553055fb1ae44333c",
+      "patch": "patches/019-bf7eb5c73c1d.xor"
+    },
+    {
+      "path": "ANIM\\ICERIG3M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "be9948183d5e3527cb41f093e3d4fbd8f38311ed6573dad85d728406b3c1ba78",
+      "target_size": 17056,
+      "target_sha256": "93668787a03add8fb1fed5b6b166e179f3513436ba7047ff9080f9c3fd9673d9",
+      "patch": "patches/020-4d54e4b7a975.xor"
+    },
+    {
+      "path": "ANIM\\INCA01M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "f6fa95af9e4ee15a9c263adc4f38582e5f1faf5da4143152826f5a5b3d3827b1",
+      "target_size": 17056,
+      "target_sha256": "40479b5af6aa588e716a9a42dae9a018573ed4d086690c359c5571f4c203eba6",
+      "patch": "patches/021-d90c3824d098.xor"
+    },
+    {
+      "path": "ANIM\\INCA02M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "96e6f3e9493537dd8810d7e8b059011905dc11f7bafd0a16a6e122a70d54018c",
+      "target_size": 17056,
+      "target_sha256": "179f5778fdb3ea73eab36584d799f275604af448dbedaf0718edac11d84a145c",
+      "patch": "patches/022-e1654a15102e.xor"
+    },
+    {
+      "path": "ANIM\\INCA03M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "c5d6280efbfa63dfb11ce120ac0acd36a9c89b0732d83d45233567eca43adb2b",
+      "target_size": 17056,
+      "target_sha256": "e5c70169315992b18350d4cd37e5c8c1db745d0059d7f81b7fa7e54b1b456f7c",
+      "patch": "patches/023-7207b5183f08.xor"
+    },
+    {
+      "path": "ANIM\\IRIGSCN.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "3e5facd2a9b3b7ae13ea69765f5acf7093069121039313969e993ff24ae16ced",
+      "target_size": 17056,
+      "target_sha256": "21a6cf5eea737d86546bbba75cad1fad6c68684ab3cb399d8cbb601ba88b4e3c",
+      "patch": "patches/024-c053ab93e347.xor"
+    },
+    {
+      "path": "ANIM\\ISLE01M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "ffa93cf55a01d2cf046bd8697224936c482fcd5f3480999254c451434a51f519",
+      "target_size": 17056,
+      "target_sha256": "9f29735d5c119112489a88fd8d760f24958aa474cf24e14d585564afdf41f1bf",
+      "patch": "patches/025-8e6548bd8053.xor"
+    },
+    {
+      "path": "ANIM\\ISLE02M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "9babae30263a336d120981cf3c6ad407e0d557c6b6cfd3ca56e0f866077a6e39",
+      "target_size": 17056,
+      "target_sha256": "2752f12cd75119332135a8d08389cbf65f673acea748f3722ce165bec92ad41b",
+      "patch": "patches/026-a0bc5b7da139.xor"
+    },
+    {
+      "path": "ANIM\\ISLE03M.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 17344,
+      "source_sha256": "9b1de5407fc3a6967563fc7a09cad06a84657e8bff8ddb4560281be6d8e3bf1d",
+      "target_size": 17056,
+      "target_sha256": "f0343873709290fdded554238f60103e9945791a32313bbfa2052f94558fa1a7",
+      "patch": "patches/027-9e9f81758c19.xor"
+    },
+    {
+      "path": "ANIM\\LOADAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 334038,
+      "source_sha256": "bde19e648b410b9e04c8d965fcfcbd9ea2b6305a141131aeb64809b74edb054c",
+      "target_size": 449060,
+      "target_sha256": "13a7bba9383dbbac0e1d71b5c1f332c4bef17af508eef8699934a90d3b60fa04",
+      "patch": "patches/028-b36ffaf15f42.xor"
+    },
+    {
+      "path": "ANIM\\LOADCOME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "5683ee57aa4cc0dfaf2506d1c2683626182589af542e48374074b1baaa0e1eb4"
+    },
+    {
+      "path": "ANIM\\LOADSTIL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 65728,
+      "target_sha256": "abde3abfb0f2954a538c97457ced7a8ab6abf9e8be44b52c27b1a4009806ea5c"
+    },
+    {
+      "path": "ANIM\\MAI2AWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 259744,
+      "source_sha256": "2dc0ffe0b9f24eec51f4dff9dd8710d24b414499b076b8b0cc566c1298d6ee24",
+      "target_size": 449060,
+      "target_sha256": "2f69ede8061d3f522dcabab4b0fda89917838491c9c37c140d6981790ecf3489",
+      "patch": "patches/029-8446fcb4ff88.xor"
+    },
+    {
+      "path": "ANIM\\MAI2COME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "3184ea5d7f2057eaf8be3b620f4705cc5633f622d34fc42c3c7074f2fa0a89fd"
+    },
+    {
+      "path": "ANIM\\MAI2LDFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11456,
+      "target_sha256": "ef5d15a2e47639f444577475e5d86b4bdca65049a56eefc08ac9904edc12c7e3"
+    },
+    {
+      "path": "ANIM\\MAI2LDGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9346,
+      "target_sha256": "dda596ffff3f70f43e2dea972a43d8d79b5123a29a538c986520ca99ad14cd8b"
+    },
+    {
+      "path": "ANIM\\MAI2N1FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 10916,
+      "target_sha256": "3b773723daee5efae283efb4ad0564a78aeed03126cc4b0ed2ac14a14281e4c8"
+    },
+    {
+      "path": "ANIM\\MAI2N1GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 8914,
+      "target_sha256": "e3f512549c73720d57eb2792485779e7019f8131faefc02f3432532df36a86db"
+    },
+    {
+      "path": "ANIM\\MAI2NNFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11416,
+      "target_sha256": "c6c4d680976a7fb34d7fd17e232d44e531a7f7e715ab06e71cbd488bef3f8c28"
+    },
+    {
+      "path": "ANIM\\MAI2NNGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9314,
+      "target_sha256": "36742885fd467336ba79824571be8b98b568487c25e4ea6931abd72eb0f955e9"
+    },
+    {
+      "path": "ANIM\\MAI2OPFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11456,
+      "target_sha256": "aec4b1e85c8c9e0fe612045e12afeca16bfa9ec973b6d3c59be5f825a69dcf01"
+    },
+    {
+      "path": "ANIM\\MAI2OPGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9346,
+      "target_sha256": "ac47a31fd0bbd0fb93cf192338fe0169711fe4a7df8e15dc4fed3bc24aca1b44"
+    },
+    {
+      "path": "ANIM\\MAI2QTFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11416,
+      "target_sha256": "a8227fffe454ab96f1c306933d694bec7cd48b3302c2ee931b90484c16ba6815"
+    },
+    {
+      "path": "ANIM\\MAI2QTGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9314,
+      "target_sha256": "ec65ad4a88a9c2b64a010bbed20df12c238f6e87edc9cde44119eee3a1b77ff9"
+    },
+    {
+      "path": "ANIM\\MAI2STIL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 65728,
+      "target_sha256": "8fed3baa7fc2827da068a9b646b6f619ff43fb4a7df6d88493edcd790a2b40ac"
+    },
+    {
+      "path": "ANIM\\MAINABFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9458,
+      "target_sha256": "90ba0dc6a6b04f6658a4ef0aa993ee11f2e58e08493dfb70dee3318c4c87fcef"
+    },
+    {
+      "path": "ANIM\\MAINABGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9458,
+      "target_sha256": "9dbcd6e62063c1e99e6d678d12919d6f0c256114dfcd1a4c6e238fea27fb5991"
+    },
+    {
+      "path": "ANIM\\MAINARFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 11416,
+      "target_sha256": "65313ab0a7fa5469aa825a911b57ee55164ecf7c823ccb2aff346c795c35dfb3"
+    },
+    {
+      "path": "ANIM\\MAINARGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9314,
+      "target_sha256": "55649f35026dc5ce3bdb7445fa440500ad4ae6f62f6bb7da542672879b694eb0"
+    },
+    {
+      "path": "ANIM\\MAINARGY.FLI",
+      "mode": "copy_from_main",
+      "target_size": 3008,
+      "target_sha256": "b41303788e10f944e0add352367ddaff69a73930f84b97dc91df1cadcbaa68be"
+    },
+    {
+      "path": "ANIM\\MAINAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 270258,
+      "source_sha256": "b03aee8d44ba29f243f82a47fe952dcafb366b72e4334f77bdf8e20a6c997248",
+      "target_size": 449060,
+      "target_sha256": "d56e93eb562165911e4b20a041d8991b12f8c386164b477a18c18a6ed2243677",
+      "patch": "patches/030-d5371e16e111.xor"
+    },
+    {
+      "path": "ANIM\\MAINCNFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 8594,
+      "target_sha256": "e57409462b1a06044b6c33eabf9d8fd066d0146d908cb752dabbe1a2e6302513"
+    },
+    {
+      "path": "ANIM\\MAINCNGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 8594,
+      "target_sha256": "f04189abe075e625c0e994ad77774d703f93ca4ae61aa617c1ec554bd8a0fef2"
+    },
+    {
+      "path": "ANIM\\MAINCOME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "8b44ac57dbddc7ee8810bdccd849c2133758328e8905d8589901ef8f1d7f0113"
+    },
+    {
+      "path": "ANIM\\MAINLDFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9458,
+      "target_sha256": "df06893fb97550e556a9b6259158afb5a935aed62b1ad5c6c7e19e9bbc825c54"
+    },
+    {
+      "path": "ANIM\\MAINLDGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9458,
+      "target_sha256": "c13053338750ba8fe237ba7bc3aaaf8ce2e3cc14134b19aa6990318dc5f2de71"
+    },
+    {
+      "path": "ANIM\\MAINOPFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9458,
+      "target_sha256": "7bee55857e5bf5b8d782028c287d61b802fcef5181c2dc16e53f0acd2f536205"
+    },
+    {
+      "path": "ANIM\\MAINOPGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9458,
+      "target_sha256": "416bbceacb4a4d290fff2101876368b7b969315df22095ab25c23c88ab176c14"
+    },
+    {
+      "path": "ANIM\\MAINQTFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 10394,
+      "target_sha256": "cd9f55a147f7348e3e79472e1c8ce122f30685cde5a0d3c56baf8e96ac59f9da"
+    },
+    {
+      "path": "ANIM\\MAINQTGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 10394,
+      "target_sha256": "995303c767e50a54bef5b15d191a2848eeff544b14d024ac797db9cd9a69e427"
+    },
+    {
+      "path": "ANIM\\MAINRCFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 10916,
+      "target_sha256": "a60f0b8d7ec668d429cf09030dab3af63865bbe04ac140f0f389b85c796fe681"
+    },
+    {
+      "path": "ANIM\\MAINRCGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 8914,
+      "target_sha256": "7d12a04bcf26424a377804ddfba1557f70939a483836b9ba4ddaa3a5abe2e559"
+    },
+    {
+      "path": "ANIM\\MAINRCGY.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2908,
+      "target_sha256": "e3aafa95398f567116d4f4a05c5ad8cff04a6cd33ed0941202c302dae6fb60af"
+    },
+    {
+      "path": "ANIM\\MAINSTIL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 65728,
+      "target_sha256": "4a7f7b538d0df2158c09311116801fbac8b32c31267b08d5fdf0696cfb287925"
+    },
+    {
+      "path": "ANIM\\MAINSVFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9458,
+      "target_sha256": "9a74140632048f4ab2d32206ec8b7a919f220c4f20e422bcd29e900e0d44cb9f"
+    },
+    {
+      "path": "ANIM\\MAINSVGL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 9458,
+      "target_sha256": "3d26e0d969e27b85235e9c7acd7c7d6ad70d1f77d7e0f6febb20c7a8751b0e38"
+    },
+    {
+      "path": "ANIM\\NCARCOME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "0937d993cb379ef33945b14f72e1dbb730949de3d0e325b88b51742fe8d90651"
+    },
+    {
+      "path": "ANIM\\NCHO00FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "3653ef50cb91598245b70f7824314b4302f7f463a92254c5ca8a5ec9e575aa4c"
+    },
+    {
+      "path": "ANIM\\NCHO00GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "6267a478dbe931f9bfd094039ddb60381beba7f1b354ccb364aff66aab27ed6d"
+    },
+    {
+      "path": "ANIM\\NCHO01FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "3653ef50cb91598245b70f7824314b4302f7f463a92254c5ca8a5ec9e575aa4c"
+    },
+    {
+      "path": "ANIM\\NCHO01GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "6267a478dbe931f9bfd094039ddb60381beba7f1b354ccb364aff66aab27ed6d"
+    },
+    {
+      "path": "ANIM\\NCHO02FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "3653ef50cb91598245b70f7824314b4302f7f463a92254c5ca8a5ec9e575aa4c"
+    },
+    {
+      "path": "ANIM\\NCHO02GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "6267a478dbe931f9bfd094039ddb60381beba7f1b354ccb364aff66aab27ed6d"
+    },
+    {
+      "path": "ANIM\\NCHO03FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "3653ef50cb91598245b70f7824314b4302f7f463a92254c5ca8a5ec9e575aa4c"
+    },
+    {
+      "path": "ANIM\\NCHO03GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "6267a478dbe931f9bfd094039ddb60381beba7f1b354ccb364aff66aab27ed6d"
+    },
+    {
+      "path": "ANIM\\NCHO04FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "3653ef50cb91598245b70f7824314b4302f7f463a92254c5ca8a5ec9e575aa4c"
+    },
+    {
+      "path": "ANIM\\NCHO04GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "6267a478dbe931f9bfd094039ddb60381beba7f1b354ccb364aff66aab27ed6d"
+    },
+    {
+      "path": "ANIM\\NCHO05FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "3653ef50cb91598245b70f7824314b4302f7f463a92254c5ca8a5ec9e575aa4c"
+    },
+    {
+      "path": "ANIM\\NCHO05GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "6267a478dbe931f9bfd094039ddb60381beba7f1b354ccb364aff66aab27ed6d"
+    },
+    {
+      "path": "ANIM\\NCHO06FL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "3653ef50cb91598245b70f7824314b4302f7f463a92254c5ca8a5ec9e575aa4c"
+    },
+    {
+      "path": "ANIM\\NCHO06GL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 1438,
+      "target_sha256": "6267a478dbe931f9bfd094039ddb60381beba7f1b354ccb364aff66aab27ed6d"
+    },
+    {
+      "path": "ANIM\\NCHOAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 285172,
+      "source_sha256": "42c3fec2ac00c5978035729c50fa2e7c0c4317dba964d391a27d4716b62b74d1",
+      "target_size": 449060,
+      "target_sha256": "f2a3c8fc277abe387cd70e4469de5362a56e021199e6db691bcaa220126fcc7e",
+      "patch": "patches/031-5e552004e7e6.xor"
+    },
+    {
+      "path": "ANIM\\NCHOCOME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "5d271337d44a531d6670df9dff195760a6df877868e867187acbb205920e86bf"
+    },
+    {
+      "path": "ANIM\\NCHOOPIN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2314,
+      "target_sha256": "52b33052f78e75af22fa434568de6a4ac8bafd08f1099369bc58da55b3d5da45"
+    },
+    {
+      "path": "ANIM\\NETNAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 270270,
+      "source_sha256": "5702c84251139651b76aac2f52317a8423113021c9d23d80bd31202ac284d119",
+      "target_size": 449060,
+      "target_sha256": "95114939c19797a16023b869ebe7028c6c7e228cf40d0bcc5fc9ec7c3719f900",
+      "patch": "patches/032-e92bd24b2c84.xor"
+    },
+    {
+      "path": "ANIM\\NETNCOME.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 143718,
+      "source_sha256": "862c7ebaad51073e8a41cb7a4b51c5dd8ccc5dd95d8134d9596760c9b2a52d80",
+      "target_size": 192972,
+      "target_sha256": "f927606cad5cc10f47d1c4078d0086942c535191936f505965da0fee5e4ccb00",
+      "patch": "patches/033-ed601ce5af00.xor"
+    },
+    {
+      "path": "ANIM\\NETOAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 292716,
+      "source_sha256": "74534154717f616c3bdfd7c4c8487b1692633c5fd08a7e166e50f1cb250a22bd",
+      "target_size": 449060,
+      "target_sha256": "7d6354e2ffc6045f28615629117a8d0042481e26c1d9efcb8f6789b5d6f3aee8",
+      "patch": "patches/034-c322172ad8fd.xor"
+    },
+    {
+      "path": "ANIM\\NETOCOME.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 145172,
+      "source_sha256": "87ac67d481a9ab22e8c1907c97c81d6957768ba7501db50bdba93ac16770a1e8",
+      "target_size": 192972,
+      "target_sha256": "b12639a35cffa1a0299691fb774c5a6d4b1426201be9b1dcfb760e4fc664119b",
+      "patch": "patches/035-9845758160fb.xor"
+    },
+    {
+      "path": "ANIM\\NETTAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 271354,
+      "source_sha256": "6526ebf7aa0a99cabc3c6e71c99221f111f52176cb4a6b2be39f5a51ea030b17",
+      "target_size": 449060,
+      "target_sha256": "5fc4752c478954c4b6ae6fc4b59886976e7e15d7713a142adbac40fa8f07fd53",
+      "patch": "patches/036-0ac3f9c9ecc6.xor"
+    },
+    {
+      "path": "ANIM\\NETTCOME.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 144598,
+      "source_sha256": "d2cd7708560c34673db06589debc2b8d8dc1467d5a99b6947ed8611f5459fdef",
+      "target_size": 192972,
+      "target_sha256": "18a481aec7d93a9fef0cc2b7c3feb1d18dd297a70dbdec2b6a76e4f7dfffa43d",
+      "patch": "patches/037-777a4f1d06ac.xor"
+    },
+    {
+      "path": "ANIM\\NEWGAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 270554,
+      "source_sha256": "6ad02b7b95ec4d63bd2c8fad0b80676cce23cbd171a1d39d2790892c81625961",
+      "target_size": 449060,
+      "target_sha256": "562919a463fa8002fc81da8d428e39358975129fc43bb9f07dc3019645cf1e2e",
+      "patch": "patches/038-5605607882d9.xor"
+    },
+    {
+      "path": "ANIM\\NEWGCAIN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2490,
+      "target_sha256": "d46af70e675c832be1c06f88af45ce9d45c5594e7ea7107ba96fe47941d6437a"
+    },
+    {
+      "path": "ANIM\\NEWGCOME.FLI",
+      "mode": "copy_from_main",
+      "target_size": 195372,
+      "target_sha256": "85b0e38085b815e4e5792a1f2ec52b0646077f75cd935f2c9e7c280bfbb51cf8"
+    },
+    {
+      "path": "ANIM\\NEWGDNAV.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2336,
+      "target_sha256": "4313721c7de05aa977fa15b6d8c92fe9effc39934c5cdcc12846c39916da4102"
+    },
+    {
+      "path": "ANIM\\NEWGDNFL.FLI",
+      "mode": "copy_from_main",
+      "target_size": 8366,
+      "target_sha256": "e0282ea94b700cae755323c12323dd10c869c3fed45d535e5179f4f21522abc9"
+    },
+    {
+      "path": "ANIM\\NEWGDNGY.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2336,
+      "target_sha256": "c993066693c7011c7019ef66039cf27c7ba3134425115203f1e39bb08a93009f"
+    },
+    {
+      "path": "ANIM\\NEWGDNIN.FLI",
+      "mode": "copy_from_main",
+      "target_size": 2336,
+      "target_sha256": "153d742ad50e20f32f20fcc2b34993344fca8d2ed309dbd34e1df7cc6bbdbcc2"
+    },
+    {
+      "path": "ANIM\\NEWNAWAY.FLI",
+      "mode": "xor_from_splat",
+      "source_size": 275604,
+      "source_sha256": "235b57bc61a3efe377e0e0c9025e33a2c0107b89b3641103251ad53b41d595d4",
+      "target_size": 449060,

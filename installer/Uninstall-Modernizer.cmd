@@ -9,20 +9,21 @@ set "RC=%ERRORLEVEL%"
 
 echo.
 if not "%RC%"=="0" (
-    echo Uninstaller beendet mit Fehlercode %RC%.
+    echo Uninstaller exited with error code %RC%.
     pause
     exit /b %RC%
 )
 
-echo Deinstallation erfolgreich.
+echo WARNING: After the next key press, the complete generated target directory will be deleted.
+echo The source installations will NOT be deleted.
 echo.
 pause
 
-set "CLEANUP=%TEMP%\dethrace-modernizer-cleanup-%RANDOM%%RANDOM%.cmd"
+set "TARGET=%~dp0"
+set "CLEANUP=%TEMP%\dethrace-modernizer-target-cleanup-%RANDOM%%RANDOM%.cmd"
 > "%CLEANUP%" echo @echo off
->> "%CLEANUP%" echo ping 127.0.0.1 -n 2 ^>nul
->> "%CLEANUP%" echo del /q "%~dp0Uninstall-Modernizer.ps1" 2^>nul
->> "%CLEANUP%" echo del /q "%~f0" 2^>nul
+>> "%CLEANUP%" echo ping 127.0.0.1 -n 3 ^>nul
+>> "%CLEANUP%" echo rmdir /s /q "%TARGET%" 2^>nul
 >> "%CLEANUP%" echo del /q "%%~f0" 2^>nul
 start "" /min cmd.exe /c "%CLEANUP%"
 exit /b 0

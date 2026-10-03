@@ -1,0 +1,1000 @@
+{
+  "format": "CGDX2-raw-xor",
+  "profile": "carmageddon-main-german-v0.2",
+  "counts": {
+    "copy": 48,
+    "xor": 202,
+    "total": 250
+  },
+  "target_manifest_identity": "7cb50ad5e3b1bfca6a021ccc8210b975f27419446286c8441e34800da971fd27",
+  "files": [
+    {
+      "path": "ANIM\\ARM1.FLI",
+      "source_size": 11430,
+      "source_sha256": "c0ce34280eba802c00906cd73afd70c6e19b969c0ff88563b59fbba43a8e6f27",
+      "target_size": 11252,
+      "target_sha256": "631efacba53bc59f7cf62b85f016120fa025f012bd14a85685f92598318f7ad7",
+      "mode": "xor",
+      "patch": "patches/ANIM/ARM1.FLI.xor"
+    },
+    {
+      "path": "ANIM\\ARM2.FLI",
+      "source_size": 11430,
+      "source_sha256": "c3f7a54011653aa5a810671990c916f9365a298dfb7378121346b6743c8a39f5",
+      "target_size": 11252,
+      "target_sha256": "760229a59d8eaf8cbda9e9d5dc6f47d90edc3daa4f208e5e392f50d5ce6b7f76",
+      "mode": "xor",
+      "patch": "patches/ANIM/ARM2.FLI.xor"
+    },
+    {
+      "path": "ANIM\\ARM3.FLI",
+      "source_size": 11430,
+      "source_sha256": "98fd867de5ea6da867e5293dd801231226450d9a530d1d5be0b3876c2f88af5c",
+      "target_size": 11252,
+      "target_sha256": "37f8109967b7fd5ca588a6427754da4d696299bba340b84e0b579c01d4e95bac",
+      "mode": "xor",
+      "patch": "patches/ANIM/ARM3.FLI.xor"
+    },
+    {
+      "path": "ANIM\\ARM4.FLI",
+      "source_size": 11430,
+      "source_sha256": "8f440e4683e7eb4e7ab179a878f3036c51e0d6d00355372811653e180368866b",
+      "target_size": 11252,
+      "target_sha256": "7ba61514cc431ea923f1e52c60c54651ae87b02ecca746e9fd4096ea9bfb9102",
+      "mode": "xor",
+      "patch": "patches/ANIM/ARM4.FLI.xor"
+    },
+    {
+      "path": "ANIM\\ARM5.FLI",
+      "source_size": 11430,
+      "source_sha256": "59de57fb711e8daa779d15fb67a246aeb012a737e2728f309d64d015bbb02e07",
+      "target_size": 11252,
+      "target_sha256": "79a293e26358d653ed3b90ab9b6f30442a89b4fa9529814ff804c308d656314f",
+      "mode": "xor",
+      "patch": "patches/ANIM/ARM5.FLI.xor"
+    },
+    {
+      "path": "ANIM\\ARM6.FLI",
+      "source_size": 11430,
+      "source_sha256": "7afb18489d46abd6c193987b4c921205807c61cdea2e1435429e7aae79a14e22",
+      "target_size": 11252,
+      "target_sha256": "2a65a1e46dfcfeb3461764a3ed5960588d9fc137ba2e476a7cae929eae481289",
+      "mode": "xor",
+      "patch": "patches/ANIM/ARM6.FLI.xor"
+    },
+    {
+      "path": "ANIM\\BKBUT8IN.FLI",
+      "source_size": 2314,
+      "source_sha256": "44f9b750b21eac48acfdaa7ae9fcce047a825c6b74f3ef3897dff811b542077a",
+      "target_size": 2314,
+      "target_sha256": "4e6c660d3fafc067d67e32c61dd06da3859848a15c21222d65a0eaf207372464",
+      "mode": "xor",
+      "patch": "patches/ANIM/BKBUT8IN.FLI.xor"
+    },
+    {
+      "path": "ANIM\\BKBUTOFF.FLI",
+      "source_size": 2338,
+      "source_sha256": "654493275a114427b711c8c2655a9a2a0d6680c2f1fc2aa4bb7b2a5d2b75cf19",
+      "target_size": 3722,
+      "target_sha256": "210d85963805875aec5f404f86b46faa1f78f5e7a60529fd2de29a77d61fe82e",
+      "mode": "xor",
+      "patch": "patches/ANIM/BKBUTOFF.FLI.xor"
+    },
+    {
+      "path": "ANIM\\BKBUTON.FLI",
+      "source_size": 2338,
+      "source_sha256": "654493275a114427b711c8c2655a9a2a0d6680c2f1fc2aa4bb7b2a5d2b75cf19",
+      "target_size": 3722,
+      "target_sha256": "e6bb86232c3c46c0c371c43a77a05839ea5b04918e961e7cb1d84a7d2ee3a6d4",
+      "mode": "xor",
+      "patch": "patches/ANIM/BKBUTON.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CANBUTIN.FLI",
+      "source_size": 2428,
+      "source_sha256": "7adb835fc36aae5045e7cbcc683ce6cdc4aa23e4631efe1514efe3dfd953b27e",
+      "target_size": 5328,
+      "target_sha256": "a80e74d968673c59c5da952202b80e683bc08786cf20decdff6c0179d4c25d2f",
+      "mode": "xor",
+      "patch": "patches/ANIM/CANBUTIN.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CHCRCOME.FLI",
+      "source_size": 143990,
+      "source_sha256": "8dad7a891d347a874ff2f8fde818a203a18510e76e66a36718df622e91e68e57",
+      "target_size": 195372,
+      "target_sha256": "d7c47d9a844492583dafd7319a6e49857e790a8b7d4917bcb4fe05d3bfb757ae",
+      "mode": "xor",
+      "patch": "patches/ANIM/CHCRCOME.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CHRCCOME.FLI",
+      "source_size": 144042,
+      "source_sha256": "25ac4616cd758eabc3f7d52d61b008415781cbf55378f374591d2098b555a7bf",
+      "target_size": 195372,
+      "target_sha256": "b03bdd89524b85d73232697b7d6d7273508485e5a28cd337edaa01565884cbdb",
+      "mode": "xor",
+      "patch": "patches/ANIM/CHRCCOME.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CITYA1M.FLI",
+      "source_size": 17344,
+      "source_sha256": "420b97e6c49e3fe9379c18592b239a9c490d056e42520ec470b68ddb79e1b9ba",
+      "target_size": 17056,
+      "target_sha256": "ce78d7e51842e1388ed551cc785fead12a6cb7d8df18e5bcd5ca066309c97489",
+      "mode": "xor",
+      "patch": "patches/ANIM/CITYA1M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CITYA2M.FLI",
+      "source_size": 17344,
+      "source_sha256": "54262d7d0f20b401ea2675d4ad4a65a15dc9a5ac6c1398a0e78846675ddfdc76",
+      "target_size": 17056,
+      "target_sha256": "957580a7a6d7590d751c42fd730e4c8e66f75a2bcc3aeff68e8a6e0dd6c056a7",
+      "mode": "xor",
+      "patch": "patches/ANIM/CITYA2M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CITYA3M.FLI",
+      "source_size": 17344,
+      "source_sha256": "309b08d784dd277a56890592d0246ce61639973f916a581401d2a2bb564c2d6b",
+      "target_size": 17056,
+      "target_sha256": "d161d47b1ba0754fe7a2779ef2b85a2ca84c2454ff2826009285473fc480f78c",
+      "mode": "xor",
+      "patch": "patches/ANIM/CITYA3M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CITYB1M.FLI",
+      "source_size": 17344,
+      "source_sha256": "0f2c03d0a951e9979c6f1c80a0badb45469aca34f38510b3b9599ff9cb5f70a2",
+      "target_size": 17056,
+      "target_sha256": "6e825bc748afd82e4617be9a34a6bfb2b7cd27c676dafc0b2a4bcacafcb9d7ee",
+      "mode": "xor",
+      "patch": "patches/ANIM/CITYB1M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CITYB2M.FLI",
+      "source_size": 17344,
+      "source_sha256": "5648384b1d083f7de659c124c066498e26edfa5f041a8933e860f089e615319c",
+      "target_size": 17056,
+      "target_sha256": "a47a2d1e1b6b327fdbab496a824c60567e96ec67d6c54c1d1c98418fea0c28da",
+      "mode": "xor",
+      "patch": "patches/ANIM/CITYB2M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CITYB3M.FLI",
+      "source_size": 17344,
+      "source_sha256": "03aade078d225f7f77f3cecde417a090bcd0efe018ec5195610db2bba063f50b",
+      "target_size": 17056,
+      "target_sha256": "6ed3b17e50843867ab92f7c991b3e08f193dca1c3efbc1b0b6d956ef913ef674",
+      "mode": "xor",
+      "patch": "patches/ANIM/CITYB3M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CITYC1M.FLI",
+      "source_size": 17344,
+      "source_sha256": "a370a82ab6b652d4c19df7d42bc9f12b5c2ec2d3552a9f3c709fe11639519727",
+      "target_size": 17056,
+      "target_sha256": "0f88621911e851bf0f3348396fa82c4126a06fb41f4657f03bd7ce5c19f496cb",
+      "mode": "xor",
+      "patch": "patches/ANIM/CITYC1M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CITYC2M.FLI",
+      "source_size": 17344,
+      "source_sha256": "b860160410ccebd3557db5dfda592667362fed9ebbd69df7296faaf77c776eba",
+      "target_size": 17056,
+      "target_sha256": "fbb2dedf674fb5131001b4c3f3009eb20550a633847415ce348f7cbdfc7dc148",
+      "mode": "xor",
+      "patch": "patches/ANIM/CITYC2M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CITYC3M.FLI",
+      "source_size": 17344,
+      "source_sha256": "14eec9766dc148deab99297b9d94cd07fedd67eca54a1c61434b68939ba45099",
+      "target_size": 17056,
+      "target_sha256": "2bd30bcef1b2e0ecab4fa2a710c62de9ba2f5ae13574bb9cfb49908dc19ff43e",
+      "mode": "xor",
+      "patch": "patches/ANIM/CITYC3M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CNTL00FL.FLI",
+      "source_size": 2350,
+      "source_sha256": "6249ae2c5bd8c340bdca15ef3043387be7fe0346fe48e3dfb5135a28f75ae50b",
+      "target_size": 2350,
+      "target_sha256": "1cff1c8221527f7170363fb2b5c02a1d515aae6a823df2b56000956bac42bf1b",
+      "mode": "xor",
+      "patch": "patches/ANIM/CNTL00FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CNTL00GL.FLI",
+      "source_size": 2350,
+      "source_sha256": "0a959e9485e62e1b0c497d4532a4a2fa72596c270afa4cb1c9af4ac5d2cef114",
+      "target_size": 2350,
+      "target_sha256": "c41c3e4823dcf02a81d5cca0d23c9415c0b321878c2ee48f2cd4bf8a2cc084c7",
+      "mode": "xor",
+      "patch": "patches/ANIM/CNTL00GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CNTLCAIN.FLI",
+      "source_size": 2116,
+      "source_sha256": "c4bbb20b0203c0eac26fe8329fcc87370dac2091e92bc1054aeddc699948d532",
+      "target_size": 2116,
+      "target_sha256": "312a67f664d6eb26e216098264895975959603a2ada3dc87107c6a09c1759835",
+      "mode": "xor",
+      "patch": "patches/ANIM/CNTLCAIN.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CNTLCOME.FLI",
+      "source_size": 131842,
+      "source_sha256": "4c734549c34b7bb0b06a737ee3997e26a49fb0b51e9b227fab7fbb762b5199e9",
+      "target_size": 195372,
+      "target_sha256": "f6d181cadf0d8a1bdb20fcad6b7c73a856262201c467eca2622033baf62980e7",
+      "mode": "xor",
+      "patch": "patches/ANIM/CNTLCOME.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CNTLDFIN.FLI",
+      "source_size": 2972,
+      "source_sha256": "22f405ff5efec5614d0eaa186951d31728deb97a920131a681d16a38cac936e7",
+      "target_size": 9376,
+      "target_sha256": "147ca043b3cb6ce2fbbbefc4b781cf3a09fd4d10aa251604a0ad85ce7e5bb4f6",
+      "mode": "xor",
+      "patch": "patches/ANIM/CNTLDFIN.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CNTLMRIN.FLI",
+      "source_size": 2116,
+      "source_sha256": "3fa36f1529e50affbb65ff3aeb90bcededbe1e5df8a8c40d6b66da4253c51d43",
+      "target_size": 2116,
+      "target_sha256": "02269feb5ca8f71c05bf6dcf69c67ba239e2af4808709537c5c6491a2f90d385",
+      "mode": "xor",
+      "patch": "patches/ANIM/CNTLMRIN.FLI.xor"
+    },
+    {
+      "path": "ANIM\\CNTLSTIL.FLI",
+      "source_size": 65728,
+      "source_sha256": "5c232d1a5f28c9c2279d372d2eac5d419daa78d9f05f23056298c549d5feabeb",
+      "target_size": 65728,
+      "target_sha256": "cbdfb226b345423b7657dc658adb9b36a67f3daf4977cdfc4fbbb4aec6e00e67",
+      "mode": "xor",
+      "patch": "patches/ANIM/CNTLSTIL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\COASTA1M.FLI",
+      "source_size": 17344,
+      "source_sha256": "35b435fb81cbbb723c4b864e3bcdfc6031c1287ca84d30315e1f025945206dd4",
+      "target_size": 17056,
+      "target_sha256": "1313b061ca0e710069e1376402e656f63e166841deb975c1bc103b5b59895872",
+      "mode": "xor",
+      "patch": "patches/ANIM/COASTA1M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\COASTA2M.FLI",
+      "source_size": 17344,
+      "source_sha256": "0fbe52f314f21acbf04d79505e5f90c4f92a1d5ceb5d80203224a8f2887c5c06",
+      "target_size": 17056,
+      "target_sha256": "50bca97f72fd1dc0d246084def1135786e6db6da9d7eee8d5350f18cdc3b37b7",
+      "mode": "xor",
+      "patch": "patches/ANIM/COASTA2M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\COASTA3M.FLI",
+      "source_size": 17344,
+      "source_sha256": "75c8f5d663b4ee6dc649388c105c52449121c16d6cf9c5298cecd02b4917c8d1",
+      "target_size": 17056,
+      "target_sha256": "7f2a16756464a3dcce70c0b049f1154e78e04e17c4ae28ebf068d94694adf419",
+      "mode": "xor",
+      "patch": "patches/ANIM/COASTA3M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\COASTB1M.FLI",
+      "source_size": 17344,
+      "source_sha256": "7a1089da491a3f5c265e8cb043197857dc94e83a610d03661be03b81db1cf66b",
+      "target_size": 17056,
+      "target_sha256": "a78220502923fe4483bfb453a951d01862139b2aa7d880bfe667d722f6a4ee15",
+      "mode": "xor",
+      "patch": "patches/ANIM/COASTB1M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\COASTB2M.FLI",
+      "source_size": 17344,
+      "source_sha256": "c7cd9ae261ccf8b0281047643141b8dd337373ca6a6c995b74f86b8535727dfd",
+      "target_size": 17056,
+      "target_sha256": "01b97b395c78e604908f2d52605f071482171bffd26d4c004980020bc13710fb",
+      "mode": "xor",
+      "patch": "patches/ANIM/COASTB2M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\COASTB3M.FLI",
+      "source_size": 17344,
+      "source_sha256": "566a9ccfb1f076033cbe7f8d03d1aff4560753e92767d751809a2876b1060de9",
+      "target_size": 17056,
+      "target_sha256": "6d3a11dd336f467d428cd5311951818933bb2bbc4062b6143b8040e5ccce2d09",
+      "mode": "xor",
+      "patch": "patches/ANIM/COASTB3M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\COASTC1M.FLI",
+      "source_size": 17344,
+      "source_sha256": "8022b18e60c876d1d82fc26dc49790be08c1955459120c6625b3ec1a71ce751b",
+      "target_size": 17056,
+      "target_sha256": "fba14940bfbd0b6791013f31fede1109b3e606eadbe2ba80dc74ee11e7c1907a",
+      "mode": "xor",
+      "patch": "patches/ANIM/COASTC1M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\COASTC2M.FLI",
+      "source_size": 17344,
+      "source_sha256": "d256e25a261b1319ec55435e9eac9086bf47b1b2582af761781df725ba225c15",
+      "target_size": 17056,
+      "target_sha256": "9f595542d388275cdd3ce4d02d8cc58279dc17452f5f00b7ebc74ace383b7a3e",
+      "mode": "xor",
+      "patch": "patches/ANIM/COASTC2M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\COASTC3M.FLI",
+      "source_size": 17344,
+      "source_sha256": "53617ee3e279c680e73edb94f6e60eb818737b685ea16c25e542c4249914fa50",
+      "target_size": 17056,
+      "target_sha256": "f91d2731c2899b6a370706792aa404ff86ae7298538fc29e448250653e92e792",
+      "mode": "xor",
+      "patch": "patches/ANIM/COASTC3M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\DAREACIN.FLI",
+      "source_size": 2380,
+      "source_sha256": "ce6c7aa2648c4a389b19d5c2b55495e2458a9a7bcee84e8b3af736bdfb8a60a1",
+      "target_size": 2380,
+      "target_sha256": "5fd64bdceec3bb9765b666442addfb5f0406bac90ee9b545170aa96d3647bddf",
+      "mode": "xor",
+      "patch": "patches/ANIM/DAREACIN.FLI.xor"
+    },
+    {
+      "path": "ANIM\\DARECHIN.FLI",
+      "source_size": 2380,
+      "source_sha256": "ce6c7aa2648c4a389b19d5c2b55495e2458a9a7bcee84e8b3af736bdfb8a60a1",
+      "target_size": 2380,
+      "target_sha256": "37085a81c6c29d32d4d32420f17c64ab3e6b2cc80104e7cb98bbc2e8192ad17c",
+      "mode": "xor",
+      "patch": "patches/ANIM/DARECHIN.FLI.xor"
+    },
+    {
+      "path": "ANIM\\DARECOME.FLI",
+      "source_size": 119258,
+      "source_sha256": "293af7439a0cec912c1d9bb9379747a2993b70020c923abdb317f0dc2851b6e5",
+      "target_size": 195372,
+      "target_sha256": "db730c44b99467578709126b74d03760ef33d82a037350a05bbe6fdb17e953af",
+      "mode": "xor",
+      "patch": "patches/ANIM/DARECOME.FLI.xor"
+    },
+    {
+      "path": "ANIM\\DEZRAC1M.FLI",
+      "source_size": 17344,
+      "source_sha256": "ce5918af8510568f433d28c933b72d764d848d114a39a80c5a578e6930d79c91",
+      "target_size": 17056,
+      "target_sha256": "0571b3bc1d5ef83094b95ca9bfd2c5713980b7461793be22c8f8908706c6cce3",
+      "mode": "xor",
+      "patch": "patches/ANIM/DEZRAC1M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\DEZRAC2M.FLI",
+      "source_size": 17344,
+      "source_sha256": "094859f2f71886d9aafaf4aee9acbbcb637df49ae5b2a2a39b54ba4392059133",
+      "target_size": 17056,
+      "target_sha256": "94ed74d21075c883611601a0843e9da210537fe723b74190bc2e314805efec30",
+      "mode": "xor",
+      "patch": "patches/ANIM/DEZRAC2M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\DEZRAC3M.FLI",
+      "source_size": 17344,
+      "source_sha256": "044e4a41635ac386efa884182fa7c032ab4f91a4ff72c06da75fd0ff8c10ac3b",
+      "target_size": 17056,
+      "target_sha256": "556ab92f2216c05f6f11369e87fd3132f5a7643b8282163c4a649849997a980b",
+      "mode": "xor",
+      "patch": "patches/ANIM/DEZRAC3M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\DEZRAC4M.FLI",
+      "source_size": 17344,
+      "source_sha256": "ee32c84d032a6bbbf1df993104c08fd369cbbeaee2e5464a8d82c50a16858560",
+      "target_size": 17056,
+      "target_sha256": "9662757ed8903dd46271825f8e79f6ba4770882945a20a21f406232cd3f11f34",
+      "mode": "xor",
+      "patch": "patches/ANIM/DEZRAC4M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\DNBUT8IN.FLI",
+      "source_size": 2314,
+      "source_sha256": "96b0c4a150379bbbb537b5fa837f8e9c57304567090b634da26a7e88f4a66c0e",
+      "target_size": 2314,
+      "target_sha256": "8f5fb0b0827be5148ca4b7364870dd942088f087576e4e72446ba7edda07c922",
+      "mode": "xor",
+      "patch": "patches/ANIM/DNBUT8IN.FLI.xor"
+    },
+    {
+      "path": "ANIM\\DNEBUTIN.FLI",
+      "source_size": 2362,
+      "source_sha256": "b53fe42932350cb68e95b807accec7b9a55a04ff9a07aafd25588f415683ef7b",
+      "target_size": 5130,
+      "target_sha256": "b5e2405e708b183e0ba353c045f767122d33aba2b1eee8ac857e23e55b7c7796",
+      "mode": "xor",
+      "patch": "patches/ANIM/DNEBUTIN.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRIDSTIL.FLI",
+      "source_size": 65728,
+      "source_sha256": "a7524603e722e4de9b840a6292282e63ef26bf7a6383eafe23d3f4a72220b370",
+      "target_size": 65728,
+      "target_sha256": "621862bb4f6b63e0d7dcc095377273489fef65f8e3e4fb0613c1b550562a71c6",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRIDSTIL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH00FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "720ea5e7f815f391f239227c0a0c515d726fda90844dcee8f9668783b7f36583",
+      "target_size": 2124,
+      "target_sha256": "bdc561a882c39ece9f2d41094b1fe3402250754fe67ee830224c9e73709c0686",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH00FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH00GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "f54ac6f6c48ab4100e10da443538040386be73270bf616927c4ab2f16804c5fd",
+      "target_size": 2124,
+      "target_sha256": "bf272fb47c64330122fd197dd21526f0cba1a9d1134d4787ba07c0014d8c0e23",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH00GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH01FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "7f18c4ec039c33466520570ba4ee25a00768726fa6e10639aaea0586c22e9dac",
+      "target_size": 2124,
+      "target_sha256": "b4a3087f823e15754fd6b572314e0b6360d0274001c047afbe937d1e98bf5853",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH01FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH01GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "7f18c4ec039c33466520570ba4ee25a00768726fa6e10639aaea0586c22e9dac",
+      "target_size": 2124,
+      "target_sha256": "25f136f2d2e54658f61b8c1ab6e081c7bcbc2a79ae6d8b5ebf607425f1953990",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH01GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH02FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "e5f8e14f5027b4dd0a7013a344bc92ad7cdf597ba4377b3342f333670b39b10c",
+      "target_size": 2124,
+      "target_sha256": "01769e16e0385ccbba4991bb1378acc057216d22e39ce37a87982809be6a79f0",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH02FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH02GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "e5f8e14f5027b4dd0a7013a344bc92ad7cdf597ba4377b3342f333670b39b10c",
+      "target_size": 2124,
+      "target_sha256": "5438f874775381e7cbb2a00992529c15e094fcb902f8e17bb17c4309cf04dcd9",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH02GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH03FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "0c748f0ff288b8d1a2008d7a4f39f574bdb515e6d600613fb2b565b31ef63b27",
+      "target_size": 2124,
+      "target_sha256": "9d84eb60669f7e4df4a45b0ff2d43f6ab2cc7742088d580a3e51b5d2c108cf11",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH03FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH03GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "0c748f0ff288b8d1a2008d7a4f39f574bdb515e6d600613fb2b565b31ef63b27",
+      "target_size": 2124,
+      "target_sha256": "3d09362331255ec9ba2d989aa3c9e6fdba03cb4a2a714d4ee97de20fc335a364",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH03GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH04FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "0c748f0ff288b8d1a2008d7a4f39f574bdb515e6d600613fb2b565b31ef63b27",
+      "target_size": 2124,
+      "target_sha256": "01bc9387f06e06ceb868b2cac8df459e55f631d4d9aa5092373e47f8089ffde3",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH04FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH04GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "0c748f0ff288b8d1a2008d7a4f39f574bdb515e6d600613fb2b565b31ef63b27",
+      "target_size": 2124,
+      "target_sha256": "d6ec74d4802dc7157d5ca24bd476ab9ed0e80e3529dffbe7c20118eb5955713e",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH04GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH05FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "6a436024047f2c7f4da8c15dcb39fd457c88aadb9e95f600759cee96e15ed838",
+      "target_size": 2124,
+      "target_sha256": "b38dc505a50b7e0bc35c44ef222de6481ec5b3d9f30216f1a8446d16c32affeb",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH05FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH05GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "6a436024047f2c7f4da8c15dcb39fd457c88aadb9e95f600759cee96e15ed838",
+      "target_size": 2124,
+      "target_sha256": "3cf4df4dc6b104fcdbf3f2fb3df76b0162860cf45c9d3fb27cda584c1a8c4412",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH05GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH06FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "6a436024047f2c7f4da8c15dcb39fd457c88aadb9e95f600759cee96e15ed838",
+      "target_size": 2124,
+      "target_sha256": "fb1501bd9fd6a700c70ad19a6e34b3f621799844ae79a87fc6ac285d15f28f9c",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH06FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH06GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "6a436024047f2c7f4da8c15dcb39fd457c88aadb9e95f600759cee96e15ed838",
+      "target_size": 2124,
+      "target_sha256": "04a13e0624508e763d834dd6a95f1a8caf3c4113704d7b75315a9196c2ab178d",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH06GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH07FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "61a1459860c1d97a2350709b3d8da65a0506b56801eb47dcb7e960d1e7beed25",
+      "target_size": 2124,
+      "target_sha256": "94d00928bb8557ca1b1b9271f514f4508a693f760914b4b23c80bfd0706eebbf",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH07FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH07GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "61a1459860c1d97a2350709b3d8da65a0506b56801eb47dcb7e960d1e7beed25",
+      "target_size": 2124,
+      "target_sha256": "fa777db7cb72f748a3ef4a43b9e9e81ae25969c2688a1905d54ba5cfb9ab8926",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH07GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH08FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "61a1459860c1d97a2350709b3d8da65a0506b56801eb47dcb7e960d1e7beed25",
+      "target_size": 2124,
+      "target_sha256": "3dc3d4aaac9f84d49a70e0b8e9cc9b1270c61ff4921a8d5b600e18d2d5e6c1f5",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH08FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH08GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "61a1459860c1d97a2350709b3d8da65a0506b56801eb47dcb7e960d1e7beed25",
+      "target_size": 2124,
+      "target_sha256": "82e61d0cb0ac5b61622a963efc0be05d57911275972bf46673ea841b7253f3d1",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH08GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH09FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "61a1459860c1d97a2350709b3d8da65a0506b56801eb47dcb7e960d1e7beed25",
+      "target_size": 2124,
+      "target_sha256": "548b2f9edf369e425c69d0e79237718c35483380795a5beca7a82ea121d273a9",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH09FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH09GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "61a1459860c1d97a2350709b3d8da65a0506b56801eb47dcb7e960d1e7beed25",
+      "target_size": 2124,
+      "target_sha256": "38636bcfdcd807523ed474f4acee0fb8119daf6a8ea582f352642c88c067bc1c",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH09GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH10FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "61a1459860c1d97a2350709b3d8da65a0506b56801eb47dcb7e960d1e7beed25",
+      "target_size": 2124,
+      "target_sha256": "186053e2e99bd5d9581bcf5d0ee8eaaf78ae3cdc7d6afe93cc0693ffc5f52442",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH10FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH10GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "61a1459860c1d97a2350709b3d8da65a0506b56801eb47dcb7e960d1e7beed25",
+      "target_size": 2124,
+      "target_sha256": "aba16711b809ead96bf44ce4777cdc5d7d0ddb09be545b3b0a1ad0b3d3608b0d",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH10GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH11FL.FLI",
+      "source_size": 2124,
+      "source_sha256": "3df91236427b87a2302fba359223eb3cb784a34e12ba5c3c509d8d1976b30f4b",
+      "target_size": 2124,
+      "target_sha256": "e5379f1ff4b35d3e6c928b25e87082d259b2d0ecd604ba5f794cf6c9955010c7",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH11FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPH11GL.FLI",
+      "source_size": 2124,
+      "source_sha256": "3df91236427b87a2302fba359223eb3cb784a34e12ba5c3c509d8d1976b30f4b",
+      "target_size": 2124,
+      "target_sha256": "6b788d281066484f88848944639db5670b9e43001e000ed9913f37620266dc64",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPH11GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\GRPHCOME.FLI",
+      "source_size": 125660,
+      "source_sha256": "3a6c9e49f8a9f40b3b8edf3d1bc0144846e2173dadf15331d496552b5f0bc4ac",
+      "target_size": 195372,
+      "target_sha256": "24156b392fa30433b8f8dc23c4c1e1731bc765f07580ef365e040a0017d241a8",
+      "mode": "xor",
+      "patch": "patches/ANIM/GRPHCOME.FLI.xor"
+    },
+    {
+      "path": "ANIM\\ICE1M.FLI",
+      "source_size": 17344,
+      "source_sha256": "b83e8aba57b853d39472935c7820f5ad7fffcd1014035bd320a938b35cc179eb",
+      "target_size": 17056,
+      "target_sha256": "2152c585bcedd9bfd33ed2a1a13d2041a5ec4220baf06d5362a0e79b00895308",
+      "mode": "xor",
+      "patch": "patches/ANIM/ICE1M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\ICE2M.FLI",
+      "source_size": 17344,
+      "source_sha256": "c7e07c66699699e51ee9d7d308f0894b9327ca9fbcbd856803eb24b475490d07",
+      "target_size": 17056,
+      "target_sha256": "db75b6c0786ef12aa75e0054e4f5a5e81de28783ec7699eceffc7dfa665043cc",
+      "mode": "xor",
+      "patch": "patches/ANIM/ICE2M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\ICE3M.FLI",
+      "source_size": 17344,
+      "source_sha256": "5087a8e0a48f64a92aee61a22452c56c4544bb3044ef218d24fb45c23f1b306c",
+      "target_size": 17056,
+      "target_sha256": "30a28c5ed1edbc2c36327abcf6c0e2debd0c1093c806d215744cbc2a15ddcdca",
+      "mode": "xor",
+      "patch": "patches/ANIM/ICE3M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\INDUSA1M.FLI",
+      "source_size": 17344,
+      "source_sha256": "9dad0a7e8a4ef669e468fe53d978487b944ce90161a327718367dafd4c363526",
+      "target_size": 17056,
+      "target_sha256": "c3d528c3f6ee42c7a542bd65924b4a75fc4ca08200d307863d1308707d60c207",
+      "mode": "xor",
+      "patch": "patches/ANIM/INDUSA1M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\INDUSA2M.FLI",
+      "source_size": 17344,
+      "source_sha256": "60ef155f52b2b0faf5869e6b78db191b57a771c5d237b103c10d7b3de55ede9d",
+      "target_size": 17056,
+      "target_sha256": "e137ce6e5d5372ef848b2dca70f4647777084a6609308d0de96e5006a3b57837",
+      "mode": "xor",
+      "patch": "patches/ANIM/INDUSA2M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\INDUSA3M.FLI",
+      "source_size": 17344,
+      "source_sha256": "a0b46d9988dd8683c94c87431412ff1a52a66cdaa0938abed071e17f7a3a60c1",
+      "target_size": 17056,
+      "target_sha256": "0f04770b6a012d54d017d662c41a90e726ca34c41c2179600746fba2f2ea04eb",
+      "mode": "xor",
+      "patch": "patches/ANIM/INDUSA3M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\INDUSB1M.FLI",
+      "source_size": 17344,
+      "source_sha256": "0d1cd724487c9cc2e0b6a12062e8ed66ad94860040ef7d566936a9cfef392f9b",
+      "target_size": 17056,
+      "target_sha256": "60bbfea8a166da5e210e0860b6c17deeef81b6ca3391754522d5b4c8a7884de6",
+      "mode": "xor",
+      "patch": "patches/ANIM/INDUSB1M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\INDUSB2M.FLI",
+      "source_size": 17344,
+      "source_sha256": "3af11430601e886822c095887a4912fdd9eb547a31e66849d00c74e364b4a282",
+      "target_size": 17056,
+      "target_sha256": "350aadfbfd1d282f3c99a0b81aa2bb22811a7530d86280704d4614cf88ecb53b",
+      "mode": "xor",
+      "patch": "patches/ANIM/INDUSB2M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\INDUSB3M.FLI",
+      "source_size": 17344,
+      "source_sha256": "1f717da133ed8baf44c547d712d4f68de10593a445d8fbdd6ef04372baa97af4",
+      "target_size": 17056,
+      "target_sha256": "6b08c7d07749ba810fcef240e184a90252a8f076e43de2cf2bfe022080d9affd",
+      "mode": "xor",
+      "patch": "patches/ANIM/INDUSB3M.FLI.xor"
+    },
+    {
+      "path": "ANIM\\LOADCOME.FLI",
+      "source_size": 165218,
+      "source_sha256": "3ec69d95d9505a978c0c0560db68267745fa3eebdefe2f0b2e3f13b5088309ac",
+      "target_size": 195372,
+      "target_sha256": "5683ee57aa4cc0dfaf2506d1c2683626182589af542e48374074b1baaa0e1eb4",
+      "mode": "xor",
+      "patch": "patches/ANIM/LOADCOME.FLI.xor"
+    },
+    {
+      "path": "ANIM\\LOADSTIL.FLI",
+      "source_size": 65728,
+      "source_sha256": "e4bfe531e12bde49a729211b0948657a0de4186e16ae6a60a1dc7a7610362ee4",
+      "target_size": 65728,
+      "target_sha256": "abde3abfb0f2954a538c97457ced7a8ab6abf9e8be44b52c27b1a4009806ea5c",
+      "mode": "xor",
+      "patch": "patches/ANIM/LOADSTIL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2COME.FLI",
+      "source_size": 131824,
+      "source_sha256": "fba83ac0a1215d754f952c3b994bab99ba4dcc1819a43f6e60eb4cdf5b2b83ed",
+      "target_size": 195372,
+      "target_sha256": "3184ea5d7f2057eaf8be3b620f4705cc5633f622d34fc42c3c7074f2fa0a89fd",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2COME.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2LDFL.FLI",
+      "source_size": 3732,
+      "source_sha256": "776e4d1b7fdf0bf26da671dbd98af14e8a09a8297cffafe7a17a81cd3f02945c",
+      "target_size": 11456,
+      "target_sha256": "ef5d15a2e47639f444577475e5d86b4bdca65049a56eefc08ac9904edc12c7e3",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2LDFL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2LDGL.FLI",
+      "source_size": 3574,
+      "source_sha256": "16fe2fccedda0f1baec25c26e97ca0cca9484feca4ce90b5f2edccdbc8c40e6c",
+      "target_size": 9346,
+      "target_sha256": "dda596ffff3f70f43e2dea972a43d8d79b5123a29a538c986520ca99ad14cd8b",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2LDGL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2N1FL.FLI",
+      "source_size": 3624,
+      "source_sha256": "df10ae9a600137128a4c438f6ff3fbda9f5be9693453cd0147c4b2d6cc5abaf2",
+      "target_size": 10916,
+      "target_sha256": "3b773723daee5efae283efb4ad0564a78aeed03126cc4b0ed2ac14a14281e4c8",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2N1FL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2N1GL.FLI",
+      "source_size": 3466,
+      "source_sha256": "e973ca05289037365179b6d6a4376dc0a1c90e0d912625235877ef3fe7a854ac",
+      "target_size": 8914,
+      "target_sha256": "e3f512549c73720d57eb2792485779e7019f8131faefc02f3432532df36a86db",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2N1GL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2NNFL.FLI",
+      "source_size": 3724,
+      "source_sha256": "11023446fe6fbcaee18ce79aa172d558f9f18ce53f6176ffbc163f7612a4de05",
+      "target_size": 11416,
+      "target_sha256": "c6c4d680976a7fb34d7fd17e232d44e531a7f7e715ab06e71cbd488bef3f8c28",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2NNFL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2NNGL.FLI",
+      "source_size": 3774,
+      "source_sha256": "e6dc747d0322c14cf976a70d4bacc0d32842b6aa8697b4993907387b5738c458",
+      "target_size": 9314,
+      "target_sha256": "36742885fd467336ba79824571be8b98b568487c25e4ea6931abd72eb0f955e9",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2NNGL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2OPFL.FLI",
+      "source_size": 3732,
+      "source_sha256": "ff077659f915f0f6ec0913c9075e618c08917d6c99f9d7ba7ac581dfc5019e0f",
+      "target_size": 11456,
+      "target_sha256": "aec4b1e85c8c9e0fe612045e12afeca16bfa9ec973b6d3c59be5f825a69dcf01",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2OPFL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2OPGL.FLI",
+      "source_size": 3574,
+      "source_sha256": "ac84b161809528831400e0bcde606738430933845101768e9875f4a4cbf4e8c5",
+      "target_size": 9346,
+      "target_sha256": "ac47a31fd0bbd0fb93cf192338fe0169711fe4a7df8e15dc4fed3bc24aca1b44",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2OPGL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2QTFL.FLI",
+      "source_size": 3714,
+      "source_sha256": "264a4cbdf8e3f8678d17f781adaa0815517f9cf84f337a86a432fb849d315161",
+      "target_size": 11416,
+      "target_sha256": "a8227fffe454ab96f1c306933d694bec7cd48b3302c2ee931b90484c16ba6815",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2QTFL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2QTGL.FLI",
+      "source_size": 3566,
+      "source_sha256": "c3198b682ebc19530d15c4f0e03e9694e17d5c1be6528ec4d66a1a771abe3fb4",
+      "target_size": 9314,
+      "target_sha256": "ec65ad4a88a9c2b64a010bbed20df12c238f6e87edc9cde44119eee3a1b77ff9",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2QTGL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAI2STIL.FLI",
+      "source_size": 65728,
+      "source_sha256": "e16c0d1d37c23644d37da715d5eedfa9f06c0ac2e978fd750be6d19fa34c552a",
+      "target_size": 65728,
+      "target_sha256": "8fed3baa7fc2827da068a9b646b6f619ff43fb4a7df6d88493edcd790a2b40ac",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAI2STIL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINABFL.FLI",
+      "source_size": 3624,
+      "source_sha256": "6b598160c14972519bd4e91b50e1bf5f7bda942d2b2a7b174bf57ed1c5b4025e",
+      "target_size": 9458,
+      "target_sha256": "90ba0dc6a6b04f6658a4ef0aa993ee11f2e58e08493dfb70dee3318c4c87fcef",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINABFL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINABGL.FLI",
+      "source_size": 3602,
+      "source_sha256": "045a67ec1a304aa05cc42b47bcc3adc8e1958b897a7d51bb66cc2b174eeeb154",
+      "target_size": 9458,
+      "target_sha256": "9dbcd6e62063c1e99e6d678d12919d6f0c256114dfcd1a4c6e238fea27fb5991",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINABGL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINARFL.FLI",
+      "source_size": 3724,
+      "source_sha256": "7d212810fafb5296707700206038b8f336b663ab27aa6032e9251d19f4dad8fe",
+      "target_size": 11416,
+      "target_sha256": "65313ab0a7fa5469aa825a911b57ee55164ecf7c823ccb2aff346c795c35dfb3",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINARFL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINARGL.FLI",
+      "source_size": 3790,
+      "source_sha256": "6e22fb0cd4f3fafcf484f3fba2f6b3a0f681714740ec5b669b337df0102700cd",
+      "target_size": 9314,
+      "target_sha256": "55649f35026dc5ce3bdb7445fa440500ad4ae6f62f6bb7da542672879b694eb0",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINARGL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINARGY.FLI",
+      "source_size": 3008,
+      "source_sha256": "b11d762ce72814859689343b75310be57d8290093dcf4c821331a2b69757fc1e",
+      "target_size": 3008,
+      "target_sha256": "b41303788e10f944e0add352367ddaff69a73930f84b97dc91df1cadcbaa68be",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINARGY.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINCNFL.FLI",
+      "source_size": 3484,
+      "source_sha256": "ff63b6d47d6167dd873c947501c2b334c6faa37c713f649d0f2145e77324d628",
+      "target_size": 8594,
+      "target_sha256": "e57409462b1a06044b6c33eabf9d8fd066d0146d908cb752dabbe1a2e6302513",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINCNFL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINCNGL.FLI",
+      "source_size": 3396,
+      "source_sha256": "47651eb1392e66e4464de04974f12178d2710678d6051014be3abd160bae08fb",
+      "target_size": 8594,
+      "target_sha256": "f04189abe075e625c0e994ad77774d703f93ca4ae61aa617c1ec554bd8a0fef2",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINCNGL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINCOME.FLI",
+      "source_size": 149334,
+      "source_sha256": "9464fa7e929d8aed1300a0ed526029a0b6692e9e89006ce9d9f44c0de9b3fb78",
+      "target_size": 195372,
+      "target_sha256": "8b44ac57dbddc7ee8810bdccd849c2133758328e8905d8589901ef8f1d7f0113",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINCOME.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINLDFL.FLI",
+      "source_size": 3666,
+      "source_sha256": "8b2346ea4aae183cf4c9416fe825b8d44d31670b7b1f5ced2402cb62aae394a8",
+      "target_size": 9458,
+      "target_sha256": "df06893fb97550e556a9b6259158afb5a935aed62b1ad5c6c7e19e9bbc825c54",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINLDFL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINLDGL.FLI",
+      "source_size": 3602,
+      "source_sha256": "7affc37f3db400b54bc09b28fd811b5a70cfc6250765aa1fb4d50bdcad1e712c",
+      "target_size": 9458,
+      "target_sha256": "c13053338750ba8fe237ba7bc3aaaf8ce2e3cc14134b19aa6990318dc5f2de71",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINLDGL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINOPFL.FLI",
+      "source_size": 3598,
+      "source_sha256": "f2bf9da47719c0f3a0e12cb7feec389ba8797e2f76ab2b389ae92c1b97412ad7",
+      "target_size": 9458,
+      "target_sha256": "7bee55857e5bf5b8d782028c287d61b802fcef5181c2dc16e53f0acd2f536205",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINOPFL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINOPGL.FLI",
+      "source_size": 3602,
+      "source_sha256": "44a514301da56ad4cd92046a7adcb807c58938298e6dbf6c2131afd4ea8fcac5",
+      "target_size": 9458,
+      "target_sha256": "416bbceacb4a4d290fff2101876368b7b969315df22095ab25c23c88ab176c14",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINOPGL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINQTFL.FLI",
+      "source_size": 3832,
+      "source_sha256": "7a9de8f02650fd96007b6ab31732f1a2158caa36f2c31d24cebb8de267dc7b75",
+      "target_size": 10394,
+      "target_sha256": "cd9f55a147f7348e3e79472e1c8ce122f30685cde5a0d3c56baf8e96ac59f9da",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINQTFL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINQTGL.FLI",
+      "source_size": 3836,
+      "source_sha256": "29ce859411edf9a8d61c36339a929dab272033e62bc3d0c1d3b7cda4baec6f27",
+      "target_size": 10394,
+      "target_sha256": "995303c767e50a54bef5b15d191a2848eeff544b14d024ac797db9cd9a69e427",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINQTGL.FLI.xor"
+    },
+    {
+      "path": "ANIM\\MAINRCFL.FLI",
+      "source_size": 3752,
+      "source_sha256": "500c1bcb1b63e0e4210ebf6f8358567f687613838586efeeb2549ebb01b587bd",
+      "target_size": 10916,
+      "target_sha256": "a60f0b8d7ec668d429cf09030dab3af63865bbe04ac140f0f389b85c796fe681",
+      "mode": "xor",
+      "patch": "patches/ANIM/MAINRCFL.FLI.xor"
+    },
