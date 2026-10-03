@@ -178,6 +178,7 @@ jobs:
           $bundleZip = Join-Path $PWD "inplace-gog-scripts-v19.zip"
           [System.IO.File]::WriteAllBytes($bundleZip, [Convert]::FromBase64String($bundleText))
           Expand-Archive -LiteralPath $bundleZip -DestinationPath $out -Force
+          python "modernizer\installer\patch_inplace_installer.py" (Join-Path $out "Install-Modernizer.ps1")
           Copy-Item "modernizer\installer\Import-Cutscenes-from-Original.cmd" $out -Force
 
           # Launchers and controller helpers.
