@@ -67,7 +67,7 @@ if (-not (Test-Path $exe)) {
 if (-not (Test-Path (Join-Path $splat "DATA"))) {
     Add-Type -AssemblyName PresentationFramework
     [System.Windows.MessageBox]::Show(
-        "CARSPLAT\\DATA wurde nicht gefunden:`n$splat`n`nKopiere zuerst den kompletten CARSPLAT-Ordner in den Dethrace-Hauptordner.",
+        "CARSPLAT\\DATA was not found:`n$splat`n`nCopy the complete CARSPLAT folder into the Dethrace main folder first.",
         "Carmageddon Splat Pack XInput Launcher"
     ) | Out-Null
     exit 1
