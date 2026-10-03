@@ -207,6 +207,123 @@ def patch_loading(path: Path) -> None:
     path.write_text(text, encoding="utf-8")
 
 
+def patch_gl_video_context(device_h: Path, device_c: Path, devpmglf_c: Path, gstored_c: Path) -> None:
+    text = device_h.read_text(encoding="utf-8")
+    text = replace_once(
+        text,
+        """    /* Device clut */
+    struct br_device_clut* clut;
+""",
+        """    /* Device clut */
+    struct br_device_clut* clut;
+
+    /*
+     * Stable device-wide OpenGL VIDEO context.
+     *
+     * Stored-geometry allocation must not recover this through
+     * renderer->pixelmap: crash diagnostics showed that pointer occasionally
+     * becoming stale/corrupt during cockpit + mirror rendering.
+     */
+    HVIDEO video;
+""",
+        "device-wide GL video pointer",
+    )
+    device_h.write_text(text, encoding="utf-8")
+
+    text = device_c.read_text(encoding="utf-8")
+    text = replace_once(
+        text,
+        """    self->device = self;
+    self->object_list = BrObjectListAllocate(self);
+""",
+        """    self->device = self;
+    self->object_list = BrObjectListAllocate(self);
+    self->video = NULL;
+""",
+        "initialize device-wide GL video pointer",
+    )
+    device_c.write_text(text, encoding="utf-8")
+
+    text = devpmglf_c.read_text(encoding="utf-8")
+    text = replace_once(
+        text,
+        """    if (VIDEO_Open(&self->asFront.video, pt.vertex_shader, pt.fragment_shader) == NULL) {
+        /*
+         * If this fails we can run our regular cleanup.
+         */
+        BrResFree(self);
+        return NULL;
+    }
+    self->asFront.tex_white = DeviceGLBuildWhiteTexture();
+""",
+        """    if (VIDEO_Open(&self->asFront.video, pt.vertex_shader, pt.fragment_shader) == NULL) {
+        /*
+         * If this fails we can run our regular cleanup.
+         */
+        BrResFree(self);
+        return NULL;
+    }
+
+    /*
+     * VIDEO is device/context-wide. Cache its stable address on the device
+     * instead of repeatedly reaching it through renderer->pixelmap->screen.
+     */
+    dev->video = &self->asFront.video;
+
+    self->asFront.tex_white = DeviceGLBuildWhiteTexture();
+""",
+        "cache device-wide GL video pointer",
+    )
+    text = replace_once(
+        text,
+        """    VIDEO_Close(&self->asFront.video);
+
+    // TODO: uncomment
+""",
+        """    if (self->device->video == &self->asFront.video) {
+        self->device->video = NULL;
+    }
+
+    VIDEO_Close(&self->asFront.video);
+
+    // TODO: uncomment
+""",
+        "clear device-wide GL video pointer",
+    )
+    devpmglf_c.write_text(text, encoding="utf-8")
+
+    text = gstored_c.read_text(encoding="utf-8")
+    text = replace_once(
+        text,
+        """br_geometry_stored* GeometryStoredGLAllocate(br_geometry_v1_model* gv1model, const char* id, br_renderer* r, struct v11model* model) {
+    size_t total_vertices, total_faces;
+    br_geometry_stored* self;
+
+    self = BrResAllocate""",
+        """br_geometry_stored* GeometryStoredGLAllocate(br_geometry_v1_model* gv1model, const char* id, br_renderer* r, struct v11model* model) {
+    size_t total_vertices, total_faces;
+    br_geometry_stored* self;
+
+    /*
+     * Use the device-owned GL context. Do not dereference r->pixelmap here:
+     * the cockpit-crash dump showed that pointer holding a non-canonical
+     * stale/corrupt value at this exact allocation site.
+     */
+    if (gv1model == NULL || gv1model->device == NULL || gv1model->device->video == NULL)
+        return NULL;
+
+    self = BrResAllocate""",
+        "guard stable GL video context",
+    )
+    text = replace_once(
+        text,
+        """    self->gl_vao = create_vao(&r->pixelmap->screen->asFront.video, self->gl_vbo_posn, self->gl_vbo, self->gl_ibo);""",
+        """    self->gl_vao = create_vao(gv1model->device->video, self->gl_vbo_posn, self->gl_vbo, self->gl_ibo);""",
+        "stored geometry stable GL video context",
+    )
+    gstored_c.write_text(text, encoding="utf-8")
+
+
 def main() -> int:
     if len(sys.argv) != 2:
         print(f"Usage: {Path(sys.argv[0]).name} /path/to/dethrace-v0.10.1", file=sys.stderr)
@@ -216,16 +333,21 @@ def main() -> int:
     allsys = root / "src/DETHRACE/pc-all/allsys.c"
     grafdata = root / "src/DETHRACE/common/grafdata.c"
     loading = root / "src/DETHRACE/common/loading.c"
+    device_h = root / "lib/BRender-v1.3.2/drivers/glrend/device.h"
+    device_c = root / "lib/BRender-v1.3.2/drivers/glrend/device.c"
+    devpmglf_c = root / "lib/BRender-v1.3.2/drivers/glrend/devpmglf.c"
+    gstored_c = root / "lib/BRender-v1.3.2/drivers/glrend/gstored.c"
 
-    for path in (allsys, grafdata, loading):
+    for path in (allsys, grafdata, loading, device_h, device_c, devpmglf_c, gstored_c):
         if not path.is_file():
             raise FileNotFoundError(path)
 
     patch_allsys(allsys)
     patch_grafdata(grafdata)
     patch_loading(loading)
+    patch_gl_video_context(device_h, device_c, devpmglf_c, gstored_c)
 
-    print("Applied Modernizer v1.5 source port to Dethrace v0.10.1")
+    print("Applied Modernizer v1.5 source port + cockpit renderer stability fix to Dethrace v0.10.1")
     return 0
 
 
