@@ -3,7 +3,7 @@ name: Build current Modernizer test
 on:
   push:
     branches:
-      - chatgpt/ped-completion-guard-v18-20261003
+      - chatgpt/release-candidate-1-20261003
     paths:
       - "source-port/**"
       - ".github/workflows/build-current-test.yml"
@@ -84,8 +84,11 @@ jobs:
         run: python modernizer/source-port/apply-pratcam-directblit-lock-v17.py dethrace
 
       - name: Apply pedestrian completion guard v18
+        run: python modernizer/source-port/apply-ped-completion-guard-v18.py dethrace
+
+      - name: Apply RC1 authoritative pedestrian completion
         run: |
-          python modernizer/source-port/apply-ped-completion-guard-v18.py dethrace
+          python modernizer/source-port/apply-release-candidate-1.py dethrace
           git -C dethrace diff --check
 
       - name: Set up Ninja
@@ -136,6 +139,6 @@ jobs:
       - name: Upload test runtime
         uses: actions/upload-artifact@v4
         with:
-          name: Carmageddon-Modernizer-Ped-Guard-v18-Test
+          name: Carmageddon-Modernizer-RC1-Test
           path: portable-runtime/**
           if-no-files-found: error
