@@ -311,6 +311,113 @@ def patch_extended_draw_distance(init_path: Path, depth_path: Path, brucetrk_pat
     brucetrk_path.write_text(bruce_text, encoding="utf-8")
 
 
+
+def patch_extended_object_detail(car_path: Path, ped_path: Path, graphics_c_path: Path, graphics_h_path: Path) -> None:
+    # Keep full opponent-car geometry at distance in the 854-wide Modernizer
+    # path instead of switching to the original low-detail distance actors.
+    car_text = car_path.read_text(encoding="utf-8")
+    old_car = """            if (the_car->driver != eDriver_local_human && the_car->car_model_variable) {
+                distance_from_camera = Vector3DistanceSquared(&the_car->car_master_actor->t.t.translate.t,
+                                           (br_vector3*)gCamera_to_world.m[3])
+                    / gCar_simplification_factor[gGraf_spec_index][gCar_simplification_level];
+                if (gNet_mode != eNet_mode_none && gNet_players[gIt_or_fox].car == the_car) {
+                    distance_from_camera = 0.f;
+                }
+                for (i = 0; i < the_car->car_actor_count; i++) {
+                    if (the_car->car_model_actors[i].min_distance_squared <= distance_from_camera) {
+                        SwitchCarActor(the_car, i);
+                        break;
+                    }
+                }
+            }"""
+    new_car = """            if (the_car->driver != eDriver_local_human && the_car->car_model_variable) {
+                if (gGraf_spec_index == 1) {
+                    /*
+                     * Modernizer extended-detail mode: the original game
+                     * swaps opponents to simplified car actors as distance
+                     * increases. Keep the principal (0-distance) model for
+                     * the 854-wide path so the longer draw distance does not
+                     * expose low-detail car silhouettes.
+                     */
+                    if (the_car->current_car_actor != the_car->principal_car_actor) {
+                        SwitchCarActor(the_car, the_car->principal_car_actor);
+                    }
+                } else {
+                    distance_from_camera = Vector3DistanceSquared(&the_car->car_master_actor->t.t.translate.t,
+                                               (br_vector3*)gCamera_to_world.m[3])
+                        / gCar_simplification_factor[gGraf_spec_index][gCar_simplification_level];
+                    if (gNet_mode != eNet_mode_none && gNet_players[gIt_or_fox].car == the_car) {
+                        distance_from_camera = 0.f;
+                    }
+                    for (i = 0; i < the_car->car_actor_count; i++) {
+                        if (the_car->car_model_actors[i].min_distance_squared <= distance_from_camera) {
+                            SwitchCarActor(the_car, i);
+                            break;
+                        }
+                    }
+                }
+            }"""
+    car_text = replace_once(car_text, old_car, new_car, "full-distance opponent car models")
+    car_path.write_text(car_text, encoding="utf-8")
+
+    # Pedestrians/pickups are normally only processed/rendered inside an
+    # 11-unit X/Z square. Preserve that simulation radius, but enqueue a
+    # camera-facing static sprite out to the 500-unit Modernizer far plane.
+    ped_text = ped_path.read_text(encoding="utf-8")
+    old_ped = """            if (the_pedestrian->actor->parent == gDont_render_actor
+                && (x_delta > ACTIVE_PED_DXDZ || z_delta > ACTIVE_PED_DXDZ)) {
+                the_pedestrian->active = 0;
+            } else if (the_pedestrian->hit_points == -100) {"""
+    new_ped = """            if (the_pedestrian->actor->parent == gDont_render_actor
+                && (x_delta > ACTIVE_PED_DXDZ || z_delta > ACTIVE_PED_DXDZ)) {
+                the_pedestrian->active = 0;
+
+                /*
+                 * Modernizer extended draw distance: render the already
+                 * loaded pedestrian/pickup sprite at long range without
+                 * running its AI/path simulation. Original gameplay still
+                 * activates it only inside ACTIVE_PED_DXDZ.
+                 */
+                if (gGraf_spec_index == 1
+                    && x_delta <= 500.0f
+                    && z_delta <= 500.0f
+                    && (gPedestrians_on || the_pedestrian->ref_number >= 100)
+                    && the_pedestrian->hit_points != -100) {
+                    gCurrent_lollipop_index = -1;
+                    MungePedModel(the_pedestrian);
+                }
+            } else if (the_pedestrian->hit_points == -100) {"""
+    ped_text = replace_once(ped_text, old_ped, new_ped, "long-distance pedestrian sprite rendering")
+    ped_path.write_text(ped_text, encoding="utf-8")
+
+    # Some Carmageddon races contain well over 100 pedestrian sprites (the
+    # stock lollipop queue limit). A 500-unit render radius can legitimately
+    # need several hundred in one frame.
+    graphics_c = graphics_c_path.read_text(encoding="utf-8")
+    graphics_c = replace_once(
+        graphics_c,
+        "br_actor* gLollipops[100];",
+        "br_actor* gLollipops[1024];",
+        "expanded lollipop queue storage",
+    )
+    graphics_c = replace_once(
+        graphics_c,
+        "    } else if (gNumber_of_lollipops >= 100) {",
+        "    } else if (gNumber_of_lollipops >= COUNT_OF(gLollipops)) {",
+        "expanded lollipop queue limit",
+    )
+    graphics_c_path.write_text(graphics_c, encoding="utf-8")
+
+    graphics_h = graphics_h_path.read_text(encoding="utf-8")
+    graphics_h = replace_once(
+        graphics_h,
+        "extern br_actor* gLollipops[100];",
+        "extern br_actor* gLollipops[1024];",
+        "expanded lollipop queue declaration",
+    )
+    graphics_h_path.write_text(graphics_h, encoding="utf-8")
+
+
 def main() -> int:
     if len(sys.argv) != 2:
         print(f"Usage: {Path(sys.argv[0]).name} /path/to/dethrace-v0.10.1", file=sys.stderr)
@@ -324,8 +431,12 @@ def main() -> int:
     init = root / "src/DETHRACE/common/init.c"
     depth = root / "src/DETHRACE/common/depth.c"
     brucetrk = root / "src/DETHRACE/common/brucetrk.c"
+    car = root / "src/DETHRACE/common/car.c"
+    pedestrn = root / "src/DETHRACE/common/pedestrn.c"
+    graphics_c = root / "src/DETHRACE/common/graphics.c"
+    graphics_h = root / "src/DETHRACE/common/graphics.h"
 
-    for path in (allsys, grafdata, displays, loading, init, depth, brucetrk):
+    for path in (allsys, grafdata, displays, loading, init, depth, brucetrk, car, pedestrn, graphics_c, graphics_h):
         if not path.is_file():
             raise FileNotFoundError(path)
 
@@ -334,8 +445,9 @@ def main() -> int:
     patch_displays(displays)
     patch_loading(loading)
     patch_extended_draw_distance(init, depth, brucetrk)
+    patch_extended_object_detail(car, pedestrn, graphics_c, graphics_h)
 
-    print("Applied Modernizer v1.5 source port + 500-unit draw-distance test to Dethrace v0.10.1")
+    print("Applied Modernizer v1.5 + 500-unit draw distance + full car LOD + distant sprites test")
     return 0
 
 
