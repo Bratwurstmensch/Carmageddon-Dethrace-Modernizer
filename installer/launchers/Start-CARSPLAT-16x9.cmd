@@ -11,8 +11,7 @@ if not exist "%SPLAT%\DATA\RACES\CASTLE2.TXT" goto missing
 cd /d "%SPLAT%"
 "%ROOT%\dethrace-16x9-v1.5.exe" --dir "%SPLAT%" -hires --opengl
 set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" echo Press any key to continue . . .
-pause >nul
+if not "%RC%"=="0" pause
 exit /b %RC%
 
 :missing

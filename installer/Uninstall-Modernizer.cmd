@@ -11,7 +11,7 @@ echo.
 if not "%RC%"=="0" (
     echo Uninstaller exited with error code %RC%.
     echo Press any key to continue . . .
-pause >nul
+    pause >nul
     exit /b %RC%
 )
 
@@ -20,7 +20,6 @@ echo The source installations will NOT be deleted.
 echo.
 echo Press any key to continue . . .
 pause >nul
-
 set "TARGET=%~dp0"
 set "CLEANUP=%TEMP%\dethrace-modernizer-target-cleanup-%RANDOM%%RANDOM%.cmd"
 > "%CLEANUP%" echo @echo off

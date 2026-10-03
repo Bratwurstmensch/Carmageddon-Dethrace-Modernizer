@@ -9,8 +9,7 @@ if not exist "%ROOT%\DATA\GENERAL.TXT" goto missing
 
 "%ROOT%\dethrace-16x9-v1.5.exe" --dir "%ROOT%" -hires --opengl
 set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" echo Press any key to continue . . .
-pause >nul
+if not "%RC%"=="0" pause
 exit /b %RC%
 
 :missing

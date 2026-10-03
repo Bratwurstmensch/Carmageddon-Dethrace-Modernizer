@@ -13,8 +13,7 @@ if not exist "%RUNTIME%\dethrace-4x3-v0.10.1.exe" goto missingruntime
 cd /d "%SPLAT%"
 "%RUNTIME%\dethrace-4x3-v0.10.1.exe" --dir "%SPLAT%" -hires --opengl
 set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" echo Press any key to continue . . .
-pause >nul
+if not "%RC%"=="0" pause
 exit /b %RC%
 
 :missing
