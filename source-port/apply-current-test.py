@@ -292,27 +292,31 @@ def patch_displays(path: Path) -> None:
     )
     text = replace_once(
         text,
-        "        x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_bar_x_pitch * pIndex;",
-        "        x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_bar_x_pitch * pIndex\n"
+        "    x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_x_pitch * pX_index;",
+        "    x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_x_pitch * pX_index\n"
         "            + (gBack_screen->width == 854 ? 214 : 0);",
         "A/P/O bar right-edge X",
     )
     text = replace_once(
         text,
-        "        gCurrent_graf_data->ps_dim_left,\n"
-        "        gCurrent_graf_data->ps_dim_top,\n"
-        "        gCurrent_graf_data->ps_dim_right,",
+        "    DimRectangle(gBack_screen, gCurrent_graf_data->ps_dim_left, pY, gCurrent_graf_data->ps_dim_right, gCurrent_graf_data->ps_dim_height + pY, 1);",
+        "    DimRectangle(gBack_screen,\n"
         "        gCurrent_graf_data->ps_dim_left + (gBack_screen->width == 854 ? 214 : 0),\n"
-        "        gCurrent_graf_data->ps_dim_top,\n"
-        "        gCurrent_graf_data->ps_dim_right + (gBack_screen->width == 854 ? 214 : 0),",
+        "        pY,\n"
+        "        gCurrent_graf_data->ps_dim_right + (gBack_screen->width == 854 ? 214 : 0),\n"
+        "        gCurrent_graf_data->ps_dim_height + pY,\n"
+        "        1);",
         "A/P/O dim rectangle right-edge X",
     )
     text = replace_once(
         text,
-        "        gCurrent_graf_data->ps_name_left,\n"
-        "        gCurrent_graf_data->ps_name_top,",
+        "    TransDRPixelmapText(gBack_screen, gCurrent_graf_data->ps_name_left, gCurrent_graf_data->ps_name_top_border + pY, gFonts + 6, pName, gBack_screen->width);",
+        "    TransDRPixelmapText(gBack_screen,\n"
         "        gCurrent_graf_data->ps_name_left + (gBack_screen->width == 854 ? 214 : 0),\n"
-        "        gCurrent_graf_data->ps_name_top,",
+        "        gCurrent_graf_data->ps_name_top_border + pY,\n"
+        "        gFonts + 6,\n"
+        "        pName,\n"
+        "        gBack_screen->width);",
         "A/P/O labels right-edge X",
     )
     path.write_text(text, encoding="utf-8")
