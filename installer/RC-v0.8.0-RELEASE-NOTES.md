@@ -1,37 +1,26 @@
-# v0.8.0-rc1 release notes
+# v0.8.0-rc2 release notes
 
-This release candidate consolidates the previously validated installer, German integration, portable runtime, XInput tooling and widescreen fixes into a target-first package intended for broader testing.
+RC2 is a release-cleanup build based on the already validated RC1 code and installer paths.
 
-## Changes since v0.7b
+## Changes since RC1
 
-- adds a standard Dethrace v0.10.1 4:3 runtime in an isolated `Runtime4x3` directory;
-- makes the standard Dethrace runtime part of every generated target installation;
-- allows XInput-only installs to work without an existing `dethrace.exe` in the original source;
-- makes German/Uncut-only targets directly runnable through Dethrace;
-- keeps the already validated 16:9 runtime and its SDL runtime isolated from the new 4:3 runtime;
-- retains the source-verified 49-file Damage HUD patch method introduced in v0.7b;
-- retains the English installer UI and target-first, read-only source model.
+- completes the English-language installer experience;
+- translates the two remaining Splat Pack XInput error messages;
+- suppresses the localized Windows `pause` prompt and displays an English prompt instead;
+- updates documentation to reflect completed RC validation;
+- keeps the original German localization string `TRF.` unchanged.
 
-## Already validated before RC1
+## Functional status
 
-The v0.7b package passed real-world `12` and `123` installs, main-game and Splat Pack launches, XInput, widescreen HUD placement, and target deletion through the uninstaller.
+The core component combinations have passed real-world testing:
 
-## RC1 validation focus
+- `2` — standard 4:3 + XInput;
+- `3` — standard 4:3 + German/Uncut;
+- `12` — 16:9 + XInput;
+- `123` — 16:9 + XInput + German/Uncut.
 
-The two newly relevant standalone paths are:
+The tested paths cover Carmageddon and Splat Pack where applicable, including XInput, German/Uncut integration, 16:9 behavior, source-verified Damage HUD patching and complete target-directory uninstall.
 
-- `2` — XInput on the standard 4:3 runtime;
-- `3` — German/Uncut on the standard 4:3 runtime.
+## Release model
 
-The previously validated `12` and `123` paths are intentionally kept as close as possible to v0.7b.
-
-### Validation status
-
-RC1 has passed real-world tests for the core component combinations:
-
-- `2` — standard 4:3 + XInput
-- `3` — standard 4:3 + German/Uncut
-- `12` — 16:9 + XInput
-- `123` — 16:9 + XInput + German/Uncut
-
-Target-first installation and complete target-directory uninstall were confirmed.
+The installer is target-first. Source installations are read-only, and no complete original Carmageddon or Splat Pack game data is included.
