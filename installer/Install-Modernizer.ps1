@@ -11,7 +11,7 @@ $OutputEncoding = [Console]::OutputEncoding
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
-$ModernizerVersion = "0.8.0-rc1"
+$ModernizerVersion = "0.8.0-rc2"
 $EngineVersion = "v1.5-source-port"
 $PackageRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $MainDeltaRoot = Join-Path $PackageRoot "German\Main"
