@@ -108,3 +108,33 @@ Validated correction coverage:
 - first external damage dim rectangle left/right: +214
 
 For the development test package this validated payload is bundled directly. Before a public release candidate, prefer converting it to source-verified generated deltas/transformations so complete modified game-data files are not published in the repository.
+
+
+## v0.6b validation
+
+The target-first installer model has now passed real-world validation for both principal installation paths.
+
+Validated on 2026-10-03:
+
+- `12` = 16:9 + XInput
+  - target-first copy from an original/English Carmageddon Max Pack installation
+  - main game launches
+  - Splat Pack launches
+  - XInput launchers work
+  - portable SDL runtime works in a fresh target directory
+  - validated 16:9 Damage HUD right-edge correction is applied successfully
+  - `Uninstall-Modernizer.cmd` removes the generated target installation successfully
+
+- `123` = 16:9 + XInput + German/Uncut
+  - German main-game integration succeeds
+  - German Splat Pack integration succeeds
+  - main game and Splat Pack launch successfully
+  - XInput works
+  - 16:9 HUD correction remains correct
+  - `Uninstall-Modernizer.cmd` removes the generated target installation successfully
+
+The source installations remained untouched in both tests.
+
+### Remaining release hardening
+
+Before a public release candidate, replace the temporary full-file Damage HUD test payload with a source-verified patch/delta method so the public package does not redistribute complete modified game-data files. Also keep the installer UI in English for the international release.
