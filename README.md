@@ -13,6 +13,14 @@ The long-term goal is a reproducible, user-friendly modernizer that can combine:
 
 > **No original Carmageddon game data is included in this repository.**
 
+## Release candidate
+
+A first public release-candidate branch is now available: `release-candidate-v0.8.0-rc1`.
+
+RC1 uses a **target-first** installer: users choose a new/empty target directory, then select optional 16:9, XInput and German/Uncut components. Source installations are read-only. A standard Dethrace v0.10.1 4:3 runtime is included in every target, while the validated v1.5 widescreen runtime is installed only when 16:9 is selected.
+
+The preceding v0.7b package passed real-world `12` (16:9 + XInput) and `123` (16:9 + XInput + German/Uncut) tests for both Carmageddon and Splat Pack, including the source-verified Damage HUD fix and target-directory uninstall.
+
 ## Current status
 
 **Source-port milestone: validated.** The widescreen/menu/mouse/HUD behavior has been confirmed in both Carmageddon and Splat Pack.
