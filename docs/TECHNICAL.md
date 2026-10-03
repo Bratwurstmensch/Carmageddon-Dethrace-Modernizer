@@ -96,3 +96,16 @@ Observed result:
 - original `dethrace.exe` and original game data were left untouched.
 
 File timestamps are not used as installation-state evidence; the installer tracks prior existence and backups in its install manifest.
+
+
+## 854-wide A/P/O HUD alignment
+
+The original high-resolution graphics data positions the Armour / Power / Offense block against the right edge of a 640-pixel surface. With the Modernizer 854-pixel widescreen graphics width, leaving those compiled coordinates unchanged makes the A/P/O block appear too far toward the center.
+
+The source port therefore adds the same 107-pixel widescreen offset to:
+
+- the A/P/O dim rectangle,
+- the A/P/O letter X position,
+- and every A/P/O bar X position.
+
+The adjustment is conditional on the 854-pixel graphics width, so the standard 4:3 runtime is unchanged.
