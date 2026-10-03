@@ -1,0 +1,115 @@
+name: Build RC runtimes
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release-candidate-v0.8.0-rc1
+    paths:
+      - "source-port/**"
+      - ".github/workflows/build-rc-runtimes.yml"
+
+jobs:
+  windows-x64:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout Modernizer
+        uses: actions/checkout@v4
+        with:
+          path: modernizer
+
+      - name: Checkout Dethrace v0.10.1 standard
+        uses: actions/checkout@v4
+        with:
+          repository: dethrace-labs/dethrace
+          ref: v0.10.1
+          submodules: recursive
+          path: dethrace-standard
+
+      - name: Checkout Dethrace v0.10.1 widescreen
+        uses: actions/checkout@v4
+        with:
+          repository: dethrace-labs/dethrace
+          ref: v0.10.1
+          submodules: recursive
+          path: dethrace-wide
+
+      - name: Apply validated v1.5 widescreen source port
+        run: python modernizer/source-port/apply-v1.5-source-port.py dethrace-wide
+
+      - name: Set up Ninja
+        uses: aseprite/get-ninja@main
+
+      - name: Set up MSVC x64
+        uses: ilammy/msvc-dev-cmd@v1.13.0
+        with:
+          arch: x64
+
+      - name: Set up SDL
+        uses: libsdl-org/setup-sdl@main
+        with:
+          add-to-environment: true
+          build-type: Release
+          cmake-generator: Ninja
+          discriminator: x64
+          version: 3-latest
+          version-sdl2-compat: 2-head
+          version-sdl12-compat: 1-head
+
+      - name: Configure standard runtime
+        run: |
+          cmake -S dethrace-standard -B dethrace-standard/build -GNinja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DBUILD_TESTS=OFF \
+            -DDETHRACE_INSTALL=ON \
+            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+            -DDETHRACE_PLATFORM_SDL1=ON \
+            -DDETHRACE_PLATFORM_SDL2=ON \
+            -DDETHRACE_PLATFORM_SDL3=ON \
+            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build standard runtime
+        run: cmake --build dethrace-standard/build --target dethrace
+
+      - name: Install standard runtime
+        run: cmake --install dethrace-standard/build --prefix rc-runtime/standard
+
+      - name: Configure widescreen runtime
+        run: |
+          cmake -S dethrace-wide -B dethrace-wide/build -GNinja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DBUILD_TESTS=OFF \
+            -DDETHRACE_INSTALL=ON \
+            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+            -DDETHRACE_PLATFORM_SDL1=ON \
+            -DDETHRACE_PLATFORM_SDL2=ON \
+            -DDETHRACE_PLATFORM_SDL3=ON \
+            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build widescreen runtime
+        run: cmake --build dethrace-wide/build --target dethrace
+
+      - name: Install widescreen runtime
+        run: cmake --install dethrace-wide/build --prefix rc-runtime/widescreen
+
+      - name: Normalize executable names
+        shell: pwsh
+        run: |
+          $standard = Get-ChildItem -LiteralPath rc-runtime/standard -Filter dethrace.exe -File -Recurse | Select-Object -First 1
+          $wide = Get-ChildItem -LiteralPath rc-runtime/widescreen -Filter dethrace.exe -File -Recurse | Select-Object -First 1
+          if (-not $standard -or -not $wide) { throw "One or both runtime executables are missing" }
+          Rename-Item -LiteralPath $standard.FullName -NewName "dethrace-4x3-v0.10.1.exe"
+          Rename-Item -LiteralPath $wide.FullName -NewName "dethrace-16x9-v1.5.exe"
+
+      - name: Upload RC runtimes
+        uses: actions/upload-artifact@v4
+        with:
+          name: carmageddon-modernizer-rc-runtimes
+          path: rc-runtime/**
+          if-no-files-found: error
