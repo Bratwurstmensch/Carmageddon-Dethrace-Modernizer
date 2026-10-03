@@ -43,6 +43,11 @@ jobs:
       - name: Apply validated v1.5 widescreen source port
         run: python modernizer/source-port/apply-v1.5-source-port.py dethrace-wide
 
+      - name: Apply controller UX to both runtimes
+        run: |
+          python modernizer/source-port/apply-controller-ux.py dethrace-standard
+          python modernizer/source-port/apply-controller-ux.py dethrace-wide
+
       - name: Set up Ninja
         uses: aseprite/get-ninja@main
 
