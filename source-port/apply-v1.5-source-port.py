@@ -129,62 +129,6 @@ def patch_grafdata(path: Path) -> None:
     path.write_text(text, encoding="utf-8")
 
 
-
-def patch_displays(path: Path) -> None:
-    text = path.read_text(encoding="utf-8")
-
-    old_dubrey = """void DubreyBar(int pX_index, int pY, int pColour) {
-    int x;
-
-    x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_x_pitch * pX_index;
-    BrPixelmapLine(gBack_screen, x, pY, x, gCurrent_graf_data->ps_bar_height + pY, pColour);
-}"""
-
-    new_dubrey = """void DubreyBar(int pX_index, int pY, int pColour) {
-    int x;
-
-    x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_x_pitch * pX_index;
-    if (gCurrent_graf_data->width == 854) {
-        x += 107;
-    }
-    BrPixelmapLine(gBack_screen, x, pY, x, gCurrent_graf_data->ps_bar_height + pY, pColour);
-}"""
-
-    text = replace_once(text, old_dubrey, new_dubrey, "widescreen A/P/O bars")
-
-    old_power = """void DoPSPowerHeadup(int pY, int pLevel, char* pName, int pBar_colour) {
-    char s[16];
-    int i;
-
-#ifdef DETHRACE_3DFX_PATCH
-    if (gBack_screen->type == BR_PMT_RGB_565) {
-        pBar_colour = PaletteEntry16Bit(gRender_palette, pBar_colour);
-    }
-#endif
-
-    DimRectangle(gBack_screen, gCurrent_graf_data->ps_dim_left, pY, gCurrent_graf_data->ps_dim_right, gCurrent_graf_data->ps_dim_height + pY, 1);
-    TransDRPixelmapText(gBack_screen, gCurrent_graf_data->ps_name_left, gCurrent_graf_data->ps_name_top_border + pY, gFonts + 6, pName, gBack_screen->width);"""
-
-    new_power = """void DoPSPowerHeadup(int pY, int pLevel, char* pName, int pBar_colour) {
-    char s[16];
-    int i;
-    int x_offset;
-
-#ifdef DETHRACE_3DFX_PATCH
-    if (gBack_screen->type == BR_PMT_RGB_565) {
-        pBar_colour = PaletteEntry16Bit(gRender_palette, pBar_colour);
-    }
-#endif
-
-    x_offset = gCurrent_graf_data->width == 854 ? 107 : 0;
-
-    DimRectangle(gBack_screen, gCurrent_graf_data->ps_dim_left + x_offset, pY, gCurrent_graf_data->ps_dim_right + x_offset, gCurrent_graf_data->ps_dim_height + pY, 1);
-    TransDRPixelmapText(gBack_screen, gCurrent_graf_data->ps_name_left + x_offset, gCurrent_graf_data->ps_name_top_border + pY, gFonts + 6, pName, gBack_screen->width);"""
-
-    text = replace_once(text, old_power, new_power, "widescreen A/P/O labels and dim rectangles")
-    path.write_text(text, encoding="utf-8")
-
-
 def patch_loading(path: Path) -> None:
     text = path.read_text(encoding="utf-8")
 
@@ -271,16 +215,14 @@ def main() -> int:
     root = Path(sys.argv[1]).resolve()
     allsys = root / "src/DETHRACE/pc-all/allsys.c"
     grafdata = root / "src/DETHRACE/common/grafdata.c"
-    displays = root / "src/DETHRACE/common/displays.c"
     loading = root / "src/DETHRACE/common/loading.c"
 
-    for path in (allsys, grafdata, displays, loading):
+    for path in (allsys, grafdata, loading):
         if not path.is_file():
             raise FileNotFoundError(path)
 
     patch_allsys(allsys)
     patch_grafdata(grafdata)
-    patch_displays(displays)
     patch_loading(loading)
 
     print("Applied Modernizer v1.5 source port to Dethrace v0.10.1")
