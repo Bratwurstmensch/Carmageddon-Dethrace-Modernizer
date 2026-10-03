@@ -292,6 +292,20 @@ def patch_displays(path: Path) -> None:
     )
     text = replace_once(
         text,
+        "                gProgram_state.current_car.lhands_x[hands_index] + gScreen_wobble_x,",
+        "                gProgram_state.current_car.lhands_x[hands_index] + gScreen_wobble_x\n"
+        "                    + (gBack_screen->width == 854 ? 107 : 0),",
+        "left cockpit hand X centering",
+    )
+    text = replace_once(
+        text,
+        "                gProgram_state.current_car.rhands_x[hands_index] + gScreen_wobble_x,",
+        "                gProgram_state.current_car.rhands_x[hands_index] + gScreen_wobble_x\n"
+        "                    + (gBack_screen->width == 854 ? 107 : 0),",
+        "right cockpit hand X centering",
+    )
+    text = replace_once(
+        text,
         "    x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_x_pitch * pX_index;",
         "    x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_x_pitch * pX_index\n"
         "            + (gBack_screen->width == 854 ? 214 : 0);",
