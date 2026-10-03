@@ -6,6 +6,7 @@ on:
     branches:
       - release-candidate-v0.8.0-rc1
       - release-candidate-v0.8.0-rc2
+      - draw-distance-500-test
     paths:
       - "source-port/**"
       - ".github/workflows/build-rc-runtimes.yml"
