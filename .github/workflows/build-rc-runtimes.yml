@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - release-candidate-v0.8.0-rc1
+      - release-candidate-v0.8.0-rc2
     paths:
       - "source-port/**"
       - ".github/workflows/build-rc-runtimes.yml"
