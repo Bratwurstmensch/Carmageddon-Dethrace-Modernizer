@@ -145,7 +145,7 @@ def patch_displays(path: Path) -> None:
 
     x = gCurrent_graf_data->ps_bar_left - gCurrent_graf_data->ps_x_pitch * pX_index;
     if (gCurrent_graf_data->width == 854) {
-        x += 107;
+        x += 214;
     }
     BrPixelmapLine(gBack_screen, x, pY, x, gCurrent_graf_data->ps_bar_height + pY, pColour);
 }"""
@@ -176,7 +176,7 @@ def patch_displays(path: Path) -> None:
     }
 #endif
 
-    x_offset = gCurrent_graf_data->width == 854 ? 107 : 0;
+    x_offset = gCurrent_graf_data->width == 854 ? 214 : 0;
 
     DimRectangle(gBack_screen, gCurrent_graf_data->ps_dim_left + x_offset, pY, gCurrent_graf_data->ps_dim_right + x_offset, gCurrent_graf_data->ps_dim_height + pY, 1);
     TransDRPixelmapText(gBack_screen, gCurrent_graf_data->ps_name_left + x_offset, gCurrent_graf_data->ps_name_top_border + pY, gFonts + 6, pName, gBack_screen->width);"""
