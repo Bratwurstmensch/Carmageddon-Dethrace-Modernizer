@@ -118,6 +118,7 @@ $VK = @{
     POWER         = 0x23
     OFFENSE       = 0x22
     ESCAPE        = 0x1B
+    HORN          = 0x48
 }
 
 $BTN = @{
@@ -218,6 +219,7 @@ try {
             if (($buttons -band $BTN.LB) -ne 0) { [void]$wanted.Add($VK.LOOKLEFT) }
             if (($buttons -band $BTN.RB) -ne 0) { [void]$wanted.Add($VK.LOOKRIGHT) }
             if (($buttons -band $BTN.RTHUMB) -ne 0) { [void]$wanted.Add($VK.COCKPIT) }
+            if (($buttons -band $BTN.LTHUMB) -ne 0) { [void]$wanted.Add($VK.HORN) }
         }
 
         Set-KeyState $wanted
