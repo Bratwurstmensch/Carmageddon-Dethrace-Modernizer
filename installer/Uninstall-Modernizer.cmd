@@ -10,14 +10,16 @@ set "RC=%ERRORLEVEL%"
 echo.
 if not "%RC%"=="0" (
     echo Uninstaller exited with error code %RC%.
-    pause
+    echo Press any key to continue . . .
+pause >nul
     exit /b %RC%
 )
 
 echo WARNING: After the next key press, the complete generated target directory will be deleted.
 echo The source installations will NOT be deleted.
 echo.
-pause
+echo Press any key to continue . . .
+pause >nul
 
 set "TARGET=%~dp0"
 set "CLEANUP=%TEMP%\dethrace-modernizer-target-cleanup-%RANDOM%%RANDOM%.cmd"
