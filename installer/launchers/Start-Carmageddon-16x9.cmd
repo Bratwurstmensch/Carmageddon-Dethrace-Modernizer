@@ -9,7 +9,8 @@ if not exist "%ROOT%\DATA\GENERAL.TXT" goto missing
 
 "%ROOT%\dethrace-16x9-v1.5.exe" --dir "%ROOT%" -hires --opengl
 set "RC=%ERRORLEVEL%"
-if not "%RC%"=="0" pause
+if not "%RC%"=="0" echo Press any key to continue . . .
+pause >nul
 exit /b %RC%
 
 :missing
@@ -17,5 +18,6 @@ echo Carmageddon data not found:
 echo %ROOT%\DATA\GENERAL.TXT
 echo.
 echo The Modernizer target installation is incomplete.
-pause
+echo Press any key to continue . . .
+pause >nul
 exit /b 2
