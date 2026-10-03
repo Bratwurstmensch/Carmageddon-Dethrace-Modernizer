@@ -214,11 +214,9 @@ def patch_graphics(path: Path) -> None:
         "cockpit artwork centering (software)",
     )
 
-    /*
-     * Rear-view OpenGL placement is handled by the centred sub-pixelmap
-     * allocation in init.c. Do not add +107 again to base_x here; doing so
-     * shifts the rendered mirror image inside its cockpit frame.
-     */
+    # Rear-view OpenGL placement is handled by the centred sub-pixelmap
+    # allocation in init.c. Do not add +107 again to base_x here; doing so
+    # shifts the rendered mirror image inside its cockpit frame.
     text = replace_once(
         text,
         "                    gScreen_wobble_x + gProgram_state.current_car.mirror_left,",
