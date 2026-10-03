@@ -114,6 +114,15 @@ jobs:
           Rename-Item -LiteralPath $standard.FullName -NewName "dethrace-4x3-v0.10.1.exe"
           Rename-Item -LiteralPath $wide.FullName -NewName "dethrace-16x9-v1.5.exe"
 
+      - name: Stage controller scripts
+        shell: pwsh
+        run: |
+          New-Item -ItemType Directory -Path rc-runtime/Controller -Force | Out-Null
+          Copy-Item modernizer/installer/controller/Carmageddon-XInput.ps1 rc-runtime/Controller/Carmageddon-XInput.ps1 -Force
+          Copy-Item modernizer/installer/controller/Carmageddon-SplatPack-XInput.ps1 rc-runtime/Controller/Carmageddon-SplatPack-XInput.ps1 -Force
+          Copy-Item modernizer/installer/controller/Carmageddon-XInput-Native.ps1 rc-runtime/Controller/Carmageddon-XInput-Native.ps1 -Force
+          Copy-Item modernizer/installer/controller/Carmageddon-SplatPack-XInput-Native.ps1 rc-runtime/Controller/Carmageddon-SplatPack-XInput-Native.ps1 -Force
+
       - name: Upload RC runtimes
         uses: actions/upload-artifact@v4
         with:
