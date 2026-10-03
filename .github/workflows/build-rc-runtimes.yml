@@ -6,6 +6,7 @@ on:
     branches:
       - release-candidate-v0.8.0-rc1
       - release-candidate-v0.8.0-rc2
+      - chatgpt/installer-v19-integration-20261004
     paths:
       - "source-port/**"
       - ".github/workflows/build-rc-runtimes.yml"
@@ -41,6 +42,68 @@ jobs:
 
       - name: Apply validated v1.5 widescreen source port
         run: python modernizer/source-port/apply-v1.5-source-port.py dethrace-wide
+
+      - name: Apply current extended-detail and centering patch
+        run: python modernizer/source-port/apply-current-test.py dethrace-wide
+
+      - name: Apply restored draw-distance mirror and cutscene fixes
+        run: python modernizer/source-port/apply-current-fixes-v2.py dethrace-wide
+
+      - name: Apply remaining overlay alignment fixes
+        run: python modernizer/source-port/apply-overlay-alignment-v3.py dethrace-wide
+
+      - name: Apply final cockpit speed gear and damage alignment
+        run: python modernizer/source-port/apply-cockpit-final-overlays-v4.py dethrace-wide
+
+      - name: Fine-tune cockpit instruments and damage overlay
+        run: python modernizer/source-port/apply-cockpit-finetune-v5.py dethrace-wide
+
+      - name: Apply measured final cockpit fine-tune
+        run: python modernizer/source-port/apply-cockpit-finetune-v6.py dethrace-wide
+
+      - name: Apply final cockpit micro-adjustment
+        run: python modernizer/source-port/apply-cockpit-finetune-v7.py dethrace-wide
+
+      - name: Apply cockpit race-start stability guards
+        run: python modernizer/source-port/apply-cockpit-stability-v8.py dethrace-wide
+
+      - name: Apply final cockpit visual polish
+        run: python modernizer/source-port/apply-cockpit-final-v9.py dethrace-wide
+
+      - name: Apply final hand-only micro-adjustment
+        run: python modernizer/source-port/apply-cockpit-final-v10.py dethrace-wide
+
+      - name: Apply cockpit instrument stability v11
+        run: python modernizer/source-port/apply-cockpit-stability-v11.py dethrace-wide
+
+      - name: Apply final hand-only micro-adjustment v12
+        run: python modernizer/source-port/apply-cockpit-final-v12.py dethrace-wide
+
+      - name: Apply native analog XInput v13
+        run: python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-wide
+
+      - name: Apply cockpit crash diagnostic v14
+        run: python modernizer/source-port/apply-cockpit-crashdiag-v14.py dethrace-wide
+
+      - name: Apply Pratcam stability v15
+        run: python modernizer/source-port/apply-pratcam-stability-v15.py dethrace-wide
+
+      - name: Apply Pratcam direct-blit v16
+        run: python modernizer/source-port/apply-pratcam-directblit-v16.py dethrace-wide
+
+      - name: Apply Pratcam direct-blit lock v17
+        run: python modernizer/source-port/apply-pratcam-directblit-lock-v17.py dethrace-wide
+
+      - name: Apply pedestrian completion guard v18
+        run: python modernizer/source-port/apply-ped-completion-guard-v18.py dethrace-wide
+
+      - name: Apply RC1 authoritative pedestrian completion
+        run: python modernizer/source-port/apply-release-candidate-1.py dethrace-wide
+
+      - name: Apply cockpit renderer stability v19
+        run: |
+          python modernizer/source-port/apply-cockpit-rendererfix-v19.py dethrace-wide
+          git -C dethrace-wide diff --check
 
       - name: Set up Ninja
         uses: aseprite/get-ninja@main
