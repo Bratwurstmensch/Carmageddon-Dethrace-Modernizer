@@ -87,23 +87,23 @@ static LONG WINAPI Modernizer_CrashDiagnostic(EXCEPTION_POINTERS* exception_info
     length = _snprintf(
         buffer,
         sizeof(buffer) - 1,
-        "Carmageddon Modernizer cockpit crash diagnostic v14\r\n"
-        "exception_code=0x%08lX\r\n"
-        "exception_address=0x%p\r\n"
-        "module_base=0x%p\r\n"
-        "exception_rva=0x%p\r\n"
-        "render_stage=%ld\r\n"
-        "cockpit_on=%d\r\n"
-        "cockpit_image_index=%d\r\n"
-        "mirror_on=%d\r\n"
-        "which_view=%d\r\n"
-        "map_mode=%d\r\n"
-        "back_screen=0x%p\r\n"
-        "render_screen=0x%p\r\n"
-        "depth_buffer=0x%p\r\n"
-        "rearview_screen=0x%p\r\n"
-        "rearview_depth_buffer=0x%p\r\n"
-        "rearview_camera=0x%p\r\n",
+        "Carmageddon Modernizer cockpit crash diagnostic v14\\r\\n"
+        "exception_code=0x%08lX\\r\\n"
+        "exception_address=0x%p\\r\\n"
+        "module_base=0x%p\\r\\n"
+        "exception_rva=0x%p\\r\\n"
+        "render_stage=%ld\\r\\n"
+        "cockpit_on=%d\\r\\n"
+        "cockpit_image_index=%d\\r\\n"
+        "mirror_on=%d\\r\\n"
+        "which_view=%d\\r\\n"
+        "map_mode=%d\\r\\n"
+        "back_screen=0x%p\\r\\n"
+        "render_screen=0x%p\\r\\n"
+        "depth_buffer=0x%p\\r\\n"
+        "rearview_screen=0x%p\\r\\n"
+        "rearview_depth_buffer=0x%p\\r\\n"
+        "rearview_camera=0x%p\\r\\n",
         (unsigned long)exception_code,
         (void*)exception_address,
         (void*)module_base,
@@ -127,7 +127,7 @@ static LONG WINAPI Modernizer_CrashDiagnostic(EXCEPTION_POINTERS* exception_info
     if (length >= (int)sizeof(buffer)) {
         length = sizeof(buffer) - 1;
     }
-    buffer[length] = '\0';
+    buffer[length] = '\\0';
 
     file = CreateFileA(
         "cockpit-crash.log",
