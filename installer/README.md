@@ -154,3 +154,12 @@ Validated successfully on 2026-10-03:
 - no complete modified Damage HUD game-data files are shipped in the test package
 
 This confirms the release-hardened Damage HUD patch path in real-world use.
+
+
+## v0.8.0 RC1
+
+The release-candidate installer source is now integrated under `installer/`.
+
+RC1 always installs an isolated standard Dethrace v0.10.1 4:3 runtime under `Runtime4x3/`. Optional 16:9 installs the separately validated v1.5 widescreen runtime at the target root. This avoids DLL/runtime conflicts and makes XInput-only and German/Uncut-only targets directly runnable without requiring a pre-existing `dethrace.exe` in the user's source installation.
+
+The release package keeps source installations read-only and contains no complete original Carmageddon game data. The 49-file widescreen Damage HUD correction is performed from exact source hashes using minimal source-verified replacements and exact target-hash verification.
