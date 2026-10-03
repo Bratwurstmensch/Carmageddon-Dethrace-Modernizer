@@ -107,16 +107,16 @@ $VK = @{
     HANDBRAKE     = 0x20
     REPAIR        = 0x08
     RECOVER       = 0x2D
-    REPLAY        = 0x0D
     WHEELSPIN     = 0x5A
     COCKPIT       = 0x43
     LOOKLEFT      = 0x51
     LOOKFORWARD   = 0x57
     LOOKRIGHT     = 0x45
     MAP           = 0x09
-    ARMOUR        = 0x2E
-    POWER         = 0x23
-    OFFENSE       = 0x22
+    CURSOR_LEFT   = 0x25
+    CURSOR_UP     = 0x26
+    CURSOR_RIGHT  = 0x27
+    CURSOR_DOWN   = 0x28
     ESCAPE        = 0x1B
     HORN          = 0x48
 }
@@ -205,12 +205,12 @@ try {
             if (($buttons -band $BTN.B) -ne 0) { [void]$wanted.Add($VK.WHEELSPIN) }
             if (($buttons -band $BTN.X) -ne 0) { [void]$wanted.Add($VK.REPAIR) }
             if (($buttons -band $BTN.Y) -ne 0) { [void]$wanted.Add($VK.RECOVER) }
-            if (($buttons -band $BTN.BACK) -ne 0) { [void]$wanted.Add($VK.REPLAY) }
+            if (($buttons -band $BTN.BACK) -ne 0) { [void]$wanted.Add($VK.MAP) }
             if (($buttons -band $BTN.START) -ne 0) { [void]$wanted.Add($VK.ESCAPE) }
-            if (($buttons -band $BTN.DPAD_LEFT) -ne 0) { [void]$wanted.Add($VK.ARMOUR) }
-            if (($buttons -band $BTN.DPAD_UP) -ne 0) { [void]$wanted.Add($VK.POWER) }
-            if (($buttons -band $BTN.DPAD_RIGHT) -ne 0) { [void]$wanted.Add($VK.OFFENSE) }
-            if (($buttons -band $BTN.DPAD_DOWN) -ne 0) { [void]$wanted.Add($VK.MAP) }
+            if (($buttons -band $BTN.DPAD_LEFT) -ne 0) { [void]$wanted.Add($VK.CURSOR_LEFT) }
+            if (($buttons -band $BTN.DPAD_UP) -ne 0) { [void]$wanted.Add($VK.CURSOR_UP) }
+            if (($buttons -band $BTN.DPAD_RIGHT) -ne 0) { [void]$wanted.Add($VK.CURSOR_RIGHT) }
+            if (($buttons -band $BTN.DPAD_DOWN) -ne 0) { [void]$wanted.Add($VK.CURSOR_DOWN) }
 
             if ($g.sThumbRX -lt -$lookDeadZone) { [void]$wanted.Add($VK.LOOKLEFT) }
             elseif ($g.sThumbRX -gt $lookDeadZone) { [void]$wanted.Add($VK.LOOKRIGHT) }
