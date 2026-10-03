@@ -163,3 +163,17 @@ The release-candidate installer source is now integrated under `installer/`.
 RC1 always installs an isolated standard Dethrace v0.10.1 4:3 runtime under `Runtime4x3/`. Optional 16:9 installs the separately validated v1.5 widescreen runtime at the target root. This avoids DLL/runtime conflicts and makes XInput-only and German/Uncut-only targets directly runnable without requiring a pre-existing `dethrace.exe` in the user's source installation.
 
 The release package keeps source installations read-only and contains no complete original Carmageddon game data. The 49-file widescreen Damage HUD correction is performed from exact source hashes using minimal source-verified replacements and exact target-hash verification.
+
+
+## RC1 final validation
+
+Validated successfully in real-world testing:
+
+- `2` = standard 4:3 Dethrace + XInput
+- `3` = standard 4:3 Dethrace + German/Uncut
+- `12` = 16:9 + XInput
+- `123` = 16:9 + XInput + German/Uncut
+
+For the tested paths, both Carmageddon and Splat Pack launch successfully where applicable, XInput works, German/Uncut integration works, the source-verified 16:9 Damage HUD correction remains correct, and the target-first uninstaller removes the generated target installation successfully.
+
+This completes validation of the core RC1 component combinations.
