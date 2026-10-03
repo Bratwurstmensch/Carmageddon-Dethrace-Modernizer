@@ -419,31 +419,40 @@ def patch_extended_object_detail(car_path: Path, ped_path: Path, graphics_c_path
 
 
 
-def patch_controller_ux(controls_path: Path) -> None:
-    # The portable XInput mapper emits INSERT for Y. Stock Dethrace does not
-    # bind INSERT to recovery during a race, so add a one-shot direct recovery
-    # trigger while preserving the game's normal recovery checks/cost/state.
-    controls_text = controls_path.read_text(encoding="utf-8")
+def patch_controller_menu(intrface_path: Path) -> None:
+    # The portable mapper keeps the D-pad's original in-race bindings:
+    # left=Delete (Armour), up=End (Power), right=PageDown (Offense),
+    # down=Tab (Map). While an interface screen is active, accept those
+    # same keys as the four cursor directions. This keeps race controls
+    # unchanged while making menu navigation feel like a modern controller.
+    intrface_text = intrface_path.read_text(encoding="utf-8")
 
-    controls_text = replace_once(
-        controls_text,
-        "    static int stopped_repairing;\n\n    car = GetCarSpec(eVehicle_self, 0);",
-        """    static int stopped_repairing;
-    static int modernizer_recover_key_was_down;
+    replacements = [
+        (
+            "(PDKeyDown(KEY_LEFT) || PDKeyDown(KEY_KP_4) || last_press == KEY_LEFT)",
+            "(PDKeyDown(KEY_LEFT) || PDKeyDown(KEY_KP_4) || PDKeyDown(KEY_DELETE) || last_press == KEY_LEFT)",
+            "controller D-pad menu left",
+        ),
+        (
+            "(PDKeyDown(KEY_RIGHT) || PDKeyDown(KEY_KP_6) || last_press == KEY_RIGHT)",
+            "(PDKeyDown(KEY_RIGHT) || PDKeyDown(KEY_KP_6) || PDKeyDown(KEY_PAGEDOWN) || last_press == KEY_RIGHT)",
+            "controller D-pad menu right",
+        ),
+        (
+            "(PDKeyDown(KEY_UP) || PDKeyDown(KEY_KP_8) || last_press == KEY_UP)",
+            "(PDKeyDown(KEY_UP) || PDKeyDown(KEY_KP_8) || PDKeyDown(KEY_END) || last_press == KEY_UP)",
+            "controller D-pad menu up",
+        ),
+        (
+            "(PDKeyDown(KEY_DOWN) || PDKeyDown(KEY_KP_2) || last_press == KEY_DOWN)",
+            "(PDKeyDown(KEY_DOWN) || PDKeyDown(KEY_KP_2) || PDKeyDown(KEY_TAB) || last_press == KEY_DOWN)",
+            "controller D-pad menu down",
+        ),
+    ]
+    for old, new, label in replacements:
+        intrface_text = replace_once(intrface_text, old, new, label)
 
-    car = GetCarSpec(eVehicle_self, 0);
-
-    if (PDKeyDown(KEY_INSERT)) {
-        if (!modernizer_recover_key_was_down && !gEntering_message) {
-            SetRecovery();
-        }
-        modernizer_recover_key_was_down = 1;
-    } else {
-        modernizer_recover_key_was_down = 0;
-    }""",
-        "controller Y/INSERT direct recovery",
-    )
-    controls_path.write_text(controls_text, encoding="utf-8")
+    intrface_path.write_text(intrface_text, encoding="utf-8")
 
 def main() -> int:
     if len(sys.argv) != 2:
@@ -462,6 +471,7 @@ def main() -> int:
     pedestrn = root / "src/DETHRACE/common/pedestrn.c"
     graphics_c = root / "src/DETHRACE/common/graphics.c"
     graphics_h = root / "src/DETHRACE/common/graphics.h"
+    intrface = root / "src/DETHRACE/common/intrface.c"
 
     for path in (allsys, grafdata, displays, loading, init, depth, brucetrk, car, pedestrn, graphics_c, graphics_h):
         if not path.is_file():
