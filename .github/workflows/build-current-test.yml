@@ -3,7 +3,7 @@ name: Build current Modernizer test
 on:
   push:
     branches:
-      - chatgpt/cockpit-map-controller-20261003
+      - chatgpt/cockpit-wide-fixes-20261003
     paths:
       - "source-port/**"
       - ".github/workflows/build-current-test.yml"
