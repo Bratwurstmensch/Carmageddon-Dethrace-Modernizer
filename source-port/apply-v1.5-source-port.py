@@ -419,11 +419,10 @@ def patch_extended_object_detail(car_path: Path, ped_path: Path, graphics_c_path
 
 
 
-def patch_controller_ux(controls_path: Path, intrface_path: Path) -> None:
-    # The portable XInput mapper already emits INSERT for Y. Stock Dethrace
-    # does not bind INSERT to recovery during a race (recovery is otherwise
-    # exposed through the in-race menu), so add a one-shot direct recovery
-    # trigger while preserving all normal recovery cost/state checks.
+def patch_controller_ux(controls_path: Path) -> None:
+    # The portable XInput mapper emits INSERT for Y. Stock Dethrace does not
+    # bind INSERT to recovery during a race, so add a one-shot direct recovery
+    # trigger while preserving the game's normal recovery checks/cost/state.
     controls_text = controls_path.read_text(encoding="utf-8")
 
     controls_text = replace_once(
@@ -445,42 +444,6 @@ def patch_controller_ux(controls_path: Path, intrface_path: Path) -> None:
         "controller Y/INSERT direct recovery",
     )
     controls_path.write_text(controls_text, encoding="utf-8")
-
-    # The XInput mapper uses the D-pad for the original in-race Armour,
-    # Power, Offense and Map controls:
-    #   left=DELETE, up=END, right=PAGEDOWN, down=TAB.
-    # Accept those same physical keys as menu directions while an interface
-    # screen is active. This gives D-pad menu navigation without changing the
-    # in-race D-pad behaviour or requiring the external mapper to know whether
-    # the game is currently in a menu.
-    intrface_text = intrface_path.read_text(encoding="utf-8")
-    replacements = [
-        (
-            "(PDKeyDown(KEY_LEFT) || PDKeyDown(KEY_KP_4) || last_press == KEY_LEFT)",
-            "(PDKeyDown(KEY_LEFT) || PDKeyDown(KEY_KP_4) || PDKeyDown(KEY_DELETE) || last_press == KEY_LEFT)",
-            "controller D-pad menu left",
-        ),
-        (
-            "(PDKeyDown(KEY_RIGHT) || PDKeyDown(KEY_KP_6) || last_press == KEY_RIGHT)",
-            "(PDKeyDown(KEY_RIGHT) || PDKeyDown(KEY_KP_6) || PDKeyDown(KEY_PAGEDOWN) || last_press == KEY_RIGHT)",
-            "controller D-pad menu right",
-        ),
-        (
-            "(PDKeyDown(KEY_UP) || PDKeyDown(KEY_KP_8) || last_press == KEY_UP)",
-            "(PDKeyDown(KEY_UP) || PDKeyDown(KEY_KP_8) || PDKeyDown(KEY_END) || last_press == KEY_UP)",
-            "controller D-pad menu up",
-        ),
-        (
-            "(PDKeyDown(KEY_DOWN) || PDKeyDown(KEY_KP_2) || last_press == KEY_DOWN)",
-            "(PDKeyDown(KEY_DOWN) || PDKeyDown(KEY_KP_2) || PDKeyDown(KEY_TAB) || last_press == KEY_DOWN)",
-            "controller D-pad menu down",
-        ),
-    ]
-    for old, new, label in replacements:
-        intrface_text = replace_once(intrface_text, old, new, label)
-
-    intrface_path.write_text(intrface_text, encoding="utf-8")
-
 
 def main() -> int:
     if len(sys.argv) != 2:
