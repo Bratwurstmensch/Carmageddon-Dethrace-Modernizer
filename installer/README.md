@@ -138,3 +138,19 @@ The source installations remained untouched in both tests.
 ### Remaining release hardening
 
 Before a public release candidate, replace the temporary full-file Damage HUD test payload with a source-verified patch/delta method so the public package does not redistribute complete modified game-data files. Also keep the installer UI in English for the international release.
+
+
+## v0.7b source-patch validation
+
+Validated successfully on 2026-10-03:
+
+- target-first install path `12` (16:9 + XInput)
+- original/English Carmageddon Max Pack source
+- main game and Splat Pack launch successfully
+- source-verified Damage HUD patch applies successfully
+- all 49 supported CAR files are patched from verified source hashes
+- resulting HUD files match the known validated target hashes
+- Damage HUD remains correctly aligned to the right edge in-game
+- no complete modified Damage HUD game-data files are shipped in the test package
+
+This confirms the release-hardened Damage HUD patch path in real-world use.
