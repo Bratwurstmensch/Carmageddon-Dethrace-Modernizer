@@ -3,7 +3,7 @@ name: Build current Modernizer test
 on:
   push:
     branches:
-      - chatgpt/cockpit-crashdiag-v14-20261003
+      - chatgpt/cockpit-symbolmap-v14-20261003
     paths:
       - "source-port/**"
       - ".github/workflows/build-current-test.yml"
@@ -106,10 +106,19 @@ jobs:
             -DDETHRACE_PLATFORM_SDL2=ON \
             -DDETHRACE_PLATFORM_SDL3=ON \
             -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
-            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded \
+            -DCMAKE_EXE_LINKER_FLAGS="/MAP"
 
       - name: Build
         run: cmake --build dethrace/build --target dethrace
+
+      - name: Collect linker map
+        shell: pwsh
+        run: |
+          Get-ChildItem -LiteralPath dethrace/build -Filter *.map -File -Recurse | ForEach-Object {
+            Write-Host "MAP: $($_.FullName)"
+            Copy-Item -LiteralPath $_.FullName -Destination portable-dethrace.map
+          }
 
       - name: Install runtime
         run: cmake --install dethrace/build --prefix portable-runtime
@@ -124,6 +133,8 @@ jobs:
       - name: Upload test runtime
         uses: actions/upload-artifact@v4
         with:
-          name: Carmageddon-Modernizer-Cockpit-CrashDiag-v14-Test
-          path: portable-runtime/**
+          name: Carmageddon-Modernizer-Cockpit-SymbolMap-v14-Test
+          path: |
+            portable-runtime/**
+            portable-dethrace.map
           if-no-files-found: error
