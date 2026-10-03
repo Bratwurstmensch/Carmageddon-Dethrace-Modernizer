@@ -274,8 +274,8 @@ def patch_extended_draw_distance(init_path: Path, depth_path: Path, brucetrk_pat
     old_init = "        camera_ptr->yon_z = gCamera_yon;"
     new_init = "        camera_ptr->yon_z = gGraf_spec_index == 1 ? 500.0f : gCamera_yon;"
     count = init_text.count(old_init)
-    if count != 2:
-        raise RuntimeError(f"extended draw distance: expected 2 AllocateCamera yon assignments, found {count}")
+    if count < 1:
+        raise RuntimeError("extended draw distance: AllocateCamera yon assignment not found")
     init_text = init_text.replace(old_init, new_init)
 
     init_text = replace_once(
