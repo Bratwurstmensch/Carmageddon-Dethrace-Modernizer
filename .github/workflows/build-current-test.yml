@@ -3,7 +3,7 @@ name: Build current Modernizer test
 on:
   push:
     branches:
-      - chatgpt/cockpit-final-finetune-v7-20261003
+      - chatgpt/cockpit-stability-v8-20261003
     paths:
       - "source-port/**"
       - ".github/workflows/build-current-test.yml"
@@ -51,8 +51,11 @@ jobs:
         run: python modernizer/source-port/apply-cockpit-finetune-v6.py dethrace
 
       - name: Apply final cockpit micro-adjustment
+        run: python modernizer/source-port/apply-cockpit-finetune-v7.py dethrace
+
+      - name: Apply cockpit race-start stability guards
         run: |
-          python modernizer/source-port/apply-cockpit-finetune-v7.py dethrace
+          python modernizer/source-port/apply-cockpit-stability-v8.py dethrace
           git -C dethrace diff --check
 
       - name: Set up Ninja
@@ -103,6 +106,6 @@ jobs:
       - name: Upload test runtime
         uses: actions/upload-artifact@v4
         with:
-          name: Carmageddon-Modernizer-Cockpit-Finetune-v7-Test
+          name: Carmageddon-Modernizer-Cockpit-Stability-v8-Test
           path: portable-runtime/**
           if-no-files-found: error
