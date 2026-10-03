@@ -24,3 +24,14 @@ The two newly relevant standalone paths are:
 - `3` — German/Uncut on the standard 4:3 runtime.
 
 The previously validated `12` and `123` paths are intentionally kept as close as possible to v0.7b.
+
+### Validation status
+
+RC1 has passed real-world tests for the core component combinations:
+
+- `2` — standard 4:3 + XInput
+- `3` — standard 4:3 + German/Uncut
+- `12` — 16:9 + XInput
+- `123` — 16:9 + XInput + German/Uncut
+
+Target-first installation and complete target-directory uninstall were confirmed.
