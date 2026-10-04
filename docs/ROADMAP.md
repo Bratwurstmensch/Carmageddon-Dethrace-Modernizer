@@ -1,38 +1,50 @@
 # Roadmap
 
-## 1. Reproduce v1.5 in source
+## Completed for v1.0-rc1
 
-- port menu/video centering into Dethrace source
-- port full-width interface clearing
-- port centered-menu mouse mapping
-- port centered race/event messages
-- verify main game and Splat Pack
-- compare behavior against the validated v1.5 proof-of-concept
+- [x] reproduce the original widescreen proof-of-concept as source changes against Dethrace v0.10.1;
+- [x] validate Carmageddon and Splat Pack;
+- [x] center menus/videos and correct centered-menu mouse mapping;
+- [x] align widescreen HUD/race overlays;
+- [x] render the 16:9 cockpit 3D world across the complete 854×480 frame;
+- [x] align the 16:9 rear-view render surface;
+- [x] provide a separate 4:3 Modernizer runtime;
+- [x] increase HiRes draw distance to 500 units;
+- [x] retain full-detail opponent cars at distance;
+- [x] reduce distant pedestrian/object pop-in without extending stock gameplay activation;
+- [x] implement native analog XInput steering and triggers;
+- [x] build a non-destructive Windows installer with backup/rollback/uninstall behavior;
+- [x] integrate supported user-owned German/Uncut data without redistributing original assets;
+- [x] detect and import eXoDOS-style CUE/BIN cutscenes;
+- [x] extract Red Book CD audio losslessly from CUE/BIN;
+- [x] add RC9 OGG-first/WAV-fallback CD-audio playback;
+- [x] support the verified alternate encrypted eXoDOS Damage HUD data representation;
+- [x] record the successful RC9 manual validation;
+- [x] add a reproducible v1.0-rc1 runtime build workflow.
 
-## 2. Package cleanly
+## Before the first public binary release
 
-- reproducible Windows build
-- portable relative-path launchers
-- XInput option
-- checksums
-- release notes
+- [ ] synchronize the repository installer source byte-for-byte with the manually tested RC9 package;
+- [ ] run/inspect the new v1.0-rc1 GitHub Actions runtime build;
+- [ ] resolve or document any reproducible-build differences;
+- [ ] ask Dethrace maintainers for clarification on the repository's mixed GPLv3 vs older README licensing wording;
+- [ ] prepare final v1.0-rc1 release notes and artifact;
+- [ ] perform one final clean-source install / launch / uninstall smoke test from the publishable package.
 
-## 3. German integration
+## Upstream work
 
-- detect user-owned German Carmageddon data
-- identify which German assets can be copied locally
-- avoid redistributing original copyrighted game assets
-- build an automated local integration/patch step
-- verify both main game and Splat Pack
+- [ ] introduce the Modernizer in a Dethrace Discussion;
+- [ ] offer the small RC9 WAV fallback as an isolated upstream change;
+- [ ] discuss native analog XInput in the context of Dethrace issue #343;
+- [ ] answer/share findings for widescreen issues #349 / #518;
+- [ ] answer/share the tested draw-distance work in #457;
+- [ ] consolidate the historical widescreen patch chain before proposing any large upstream PR.
 
-## 4. Public release
+See [UPSTREAM.md](UPSTREAM.md).
 
-- publish source
-- publish reproducible release artifacts
-- document exact requirements
-- include clear Dethrace attribution
-- provide upgrade/uninstall/backup behavior
+## Post-v1.0 ideas
 
-## 5. Upstream-friendly work
-
-Where a change is generally useful and fits Dethrace's goals, keep it separable enough that it could potentially be proposed upstream. Project-specific integration can remain here.
+- [ ] improve the unsupported-Splat German/Uncut UX, e.g. allow German main game + English uncut Splat Pack;
+- [ ] verify additional source revisions;
+- [ ] reduce/consolidate historical patch scripts once the release source is permanently tagged;
+- [ ] consider additional platforms after the Windows release is stable.
