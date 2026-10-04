@@ -7,6 +7,7 @@ on:
       - release-candidate-v0.8.0-rc1
       - release-candidate-v0.8.0-rc2
       - draw-distance-500-test
+      - chatgpt/safe-baseline-v24-20261004
     paths:
       - "source-port/**"
       - ".github/workflows/build-rc-runtimes.yml"
@@ -47,6 +48,12 @@ jobs:
         run: |
           python modernizer/source-port/apply-controller-ux.py dethrace-standard
           python modernizer/source-port/apply-controller-ux.py dethrace-wide
+
+      - name: Apply safe v24 widescreen-only fixes
+        run: |
+          python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-wide
+          python modernizer/source-port/apply-safe-map-v24.py dethrace-wide
+          git -C dethrace-wide diff --check
 
       - name: Set up Ninja
         uses: aseprite/get-ninja@main
@@ -126,6 +133,6 @@ jobs:
       - name: Upload RC runtimes
         uses: actions/upload-artifact@v4
         with:
-          name: carmageddon-modernizer-rc-runtimes
+          name: carmageddon-modernizer-safe-v24-runtimes
           path: rc-runtime/**
           if-no-files-found: error
