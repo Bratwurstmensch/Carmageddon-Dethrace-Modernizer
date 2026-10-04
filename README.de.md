@@ -65,11 +65,13 @@ Details: [docs/RELEASE-CANDIDATE.md](docs/RELEASE-CANDIDATE.md)
 
 Action Replay besitzt ein deutlich größeres eigenes Tastatur-/Maus-Schema und wird absichtlich nicht vollständig auf das normale XInput-Fahrschema gelegt.
 
+Für die einmalige Namenseingabe bei der Ersteinrichtung wird weiterhin eine Tastatur benötigt. Danach funktioniert der getestete normale Fahr-/Menüablauf mit der oben beschriebenen Controller-Belegung.
+
 ## 16:9 und 4:3
 
 Die **16:9-Runtime** ist der moderne Darstellungsweg. Die 3D-Welt füllt 854×480; originale 640 Pixel breite 2D-Oberflächen werden dort zentriert, wo das Spielmaterial dies erfordert.
 
-Das Cockpit selbst bleibt originales 4:3-2D-Artwork. Beim seitlichen Umschauen können deshalb weiterhin Grenzen der Originalgrafiken sichtbar werden.
+Das Cockpit selbst bleibt originales 4:3-2D-Artwork. Zusätzlich zeigte der Release-Candidate-Test, dass der 16:9-Cockpit-/Umschaupfad beim Blick nach links/rechts noch abstürzen kann, besonders beim frühen Umschalten zu Rennbeginn. Für cockpit-lastiges Spielen wird deshalb die 4:3-Runtime empfohlen.
 
 Die separate **4:3-Runtime** behält die klassische Darstellung und enthält trotzdem die Modernizer-Verbesserungen für Sichtweite, Detailgrad und native analoge XInput-Steuerung.
 
@@ -116,6 +118,14 @@ Dieses Projekt basiert auf der Arbeit der [Dethrace-Mitwirkenden](https://github
 Mehrere Modernizer-Änderungen passen direkt zu offenen Upstream-Wünschen, insbesondere XInput, Widescreen und größere Sichtweite. Siehe [docs/UPSTREAM.md](docs/UPSTREAM.md).
 
 Vor dem ersten öffentlichen Binary-Release soll zusätzlich die Lizenzdarstellung mit den Dethrace-Maintainern kurz geklärt werden, weil im Upstream-Repository eine GPLv3-LICENSE liegt, während im README noch ältere Public-Domain-/Non-Commercial-Formulierungen vorkommen.
+
+## Bekannte Einschränkungen
+
+- **16:9-Cockpit/Umschauen:** Beim Blick nach links/rechts im Cockpit kann die 16:9-Runtime abstürzen, besonders beim Umschalten zu Rennbeginn. Die 4:3-Runtime blieb im gleichen Release-Candidate-Test stabil und wird für cockpit-lastiges Spielen empfohlen.
+- Das originale Cockpit-Artwork bleibt festes 4:3-Material.
+- **Die anfängliche Namenseingabe benötigt eine Tastatur.** XInput übernimmt keine Texteingabe.
+- Action Replay bleibt tastatur-/mausorientiert.
+- German/Uncut bleibt experimentell und revisionsabhängig.
 
 ## Credits und Lizenz
 
