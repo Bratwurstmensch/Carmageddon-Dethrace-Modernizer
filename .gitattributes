@@ -1,0 +1,3 @@
+# Preserve the exact manually tested RC9 installer source bytes.
+# In particular, do not convert its LF line endings on Windows checkout.
+installer/Install-Modernizer.ps1 -text
