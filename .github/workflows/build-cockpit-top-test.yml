@@ -7,6 +7,7 @@ on:
       - chatgpt/cockpit-top-normalization-test-20261004
     paths:
       - "source-port/apply-cockpit-top-normalization-test.py"
+      - "source-port/apply-cockpit-top-overlay-crop-test.py"
       - ".github/workflows/build-cockpit-top-test.yml"
 
 jobs:
