@@ -15,6 +15,16 @@ Reference SHA-256 values from the successful RC9 test package:
 
 The repository also contains a reproducible GitHub Actions pipeline. Compiler/toolchain metadata may make a rebuilt executable differ byte-for-byte even when the source patch chain is equivalent, so the hashes above are retained as the reference for the exact manually tested RC9 package.
 
+## Reference installer source
+
+The readable repository installer has been restored directly from the exact manually tested RC9 package and verified before commit.
+
+- `installer/Install-Modernizer.ps1`
+- size: **93,080 bytes**
+- SHA-256: `4fbe060739a5a1a8fc64958229865f03f91df1e07162e094ddf68db79513cbcd`
+
+The verification also confirmed the expected RC9 eXoDOS media markers (`cue-bin-audio`, `SPLAT PACK.CUE`, and WAV-track handling). Temporary compressed restore payloads were removed after the readable source was committed.
+
 ## RC9 validation matrix
 
 | Area | Result | Notes |
@@ -112,7 +122,6 @@ The runtime feature set is considered frozen unless a genuine regression is foun
 
 Remaining release-preparation work:
 
-- keep the repository installer source synchronized with the manually tested RC9 package;
 - validate the reproducible GitHub Actions build;
 - clarify Dethrace's mixed license wording with upstream before publishing modified binary releases;
 - prepare release notes and the public release artifact;
