@@ -2,18 +2,6 @@ name: Build v1.0-rc1 package
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - release/v1.0-rc1
-    paths:
-      - "installer/**"
-      - ".gitattributes"
-      - "source-port/**"
-      - "README.md"
-      - "README.de.md"
-      - "RELEASE-NOTES.md"
-      - "docs/CREDITS.md"
-      - ".github/workflows/build-modernizer-package.yml"
 
 jobs:
   windows-x64:
