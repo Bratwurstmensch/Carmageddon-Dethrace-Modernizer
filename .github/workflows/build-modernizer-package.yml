@@ -138,10 +138,33 @@ jobs:
           Copy-Item "modernizer\installer\launchers\*" $payload -Force
           Copy-Item "modernizer\installer\controller" (Join-Path $payload "Controller") -Recurse -Force
 
-          # Source-verified data transforms.
-          if (Test-Path "modernizer\installer\German") {
-            Copy-Item "modernizer\installer\German" (Join-Path $payload "German") -Recurse -Force
+          # German/Uncut binary deltas are retained in the historical v19
+          # payload so the repository does not need to expose hundreds of
+          # standalone binary blobs. Expand that tested payload only as a
+          # source for the German patch tree, then use the readable/current
+          # installer, launchers and runtimes from this release branch.
+          $bundleText = (
+            (Get-Content "modernizer\installer\inplace-gog-scripts-v19.zip.b64" -Raw) +
+            (Get-Content "modernizer\installer\inplace-gog-scripts-v19.zip.b64.part2" -Raw) +
+            (Get-Content "modernizer\installer\inplace-gog-scripts-v19.zip.b64.part3" -Raw)
+          ).Trim()
+          $bundleZip = Join-Path $PWD "inplace-gog-scripts-v19.zip"
+          $bundleDir = Join-Path $PWD "inplace-gog-scripts-v19"
+          [System.IO.File]::WriteAllBytes($bundleZip, [Convert]::FromBase64String($bundleText))
+          Expand-Archive -LiteralPath $bundleZip -DestinationPath $bundleDir -Force
+
+          $bundleGerman = Join-Path $bundleDir "German"
+          if (-not (Test-Path -LiteralPath $bundleGerman -PathType Container)) {
+            throw "Historical German patch payload is missing its German directory"
           }
+          Copy-Item $bundleGerman (Join-Path $payload "German") -Recurse -Force
+
+          $mainPatchCount = @(Get-ChildItem -LiteralPath (Join-Path $payload "German\Main\patches") -Filter "*.xor" -File -Recurse).Count
+          $splatPatchCount = @(Get-ChildItem -LiteralPath (Join-Path $payload "German\Splat\patches") -Filter "*.xor" -File -Recurse).Count
+          if ($mainPatchCount -ne 202) { throw "Unexpected German main patch count: $mainPatchCount" }
+          if ($splatPatchCount -ne 69) { throw "Unexpected German Splat patch count: $splatPatchCount" }
+
+          # Damage HUD is a readable source-verified transform manifest.
           if (Test-Path "modernizer\installer\DamageHUD") {
             Copy-Item "modernizer\installer\DamageHUD" (Join-Path $payload "DamageHUD") -Recurse -Force
           }
@@ -246,7 +269,9 @@ jobs:
             "_Modernizer\Start-Carmageddon-16x9-XInput.cmd",
             "_Modernizer\Controller\Carmageddon-XInput-Native.ps1",
             "_Modernizer\Controller\Carmageddon-XInput.ps1",
-            "_Modernizer\DamageHUD\patch-manifest.json"
+            "_Modernizer\DamageHUD\patch-manifest.json",
+            "_Modernizer\German\Main\manifest.json",
+            "_Modernizer\German\Splat\manifest.json"
           )
           foreach ($relative in $required) {
             if (-not (Test-Path -LiteralPath (Join-Path $out $relative) -PathType Leaf)) {
