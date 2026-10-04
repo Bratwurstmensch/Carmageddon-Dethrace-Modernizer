@@ -30,9 +30,6 @@ jobs:
           submodules: recursive
           path: dethrace-4x3
 
-      - name: Apply shared controller UX
-        run: python modernizer/source-port/apply-controller-ux.py dethrace-4x3
-
       - name: Apply 4x3 Modernizer parity features
         run: python modernizer/source-port/apply-4x3-modernizer-parity.py dethrace-4x3
 
