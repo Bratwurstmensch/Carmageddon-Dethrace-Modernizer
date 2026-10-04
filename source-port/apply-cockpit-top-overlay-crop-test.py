@@ -51,37 +51,24 @@ def main() -> int:
     text = text.replace(old16, new16, 1)
     text = text.replace(old16, new16, 1)
 
-    old_call = """        CopyStripImage(
-            gBack_screen,
-            -gCurrent_graf_data->cock_margin_x,
-            gScreen_wobble_x,
-            -gCurrent_graf_data->cock_margin_y,
+    old_args = """            -gCurrent_graf_data->cock_margin_y,
             gScreen_wobble_y,
             gProgram_state.current_car.cockpit_images[gProgram_state.cockpit_image_index],
             0,
             0,
-            gCurrent_graf_data->total_cock_width,
-            gCurrent_graf_data->total_cock_height);
 """
     clip_expr = "MAX(0, gProgram_state.current_car.render_top[gProgram_state.cockpit_image_index] + gCurrent_graf_data->cock_margin_y)"
-    new_call = f"""        CopyStripImage(
-            gBack_screen,
-            -gCurrent_graf_data->cock_margin_x,
-            gScreen_wobble_x,
-            -gCurrent_graf_data->cock_margin_y
+    new_args = f"""            -gCurrent_graf_data->cock_margin_y
                 + (gBack_screen->width == 854 ? {clip_expr} : 0),
             gScreen_wobble_y,
             gProgram_state.current_car.cockpit_images[gProgram_state.cockpit_image_index],
             0,
             gBack_screen->width == 854 ? {clip_expr} : 0,
-            gCurrent_graf_data->total_cock_width,
-            gCurrent_graf_data->total_cock_height);
 """
-    # There are two cockpit blit sites (3DFX and fallback); patch both.
-    count = text.count(old_call)
+    count = text.count(old_args)
     if count != 2:
-        raise SystemExit(f"cockpit strip blit: expected exactly two matches, found {count}")
-    text = text.replace(old_call, new_call)
+        raise SystemExit(f"cockpit strip blit arguments: expected exactly two matches, found {count}")
+    text = text.replace(old_args, new_args)
 
     path.write_text(text, encoding="utf-8")
     print("Applied experimental 16:9 cockpit top-overlay crop")
