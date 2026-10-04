@@ -6,7 +6,8 @@ on:
       - release/v1.0-rc1
     paths:
       - ".github/workflows/restore-rc9-installer-source.yml"
-      - "installer/rc9-tested-installer.zlib.b64"
+      - "installer/rc9-tested-installer.zlib.b64.part1"
+      - "installer/rc9-tested-installer.zlib.b64.part2"
   workflow_dispatch:
 
 permissions:
@@ -21,30 +22,44 @@ jobs:
         with:
           ref: release/v1.0-rc1
 
-      - name: Restore exact tested RC9 installer source
+      - name: Restore and verify exact tested RC9 installer source
         shell: python
         run: |
           import base64
+          import hashlib
           import pathlib
           import zlib
 
-          payload = pathlib.Path("installer/rc9-tested-installer.zlib.b64")
+          part1 = pathlib.Path("installer/rc9-tested-installer.zlib.b64.part1")
+          part2 = pathlib.Path("installer/rc9-tested-installer.zlib.b64.part2")
           target = pathlib.Path("installer/Install-Modernizer.ps1")
 
-          encoded = "".join(payload.read_text(encoding="ascii").split())
-          encoded += "=" * (-len(encoded) % 4)
-          compressed = base64.b64decode(encoded)
+          encoded = (
+              part1.read_text(encoding="ascii").strip()
+              + part2.read_text(encoding="ascii").strip()
+          )
+          restored = zlib.decompress(base64.b64decode(encoded))
 
-          try:
-              restored = zlib.decompress(compressed)
-          except zlib.error:
-              # Accept a raw DEFLATE stream as well; the payload is an exact
-              # source backup and older creation code did not record wrapper metadata.
-              restored = zlib.decompress(compressed, -zlib.MAX_WBITS)
+          expected_size = 93080
+          expected_sha256 = "4fbe060739a5a1a8fc64958229865f03f91df1e07162e094ddf68db79513cbcd"
+          actual_sha256 = hashlib.sha256(restored).hexdigest()
+
+          if len(restored) != expected_size:
+              raise SystemExit(
+                  f"Unexpected RC9 installer size: {len(restored)} (expected {expected_size})"
+              )
+          if actual_sha256 != expected_sha256:
+              raise SystemExit(
+                  f"Unexpected RC9 installer SHA-256: {actual_sha256}"
+              )
+
+          for marker in (b"cue-bin-audio", b"SPLAT PACK.CUE", b"Track0N.wav"):
+              if marker not in restored:
+                  raise SystemExit(f"RC9 marker missing: {marker!r}")
 
           target.write_bytes(restored)
-
           print(f"Restored {len(restored)} bytes to {target}")
+          print(f"SHA-256: {actual_sha256}")
 
       - name: Commit restored source when needed
         shell: bash
@@ -57,5 +72,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add installer/Install-Modernizer.ps1
-          git commit -m "Restore readable tested RC9 installer source"
+          git commit -m "Restore exact readable tested RC9 installer source"
           git push origin HEAD:release/v1.0-rc1
