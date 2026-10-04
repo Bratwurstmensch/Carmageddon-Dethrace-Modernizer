@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - german-integration-v0.1
+      - main
     paths:
       - "source-port/**"
       - ".github/workflows/build-portable-v15-runtime.yml"
