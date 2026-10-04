@@ -56,7 +56,13 @@ Validated driving inputs:
 - LT: analog brake/reverse;
 - face/shoulder/stick buttons: normal driving functions.
 
-Action Replay remains intentionally keyboard/mouse-oriented.
+Action Replay remains intentionally keyboard/mouse-oriented. The game's initial player-name text entry also still requires a keyboard; the native XInput layer intentionally does not emulate text entry.
+
+## Release-candidate stability finding
+
+The reproducible GitHub Actions runtimes were manually smoke-tested after build. The 4:3 runtime remained stable in the tested main-game and Splat Pack scenarios. The 16:9 runtime reproduced the same remaining limitation as the RC9 baseline: cockpit left/right look and rapid cockpit/view switching can still crash, especially near the beginning of a race.
+
+This is documented as a known v1.0-rc1 limitation rather than hidden by the release packaging. The recommended path for cockpit-heavy play is the 4:3 runtime.
 
 ## RC9 CD audio
 
