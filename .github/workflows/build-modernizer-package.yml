@@ -153,11 +153,16 @@ jobs:
           [System.IO.File]::WriteAllBytes($bundleZip, [Convert]::FromBase64String($bundleText))
           Expand-Archive -LiteralPath $bundleZip -DestinationPath $bundleDir -Force
 
-          $bundleGerman = Join-Path $bundleDir "German"
-          if (-not (Test-Path -LiteralPath $bundleGerman -PathType Container)) {
+          $bundleGerman = Get-ChildItem -LiteralPath $bundleDir -Directory -Recurse |
+            Where-Object { $_.Name -eq "German" } |
+            Select-Object -First 1
+          if (-not $bundleGerman) {
+            Write-Host "Historical payload directories:"
+            Get-ChildItem -LiteralPath $bundleDir -Directory -Recurse | ForEach-Object { Write-Host $_.FullName }
             throw "Historical German patch payload is missing its German directory"
           }
-          Copy-Item $bundleGerman (Join-Path $payload "German") -Recurse -Force
+          Write-Host "Using German patch payload: $($bundleGerman.FullName)"
+          Copy-Item $bundleGerman.FullName (Join-Path $payload "German") -Recurse -Force
 
           $mainPatchCount = @(Get-ChildItem -LiteralPath (Join-Path $payload "German\Main\patches") -Filter "*.xor" -File -Recurse).Count
           $splatPatchCount = @(Get-ChildItem -LiteralPath (Join-Path $payload "German\Splat\patches") -Filter "*.xor" -File -Recurse).Count
