@@ -1,12 +1,12 @@
 #!/usr/bin/env python3
-"""Experimental 16:9 cockpit viewport-top normalization.
+"""Experimental 16:9 cockpit full-frame 3D viewport.
 
 The validated Goldstandard already expands the cockpit 3D viewport to the full
 854-pixel width but deliberately keeps each car's original render_top value.
 
 Splat Pack cockpit data can use a substantially lower windshield opening than
 the main-game Eagle/Hawk data, producing an extra black band in widescreen.
-For this diagnostic test only, force the widescreen cockpit render_top to 0 pixels.
+For this diagnostic test only, force the widescreen cockpit 3D viewport to the entire 854x480 frame.
 
 4:3 behavior is untouched.
 """
@@ -40,18 +40,11 @@ def main() -> int:
 """
 
     new = """        if (gGraf_specs[gGraf_spec_index].total_width == 854) {
-            int cockpit_render_top;
-
-            /* Render the 3D world across the full 16:9 width behind the
-             * centred 640-wide cockpit artwork.
-             *
-             * Splat Pack cockpit data can define a noticeably lower top edge
-             * than the main-game cockpit, leaving an additional black strip in
-             * widescreen. Keep car-specific values that are already 50 or less,
-             * and force the 3D render viewport to begin at the very top of the 854x480 frame.
+            /* Render the 3D world across the ENTIRE 854x480 frame behind
+             * the centred 4:3 cockpit artwork.  The cockpit bitmap is still
+             * drawn on top afterwards, but the underlying 3D world is no
+             * longer constrained by the original 4:3 windshield rectangle.
              * The 4:3 path below remains completely unchanged. */
-            cockpit_render_top = gProgram_state.current_car.render_top[gProgram_state.cockpit_image_index];
-
             gProgram_state.current_render_left = 0;
             gProgram_state.current_render_top = 0;
             gProgram_state.current_render_right = gGraf_specs[gGraf_spec_index].total_width;
@@ -59,8 +52,21 @@ def main() -> int:
 """
 
     text = replace_once(text, old, new, "16:9 cockpit viewport block")
+
+    old_bottom = """        gProgram_state.current_render_bottom = gProgram_state.current_car.render_bottom[gProgram_state.cockpit_image_index];
+    } else {
+"""
+    new_bottom = """        if (gGraf_specs[gGraf_spec_index].total_width == 854) {
+            gProgram_state.current_render_bottom = gGraf_specs[gGraf_spec_index].total_height;
+        } else {
+            gProgram_state.current_render_bottom = gProgram_state.current_car.render_bottom[gProgram_state.cockpit_image_index];
+        }
+    } else {
+"""
+    text = replace_once(text, old_bottom, new_bottom, "16:9 cockpit viewport bottom")
+
     path.write_text(text, encoding="utf-8")
-    print("Applied diagnostic 16:9 cockpit render-top test (forced 0px)")
+    print("Applied diagnostic 16:9 cockpit full-frame 3D viewport test (854x480)")
     return 0
 
 
