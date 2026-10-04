@@ -63,6 +63,7 @@ jobs:
           python modernizer/source-port/apply-cockpit-top-normalization-test.py dethrace-wide
           python modernizer/source-port/apply-cockpit-top-overlay-crop-test.py dethrace-wide
           python modernizer/source-port/apply-mirror-final-alignment-test.py dethrace-wide
+          python modernizer/source-port/apply-damagehud-engine-rightedge.py dethrace-wide
           python modernizer/source-port/apply-cdda-wav-fallback.py dethrace-wide
           git -C dethrace-wide diff --check
 
@@ -156,6 +157,7 @@ jobs:
             validated Goldstandard chain
             fullscreen cockpit
             right-edge rear-view mirror
+            engine-side 16:9 Damage HUD right-edge correction
             OGG CD audio preferred, WAV fallback supported
             SHA-256: $wideHash
 
