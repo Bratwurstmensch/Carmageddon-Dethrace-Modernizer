@@ -4,9 +4,9 @@
 
 This project is built around [Dethrace](https://github.com/dethrace-labs/dethrace), created and maintained by the Dethrace contributors.
 
-The v1.5 proof-of-concept work was investigated against Dethrace v0.10.1.
+The original v1.5 proof-of-concept and the v1.0-rc1 release-candidate work were developed against Dethrace v0.10.1.
 
-Dethrace is licensed under GPL-3.0. Refer to the upstream repository for its complete copyright and attribution history.
+The Dethrace repository currently includes a GPL-3.0 LICENSE. Because older upstream README wording also refers to public-domain/non-commercial terms, the Modernizer is seeking maintainer clarification before its first public modified-binary release. Refer to the upstream repository for its complete copyright and attribution history.
 
 ## Carmageddon
 
