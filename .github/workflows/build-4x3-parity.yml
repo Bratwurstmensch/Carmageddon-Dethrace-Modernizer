@@ -1,0 +1,111 @@
+name: Build 4x3 Modernizer parity test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - chatgpt/4x3-modernizer-parity-20261004
+    paths:
+      - "source-port/**"
+      - ".github/workflows/build-4x3-parity.yml"
+
+jobs:
+  windows-x64:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout Modernizer
+        uses: actions/checkout@v4
+        with:
+          path: modernizer
+
+      - name: Checkout Dethrace v0.10.1
+        uses: actions/checkout@v4
+        with:
+          repository: dethrace-labs/dethrace
+          ref: v0.10.1
+          submodules: recursive
+          path: dethrace-4x3
+
+      - name: Apply shared controller UX
+        run: python modernizer/source-port/apply-controller-ux.py dethrace-4x3
+
+      - name: Apply 4x3 Modernizer parity features
+        run: python modernizer/source-port/apply-4x3-modernizer-parity.py dethrace-4x3
+
+      - name: Apply native analog XInput v13
+        run: |
+          python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-4x3
+          git -C dethrace-4x3 diff --check
+
+      - name: Set up Ninja
+        uses: aseprite/get-ninja@main
+
+      - name: Set up MSVC x64
+        uses: ilammy/msvc-dev-cmd@v1.13.0
+        with:
+          arch: x64
+
+      - name: Set up SDL
+        uses: libsdl-org/setup-sdl@main
+        with:
+          add-to-environment: true
+          build-type: Release
+          cmake-generator: Ninja
+          discriminator: x64
+          version: 3-latest
+          version-sdl2-compat: 2-head
+          version-sdl12-compat: 1-head
+
+      - name: Configure 4x3 runtime
+        run: |
+          cmake -S dethrace-4x3 -B dethrace-4x3/build -GNinja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DBUILD_TESTS=OFF \
+            -DDETHRACE_INSTALL=ON \
+            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+            -DDETHRACE_PLATFORM_SDL1=ON \
+            -DDETHRACE_PLATFORM_SDL2=ON \
+            -DDETHRACE_PLATFORM_SDL3=ON \
+            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build
+        run: cmake --build dethrace-4x3/build --target dethrace
+
+      - name: Install runtime
+        run: cmake --install dethrace-4x3/build --prefix runtime-4x3
+
+      - name: Rename executable
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem -LiteralPath runtime-4x3 -Filter dethrace.exe -File -Recurse | Select-Object -First 1
+          if (-not $exe) { throw "Installed dethrace.exe not found" }
+          Rename-Item -LiteralPath $exe.FullName -NewName "dethrace-4x3-v0.10.1.exe"
+
+      - name: Write build info
+        shell: pwsh
+        run: |
+          $exe = Get-ChildItem -LiteralPath runtime-4x3 -Filter "dethrace-4x3-v0.10.1.exe" -File -Recurse | Select-Object -First 1
+          $hash = (Get-FileHash -LiteralPath $exe.FullName -Algorithm SHA256).Hash
+          @"
+          4:3 Modernizer parity test
+
+          Aspect ratio: original 4:3
+          Draw distance: 500 units in high-resolution mode
+          Opponent LOD: full principal models
+          Distant pedestrian/object sprites: Goldstandard behavior
+          Native XInput: left stick steering, RT accelerate, LT brake/reverse
+
+          SHA-256: $hash
+          "@ | Set-Content -LiteralPath (Join-Path $exe.Directory.FullName "BUILD-INFO-4x3.txt") -Encoding UTF8
+
+      - name: Upload test runtime
+        uses: actions/upload-artifact@v4
+        with:
+          name: Carmageddon-Modernizer-4x3-Parity-Test
+          path: runtime-4x3/**
+          if-no-files-found: error
