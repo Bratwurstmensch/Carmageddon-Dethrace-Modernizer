@@ -1,0 +1,174 @@
+name: Build final Modernizer runtimes with CDDA WAV fallback
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - chatgpt/final-cdda-audio-20261004
+    paths:
+      - "source-port/**"
+      - ".github/workflows/build-final-audio-runtimes.yml"
+
+jobs:
+  windows-x64:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout Modernizer
+        uses: actions/checkout@v4
+        with:
+          path: modernizer
+
+      - name: Checkout Dethrace v0.10.1 widescreen
+        uses: actions/checkout@v4
+        with:
+          repository: dethrace-labs/dethrace
+          ref: v0.10.1
+          submodules: recursive
+          path: dethrace-wide
+
+      - name: Checkout Dethrace v0.10.1 4x3
+        uses: actions/checkout@v4
+        with:
+          repository: dethrace-labs/dethrace
+          ref: v0.10.1
+          submodules: recursive
+          path: dethrace-4x3
+
+      - name: Apply final 16x9 Modernizer chain
+        run: |
+          python modernizer/source-port/apply-v1.5-source-port.py dethrace-wide
+          python modernizer/source-port/apply-current-test.py dethrace-wide
+          python modernizer/source-port/apply-current-fixes-v2.py dethrace-wide
+          python modernizer/source-port/apply-overlay-alignment-v3.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-overlays-v4.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v5.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v6.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v7.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-stability-v8.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v9.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v10.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-stability-v11.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v12.py dethrace-wide
+          python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-crashdiag-v14.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-stability-v15.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-directblit-v16.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-directblit-lock-v17.py dethrace-wide
+          python modernizer/source-port/apply-ped-completion-guard-v18.py dethrace-wide
+          python modernizer/source-port/apply-release-candidate-1.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-top-normalization-test.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-top-overlay-crop-test.py dethrace-wide
+          python modernizer/source-port/apply-mirror-final-alignment-test.py dethrace-wide
+          python modernizer/source-port/apply-cdda-wav-fallback.py dethrace-wide
+          git -C dethrace-wide diff --check
+
+      - name: Apply final 4x3 parity chain
+        run: |
+          python modernizer/source-port/apply-4x3-modernizer-parity.py dethrace-4x3
+          python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-4x3
+          python modernizer/source-port/apply-cdda-wav-fallback.py dethrace-4x3
+          git -C dethrace-4x3 diff --check
+
+      - name: Set up Ninja
+        uses: aseprite/get-ninja@main
+
+      - name: Set up MSVC x64
+        uses: ilammy/msvc-dev-cmd@v1.13.0
+        with:
+          arch: x64
+
+      - name: Set up SDL
+        uses: libsdl-org/setup-sdl@main
+        with:
+          add-to-environment: true
+          build-type: Release
+          cmake-generator: Ninja
+          discriminator: x64
+          version: 3-latest
+          version-sdl2-compat: 2-head
+          version-sdl12-compat: 1-head
+
+      - name: Configure 16x9
+        run: |
+          cmake -S dethrace-wide -B dethrace-wide/build -GNinja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DBUILD_TESTS=OFF \
+            -DDETHRACE_INSTALL=ON \
+            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+            -DDETHRACE_PLATFORM_SDL1=ON \
+            -DDETHRACE_PLATFORM_SDL2=ON \
+            -DDETHRACE_PLATFORM_SDL3=ON \
+            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build and install 16x9
+        run: |
+          cmake --build dethrace-wide/build --target dethrace
+          cmake --install dethrace-wide/build --prefix runtime-wide
+
+      - name: Configure 4x3
+        run: |
+          cmake -S dethrace-4x3 -B dethrace-4x3/build -GNinja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DBUILD_TESTS=OFF \
+            -DDETHRACE_INSTALL=ON \
+            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+            -DDETHRACE_PLATFORM_SDL1=ON \
+            -DDETHRACE_PLATFORM_SDL2=ON \
+            -DDETHRACE_PLATFORM_SDL3=ON \
+            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build and install 4x3
+        run: |
+          cmake --build dethrace-4x3/build --target dethrace
+          cmake --install dethrace-4x3/build --prefix runtime-4x3
+
+      - name: Assemble runtime bundle
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          New-Item -ItemType Directory -Path bundle\Runtime4x3 -Force | Out-Null
+
+          $wide = Get-ChildItem runtime-wide -Filter dethrace.exe -File -Recurse | Select-Object -First 1
+          $std = Get-ChildItem runtime-4x3 -Filter dethrace.exe -File -Recurse | Select-Object -First 1
+          if (-not $wide -or -not $std) { throw "Built runtime missing" }
+
+          Copy-Item $wide.FullName bundle\dethrace-16x9-v1.5.exe -Force
+          Copy-Item $std.FullName bundle\Runtime4x3\dethrace-4x3-v0.10.1.exe -Force
+
+          Get-ChildItem runtime-wide -Filter "SDL*.dll" -File -Recurse |
+            ForEach-Object { Copy-Item $_.FullName bundle -Force }
+          Get-ChildItem runtime-4x3 -Filter "SDL*.dll" -File -Recurse |
+            ForEach-Object { Copy-Item $_.FullName bundle\Runtime4x3 -Force }
+
+          $wideHash = (Get-FileHash bundle\dethrace-16x9-v1.5.exe -Algorithm SHA256).Hash.ToLowerInvariant()
+          $stdHash = (Get-FileHash bundle\Runtime4x3\dethrace-4x3-v0.10.1.exe -Algorithm SHA256).Hash.ToLowerInvariant()
+
+          @"
+          Final Modernizer runtimes with CDDA WAV fallback
+
+          16:9:
+            validated Goldstandard chain
+            fullscreen cockpit
+            right-edge rear-view mirror
+            OGG CD audio preferred, WAV fallback supported
+            SHA-256: $wideHash
+
+          4:3:
+            validated parity runtime
+            no widescreen rendering changes
+            OGG CD audio preferred, WAV fallback supported
+            SHA-256: $stdHash
+          "@ | Set-Content bundle\BUILD-INFO-AUDIO.txt -Encoding UTF8
+
+      - name: Upload runtime bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: Carmageddon-Modernizer-Final-Runtimes-CDDA-WAV
+          path: bundle/**
+          if-no-files-found: error
