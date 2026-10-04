@@ -76,17 +76,28 @@ jobs:
       - name: Install runtime
         run: cmake --install dethrace-4x3/build --prefix runtime-4x3
 
-      - name: Rename executable
+      - name: Assemble installer-layout 4x3 test package
         shell: pwsh
         run: |
           $exe = Get-ChildItem -LiteralPath runtime-4x3 -Filter dethrace.exe -File -Recurse | Select-Object -First 1
           if (-not $exe) { throw "Installed dethrace.exe not found" }
-          Rename-Item -LiteralPath $exe.FullName -NewName "dethrace-4x3-v0.10.1.exe"
+
+          New-Item -ItemType Directory -Path test-package\Runtime4x3 -Force | Out-Null
+          New-Item -ItemType Directory -Path test-package\Controller -Force | Out-Null
+
+          Copy-Item -LiteralPath $exe.FullName -Destination test-package\Runtime4x3\dethrace-4x3-v0.10.1.exe -Force
+          Get-ChildItem -LiteralPath runtime-4x3 -Filter "SDL*.dll" -File -Recurse |
+            ForEach-Object { Copy-Item -LiteralPath $_.FullName -Destination test-package\Runtime4x3 -Force }
+
+          Copy-Item modernizer\installer\controller\Carmageddon-XInput-Native.ps1 test-package\Controller\Carmageddon-XInput-Native.ps1 -Force
+          Copy-Item modernizer\installer\controller\Carmageddon-SplatPack-XInput-Native.ps1 test-package\Controller\Carmageddon-SplatPack-XInput-Native.ps1 -Force
+          Copy-Item modernizer\installer\launchers\Start-Carmageddon-XInput.cmd test-package\Start-Carmageddon-XInput.cmd -Force
+          Copy-Item modernizer\installer\launchers\Start-CARSPLAT-XInput.cmd test-package\Start-CARSPLAT-XInput.cmd -Force
 
       - name: Write build info
         shell: pwsh
         run: |
-          $exe = Get-ChildItem -LiteralPath runtime-4x3 -Filter "dethrace-4x3-v0.10.1.exe" -File -Recurse | Select-Object -First 1
+          $exe = Get-Item -LiteralPath test-package\Runtime4x3\dethrace-4x3-v0.10.1.exe
           $hash = (Get-FileHash -LiteralPath $exe.FullName -Algorithm SHA256).Hash
           @"
           4:3 Modernizer parity test
@@ -98,11 +109,11 @@ jobs:
           Native XInput: left stick steering, RT accelerate, LT brake/reverse
 
           SHA-256: $hash
-          "@ | Set-Content -LiteralPath (Join-Path $exe.Directory.FullName "BUILD-INFO-4x3.txt") -Encoding UTF8
+          "@ | Set-Content -LiteralPath test-package\BUILD-INFO-4x3.txt -Encoding UTF8
 
       - name: Upload test runtime
         uses: actions/upload-artifact@v4
         with:
           name: Carmageddon-Modernizer-4x3-Parity-Test
-          path: runtime-4x3/**
+          path: test-package/**
           if-no-files-found: error
