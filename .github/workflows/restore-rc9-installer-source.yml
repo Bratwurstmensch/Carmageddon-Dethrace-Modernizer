@@ -53,7 +53,7 @@ jobs:
                   f"Unexpected RC9 installer SHA-256: {actual_sha256}"
               )
 
-          for marker in (b"cue-bin-audio", b"SPLAT PACK.CUE", b"Track0N.wav"):
+          for marker in (b"cue-bin-audio", b"SPLAT PACK.CUE", b"Track02.wav"):
               if marker not in restored:
                   raise SystemExit(f"RC9 marker missing: {marker!r}")
 
