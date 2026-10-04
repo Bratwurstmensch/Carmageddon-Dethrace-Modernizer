@@ -1,0 +1,169 @@
+name: Build v1.0-rc1 runtimes
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - release/v1.0-rc1
+    paths:
+      - "source-port/**"
+      - ".github/workflows/build-v1.0-rc1-runtimes.yml"
+
+jobs:
+  windows-x64:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout Modernizer
+        uses: actions/checkout@v4
+        with:
+          path: modernizer
+
+      - name: Checkout Dethrace v0.10.1 (4:3)
+        uses: actions/checkout@v4
+        with:
+          repository: dethrace-labs/dethrace
+          ref: v0.10.1
+          submodules: recursive
+          path: dethrace-4x3
+
+      - name: Checkout Dethrace v0.10.1 (16:9)
+        uses: actions/checkout@v4
+        with:
+          repository: dethrace-labs/dethrace
+          ref: v0.10.1
+          submodules: recursive
+          path: dethrace-wide
+
+      - name: Apply tested 4:3 Modernizer chain
+        run: |
+          python modernizer/source-port/apply-4x3-modernizer-parity.py dethrace-4x3
+          python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-4x3
+          python modernizer/source-port/apply-rc9-cdda-wav-fallback.py dethrace-4x3
+          git -C dethrace-4x3 diff --check
+
+      - name: Apply tested 16:9 Goldstandard chain
+        run: |
+          python modernizer/source-port/apply-v1.5-source-port.py dethrace-wide
+          python modernizer/source-port/apply-current-test.py dethrace-wide
+          python modernizer/source-port/apply-current-fixes-v2.py dethrace-wide
+          python modernizer/source-port/apply-overlay-alignment-v3.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-overlays-v4.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v5.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v6.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v7.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-stability-v8.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v9.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v10.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-stability-v11.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v12.py dethrace-wide
+          python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-crashdiag-v14.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-stability-v15.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-directblit-v16.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-directblit-lock-v17.py dethrace-wide
+          python modernizer/source-port/apply-ped-completion-guard-v18.py dethrace-wide
+          python modernizer/source-port/apply-release-candidate-1.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-top-normalization-test.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-top-overlay-crop-test.py dethrace-wide
+          python modernizer/source-port/apply-mirror-final-alignment-test.py dethrace-wide
+          python modernizer/source-port/apply-rc9-cdda-wav-fallback.py dethrace-wide
+          git -C dethrace-wide diff --check
+
+      - name: Set up Ninja
+        uses: aseprite/get-ninja@main
+
+      - name: Set up MSVC x64
+        uses: ilammy/msvc-dev-cmd@v1.13.0
+        with:
+          arch: x64
+
+      - name: Set up SDL
+        uses: libsdl-org/setup-sdl@main
+        with:
+          add-to-environment: true
+          build-type: Release
+          cmake-generator: Ninja
+          discriminator: x64
+          version: 3-latest
+          version-sdl2-compat: 2-head
+          version-sdl12-compat: 1-head
+
+      - name: Configure 4:3 runtime
+        run: |
+          cmake -S dethrace-4x3 -B dethrace-4x3/build -GNinja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DBUILD_TESTS=OFF \
+            -DDETHRACE_INSTALL=ON \
+            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+            -DDETHRACE_PLATFORM_SDL1=ON \
+            -DDETHRACE_PLATFORM_SDL2=ON \
+            -DDETHRACE_PLATFORM_SDL3=ON \
+            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build and install 4:3 runtime
+        run: |
+          cmake --build dethrace-4x3/build --target dethrace
+          cmake --install dethrace-4x3/build --prefix rc-runtime/4x3
+
+      - name: Configure 16:9 runtime
+        run: |
+          cmake -S dethrace-wide -B dethrace-wide/build -GNinja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DBUILD_TESTS=OFF \
+            -DDETHRACE_INSTALL=ON \
+            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+            -DDETHRACE_PLATFORM_SDL1=ON \
+            -DDETHRACE_PLATFORM_SDL2=ON \
+            -DDETHRACE_PLATFORM_SDL3=ON \
+            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build and install 16:9 runtime
+        run: |
+          cmake --build dethrace-wide/build --target dethrace
+          cmake --install dethrace-wide/build --prefix rc-runtime/16x9
+
+      - name: Normalize names and write hashes
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+
+          $exe4 = Get-ChildItem -LiteralPath rc-runtime/4x3 -Filter dethrace.exe -File -Recurse | Select-Object -First 1
+          $exe16 = Get-ChildItem -LiteralPath rc-runtime/16x9 -Filter dethrace.exe -File -Recurse | Select-Object -First 1
+          if (-not $exe4 -or -not $exe16) { throw "One or both runtime executables are missing" }
+
+          Rename-Item -LiteralPath $exe4.FullName -NewName "dethrace-4x3-v0.10.1.exe"
+          Rename-Item -LiteralPath $exe16.FullName -NewName "dethrace-16x9-v1.0-rc1.exe"
+
+          $exe4 = Get-ChildItem -LiteralPath rc-runtime/4x3 -Filter "dethrace-4x3-v0.10.1.exe" -File -Recurse | Select-Object -First 1
+          $exe16 = Get-ChildItem -LiteralPath rc-runtime/16x9 -Filter "dethrace-16x9-v1.0-rc1.exe" -File -Recurse | Select-Object -First 1
+          $h4 = (Get-FileHash -LiteralPath $exe4.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+          $h16 = (Get-FileHash -LiteralPath $exe16.FullName -Algorithm SHA256).Hash.ToLowerInvariant()
+
+          @"
+          Carmageddon Dethrace Modernizer v1.0-rc1 runtime build
+
+          Base: Dethrace v0.10.1
+
+          4:3 SHA-256: $h4
+          16:9 SHA-256: $h16
+
+          Reference hashes from the manually tested RC9 package:
+          4:3: 80dd90f4a74b6caaae19fb336cbd86e5ce0dc3058c509d0da691ecf1511dc9f7
+          16:9: 1df66ba28020f08635773a992e1254ce1b746a11f7a4d77598aff236d7f8ddf6
+
+          A hash mismatch does not by itself prove a functional mismatch because compiler/toolchain
+          metadata can differ; the source patch chain is the release-candidate reference.
+          "@ | Set-Content -LiteralPath rc-runtime/BUILD-INFO.txt -Encoding UTF8
+
+      - name: Upload v1.0-rc1 runtimes
+        uses: actions/upload-artifact@v4
+        with:
+          name: Carmageddon-Dethrace-Modernizer-v1.0-rc1-runtimes
+          path: rc-runtime/**
+          if-no-files-found: error
