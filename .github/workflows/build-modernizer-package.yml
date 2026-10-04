@@ -1,14 +1,17 @@
-name: Build Modernizer installer v19 integration test
+name: Build v1.0-rc1 package
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - chatgpt/installer-v19-integration-20261004
+      - release/v1.0-rc1
     paths:
       - "installer/**"
-      - "package/**"
       - "source-port/**"
+      - "README.md"
+      - "README.de.md"
+      - "RELEASE-NOTES.md"
+      - "docs/CREDITS.md"
       - ".github/workflows/build-modernizer-package.yml"
 
 jobs:
@@ -24,15 +27,15 @@ jobs:
         with:
           path: modernizer
 
-      - name: Checkout Dethrace v0.10.1 standard
+      - name: Checkout Dethrace v0.10.1 (4:3)
         uses: actions/checkout@v4
         with:
           repository: dethrace-labs/dethrace
           ref: v0.10.1
           submodules: recursive
-          path: dethrace-standard
+          path: dethrace-4x3
 
-      - name: Checkout Dethrace v0.10.1 widescreen
+      - name: Checkout Dethrace v0.10.1 (16:9)
         uses: actions/checkout@v4
         with:
           repository: dethrace-labs/dethrace
@@ -40,69 +43,39 @@ jobs:
           submodules: recursive
           path: dethrace-wide
 
-      - name: Apply validated v1.5 widescreen source port
-        run: python modernizer/source-port/apply-v1.5-source-port.py dethrace-wide
-
-      - name: Apply current extended-detail and centering patch
-        run: python modernizer/source-port/apply-current-test.py dethrace-wide
-
-      - name: Apply restored draw-distance mirror and cutscene fixes
-        run: python modernizer/source-port/apply-current-fixes-v2.py dethrace-wide
-
-      - name: Apply remaining overlay alignment fixes
-        run: python modernizer/source-port/apply-overlay-alignment-v3.py dethrace-wide
-
-      - name: Apply final cockpit speed gear and damage alignment
-        run: python modernizer/source-port/apply-cockpit-final-overlays-v4.py dethrace-wide
-
-      - name: Fine-tune cockpit instruments and damage overlay
-        run: python modernizer/source-port/apply-cockpit-finetune-v5.py dethrace-wide
-
-      - name: Apply measured final cockpit fine-tune
-        run: python modernizer/source-port/apply-cockpit-finetune-v6.py dethrace-wide
-
-      - name: Apply final cockpit micro-adjustment
-        run: python modernizer/source-port/apply-cockpit-finetune-v7.py dethrace-wide
-
-      - name: Apply cockpit race-start stability guards
-        run: python modernizer/source-port/apply-cockpit-stability-v8.py dethrace-wide
-
-      - name: Apply final cockpit visual polish
-        run: python modernizer/source-port/apply-cockpit-final-v9.py dethrace-wide
-
-      - name: Apply final hand-only micro-adjustment
-        run: python modernizer/source-port/apply-cockpit-final-v10.py dethrace-wide
-
-      - name: Apply cockpit instrument stability v11
-        run: python modernizer/source-port/apply-cockpit-stability-v11.py dethrace-wide
-
-      - name: Apply final hand-only micro-adjustment v12
-        run: python modernizer/source-port/apply-cockpit-final-v12.py dethrace-wide
-
-      - name: Apply native analog XInput v13
-        run: python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-wide
-
-      - name: Apply cockpit crash diagnostic v14
-        run: python modernizer/source-port/apply-cockpit-crashdiag-v14.py dethrace-wide
-
-      - name: Apply Pratcam stability v15
-        run: python modernizer/source-port/apply-pratcam-stability-v15.py dethrace-wide
-
-      - name: Apply Pratcam direct-blit v16
-        run: python modernizer/source-port/apply-pratcam-directblit-v16.py dethrace-wide
-
-      - name: Apply Pratcam direct-blit lock v17
-        run: python modernizer/source-port/apply-pratcam-directblit-lock-v17.py dethrace-wide
-
-      - name: Apply pedestrian completion guard v18
-        run: python modernizer/source-port/apply-ped-completion-guard-v18.py dethrace-wide
-
-      - name: Apply RC1 authoritative pedestrian completion
-        run: python modernizer/source-port/apply-release-candidate-1.py dethrace-wide
-
-      - name: Apply cockpit renderer stability v19
+      - name: Apply tested 4:3 Modernizer chain
         run: |
-          python modernizer/source-port/apply-cockpit-rendererfix-v19.py dethrace-wide
+          python modernizer/source-port/apply-4x3-modernizer-parity.py dethrace-4x3
+          python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-4x3
+          python modernizer/source-port/apply-rc9-cdda-wav-fallback.py dethrace-4x3
+          git -C dethrace-4x3 diff --check
+
+      - name: Apply tested 16:9 Goldstandard chain
+        run: |
+          python modernizer/source-port/apply-v1.5-source-port.py dethrace-wide
+          python modernizer/source-port/apply-current-test.py dethrace-wide
+          python modernizer/source-port/apply-current-fixes-v2.py dethrace-wide
+          python modernizer/source-port/apply-overlay-alignment-v3.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-overlays-v4.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v5.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v6.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v7.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-stability-v8.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v9.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v10.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-stability-v11.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v12.py dethrace-wide
+          python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-crashdiag-v14.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-stability-v15.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-directblit-v16.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-directblit-lock-v17.py dethrace-wide
+          python modernizer/source-port/apply-ped-completion-guard-v18.py dethrace-wide
+          python modernizer/source-port/apply-release-candidate-1.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-top-normalization-test.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-top-overlay-crop-test.py dethrace-wide
+          python modernizer/source-port/apply-mirror-final-alignment-test.py dethrace-wide
+          python modernizer/source-port/apply-rc9-cdda-wav-fallback.py dethrace-wide
           git -C dethrace-wide diff --check
 
       - name: Set up Ninja
@@ -124,113 +97,155 @@ jobs:
           version-sdl2-compat: 2-head
           version-sdl12-compat: 1-head
 
-      - name: Configure standard runtime
+      - name: Configure 4:3 runtime
         run: |
-          cmake -S dethrace-standard -B dethrace-standard/build -GNinja \
-            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-            -DBUILD_TESTS=OFF \
-            -DDETHRACE_INSTALL=ON \
-            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
-            -DDETHRACE_PLATFORM_SDL1=ON \
-            -DDETHRACE_PLATFORM_SDL2=ON \
-            -DDETHRACE_PLATFORM_SDL3=ON \
-            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
-            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+          cmake -S dethrace-4x3 -B dethrace-4x3/build -GNinja             -DCMAKE_BUILD_TYPE=RelWithDebInfo             -DBUILD_TESTS=OFF             -DDETHRACE_INSTALL=ON             -DCMAKE_POLICY_DEFAULT_CMP0074=NEW             -DDETHRACE_PLATFORM_SDL1=ON             -DDETHRACE_PLATFORM_SDL2=ON             -DDETHRACE_PLATFORM_SDL3=ON             -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON             -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
 
-      - name: Build and install standard runtime
+      - name: Build and install 4:3 runtime
         run: |
-          cmake --build dethrace-standard/build --target dethrace
-          cmake --install dethrace-standard/build --prefix standard-runtime
+          cmake --build dethrace-4x3/build --target dethrace
+          cmake --install dethrace-4x3/build --prefix rc-runtime/4x3
 
-      - name: Configure v19 widescreen runtime
+      - name: Configure 16:9 runtime
         run: |
-          cmake -S dethrace-wide -B dethrace-wide/build -GNinja \
-            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
-            -DBUILD_TESTS=OFF \
-            -DDETHRACE_INSTALL=ON \
-            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
-            -DDETHRACE_PLATFORM_SDL1=ON \
-            -DDETHRACE_PLATFORM_SDL2=ON \
-            -DDETHRACE_PLATFORM_SDL3=ON \
-            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
-            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+          cmake -S dethrace-wide -B dethrace-wide/build -GNinja             -DCMAKE_BUILD_TYPE=RelWithDebInfo             -DBUILD_TESTS=OFF             -DDETHRACE_INSTALL=ON             -DCMAKE_POLICY_DEFAULT_CMP0074=NEW             -DDETHRACE_PLATFORM_SDL1=ON             -DDETHRACE_PLATFORM_SDL2=ON             -DDETHRACE_PLATFORM_SDL3=ON             -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON             -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
 
-      - name: Build and install v19 widescreen runtime
+      - name: Build and install 16:9 runtime
         run: |
           cmake --build dethrace-wide/build --target dethrace
-          cmake --install dethrace-wide/build --prefix widescreen-runtime
+          cmake --install dethrace-wide/build --prefix rc-runtime/16x9
 
-      - name: Assemble in-place GOG installer package
+      - name: Assemble v1.0-rc1 package
         shell: pwsh
         run: |
           $ErrorActionPreference = "Stop"
 
-          $out = Join-Path $PWD "dist\Carmageddon-Dethrace-Modernizer-v19-InPlace-GOG-Test"
-          New-Item -ItemType Directory -Path $out -Force | Out-Null
-          New-Item -ItemType Directory -Path (Join-Path $out "Runtime4x3") -Force | Out-Null
+          $dist = Join-Path $PWD "dist"
+          $out = Join-Path $dist "Carmageddon-Dethrace-Modernizer-v1.0-rc1"
+          $payload = Join-Path $out "_Modernizer"
+          $runtime4 = Join-Path $payload "Runtime4x3"
 
-          # Exact in-place/GOG scripts from the previously tested package.
-          $bundleText = (
-            (Get-Content "modernizer\installer\inplace-gog-scripts-v19.zip.b64" -Raw) +
-            (Get-Content "modernizer\installer\inplace-gog-scripts-v19.zip.b64.part2" -Raw) +
-            (Get-Content "modernizer\installer\inplace-gog-scripts-v19.zip.b64.part3" -Raw)
-          ).Trim()
-          $bundleZip = Join-Path $PWD "inplace-gog-scripts-v19.zip"
-          [System.IO.File]::WriteAllBytes($bundleZip, [Convert]::FromBase64String($bundleText))
-          Expand-Archive -LiteralPath $bundleZip -DestinationPath $out -Force
-          python "modernizer\installer\patch_inplace_installer.py" (Join-Path $out "Install-Modernizer.ps1")
-          Copy-Item "modernizer\installer\Import-Cutscenes-from-Original.cmd" $out -Force
+          New-Item -ItemType Directory -Path $runtime4 -Force | Out-Null
 
-          # Launchers and controller helpers.
-          Copy-Item "modernizer\installer\launchers\*" $out -Force
-          Copy-Item "modernizer\installer\controller" (Join-Path $out "Controller") -Recurse -Force
+          # Exact readable installer source restored from the manually tested RC9 package.
+          Copy-Item "modernizer\installer\Install-Modernizer.ps1" (Join-Path $payload "Install-Modernizer.ps1") -Force
+          Copy-Item "modernizer\installer\Install-Modernizer.cmd" (Join-Path $payload "Install-Modernizer.cmd") -Force
+          Copy-Item "modernizer\installer\Uninstall-Modernizer.ps1" (Join-Path $payload "Uninstall-Modernizer.ps1") -Force
+          Copy-Item "modernizer\installer\Uninstall-Modernizer.cmd" (Join-Path $payload "Uninstall-Modernizer.cmd") -Force
 
-          # Localization/source-data patches.
+          # Launchers / controller helpers.
+          Copy-Item "modernizer\installer\launchers\*" $payload -Force
+          Copy-Item "modernizer\installer\controller" (Join-Path $payload "Controller") -Recurse -Force
+
+          # Source-verified data transforms.
           if (Test-Path "modernizer\installer\German") {
-            Copy-Item "modernizer\installer\German" (Join-Path $out "German") -Recurse -Force
+            Copy-Item "modernizer\installer\German" (Join-Path $payload "German") -Recurse -Force
           }
           if (Test-Path "modernizer\installer\DamageHUD") {
-            Copy-Item "modernizer\installer\DamageHUD" (Join-Path $out "DamageHUD") -Recurse -Force
+            Copy-Item "modernizer\installer\DamageHUD" (Join-Path $payload "DamageHUD") -Recurse -Force
           }
 
-          # 4:3 reference runtime.
-          $stdExe = Get-ChildItem -LiteralPath "standard-runtime" -Filter "dethrace.exe" -File -Recurse | Select-Object -First 1
-          if (-not $stdExe) { throw "Standard dethrace.exe not found" }
-          Copy-Item $stdExe.FullName (Join-Path $out "Runtime4x3\dethrace-4x3-v0.10.1.exe") -Force
-          Get-ChildItem -LiteralPath "standard-runtime" -Filter "SDL*.dll" -File -Recurse |
-            ForEach-Object { Copy-Item $_.FullName (Join-Path $out "Runtime4x3") -Force }
+          # Runtimes. Keep the historical filenames expected by the tested RC9 installer.
+          $exe4 = Get-ChildItem -LiteralPath "rc-runtime\4x3" -Filter "dethrace.exe" -File -Recurse | Select-Object -First 1
+          $exe16 = Get-ChildItem -LiteralPath "rc-runtime\16x9" -Filter "dethrace.exe" -File -Recurse | Select-Object -First 1
+          if (-not $exe4 -or -not $exe16) { throw "One or both runtime executables are missing" }
 
-          # Full v19 widescreen runtime.
-          $wideExe = Get-ChildItem -LiteralPath "widescreen-runtime" -Filter "dethrace.exe" -File -Recurse | Select-Object -First 1
-          if (-not $wideExe) { throw "v19 widescreen dethrace.exe not found" }
-          Copy-Item $wideExe.FullName (Join-Path $out "dethrace-16x9-v1.5.exe") -Force
-          Get-ChildItem -LiteralPath "widescreen-runtime" -Filter "SDL*.dll" -File -Recurse |
-            ForEach-Object { Copy-Item $_.FullName $out -Force }
+          Copy-Item $exe4.FullName (Join-Path $runtime4 "dethrace-4x3-v0.10.1.exe") -Force
+          Copy-Item $exe16.FullName (Join-Path $payload "dethrace-16x9-v1.5.exe") -Force
 
-          # Documentation.
-          Copy-Item "modernizer\installer\README.md" (Join-Path $out "README-Installer.md") -Force
-          if (Test-Path "modernizer\installer\RC-v0.8.0-RELEASE-NOTES.md") {
-            Copy-Item "modernizer\installer\RC-v0.8.0-RELEASE-NOTES.md" (Join-Path $out "RC-v0.8.0-RELEASE-NOTES.md") -Force
+          Get-ChildItem -LiteralPath "rc-runtime\4x3" -Filter "SDL*.dll" -File -Recurse |
+            ForEach-Object { Copy-Item $_.FullName $runtime4 -Force }
+          Get-ChildItem -LiteralPath "rc-runtime\16x9" -Filter "SDL*.dll" -File -Recurse |
+            ForEach-Object { Copy-Item $_.FullName $payload -Force }
+
+          # Documentation and legal notices.
+          Copy-Item "modernizer\installer\README.md" (Join-Path $payload "README-Installer.md") -Force
+          Copy-Item "modernizer\docs\CREDITS.md" (Join-Path $payload "CREDITS.md") -Force
+          Copy-Item "modernizer\LICENSE" (Join-Path $payload "LICENSE-GPL-3.0.txt") -Force
+          Copy-Item "modernizer\README.md" (Join-Path $out "README.md") -Force
+          Copy-Item "modernizer\README.de.md" (Join-Path $out "README.de.md") -Force
+          Copy-Item "modernizer\RELEASE-NOTES.md" (Join-Path $out "RELEASE-NOTES.md") -Force
+
+          # Friendly outer launcher. The internal folder remains implementation detail.
+          @'
+          @echo off
+          chcp 65001 >nul
+          setlocal
+          title Carmageddon Dethrace Modernizer v1.0-rc1 Installer
+          cd /d "%~dp0"
+
+          if not exist "%~dp0_Modernizer\Install-Modernizer.ps1" (
+              echo.
+              echo ERROR: The internal Modernizer files are missing.
+              echo Please extract the complete ZIP before running the installer.
+              echo.
+              echo Press any key to continue . . .
+              pause >nul
+              exit /b 1
+          )
+
+          powershell.exe -NoProfile -ExecutionPolicy Bypass -File "%~dp0_Modernizer\Install-Modernizer.ps1" %*
+          set "RC=%ERRORLEVEL%"
+
+          echo.
+          if not "%RC%"=="0" echo Installer exited with error code %RC%.
+          echo Press any key to continue . . .
+          pause >nul
+          exit /b %RC%
+          '@ | Set-Content -LiteralPath (Join-Path $out "Install-Modernizer.cmd") -Encoding ASCII
+
+          # Verify exact tested installer source and record runtime hashes.
+          $installer = Join-Path $payload "Install-Modernizer.ps1"
+          $installerHash = (Get-FileHash -LiteralPath $installer -Algorithm SHA256).Hash.ToLowerInvariant()
+          if ($installerHash -ne "4fbe060739a5a1a8fc64958229865f03f91df1e07162e094ddf68db79513cbcd") {
+            throw "Installer source hash mismatch: $installerHash"
           }
-          Copy-Item "modernizer\LICENSE" (Join-Path $out "LICENSE-GPL-3.0.txt") -Force
-          Copy-Item "modernizer\docs\CREDITS.md" (Join-Path $out "CREDITS.md") -Force
 
-          # Hard preflight for a genuinely fresh package.
+          $h4 = (Get-FileHash -LiteralPath (Join-Path $runtime4 "dethrace-4x3-v0.10.1.exe") -Algorithm SHA256).Hash.ToLowerInvariant()
+          $h16 = (Get-FileHash -LiteralPath (Join-Path $payload "dethrace-16x9-v1.5.exe") -Algorithm SHA256).Hash.ToLowerInvariant()
+
+          @"
+          Carmageddon Dethrace Modernizer v1.0-rc1
+
+          Base: Dethrace v0.10.1
+
+          Exact tested RC9 installer source:
+          SHA-256: $installerHash
+
+          Reproducible release-candidate runtimes:
+          4:3 SHA-256: $h4
+          16:9 SHA-256: $h16
+
+          Manually tested RC9 reference hashes:
+          4:3: 80dd90f4a74b6caaae19fb336cbd86e5ce0dc3058c509d0da691ecf1511dc9f7
+          16:9: 1df66ba28020f08635773a992e1254ce1b746a11f7a4d77598aff236d7f8ddf6
+
+          Known limitation:
+          The 16:9 cockpit/look path can still crash, especially near race start.
+          4:3 is recommended for cockpit-heavy play.
+
+          A keyboard is required for initial player-name text entry.
+
+          No original Carmageddon or Splat Pack game data is included.
+          "@ | Set-Content -LiteralPath (Join-Path $payload "BUILD-INFO.txt") -Encoding UTF8
+
           $required = @(
-            "Install-Modernizer.ps1",
             "Install-Modernizer.cmd",
-            "Uninstall-Modernizer.ps1",
-            "Uninstall-Modernizer.cmd",
-            "Import-Cutscenes-from-Original.ps1",
-            "Import-Cutscenes-from-Original.cmd",
-            "Runtime4x3\dethrace-4x3-v0.10.1.exe",
-            "dethrace-16x9-v1.5.exe",
-            "Start-Carmageddon.cmd",
-            "Start-Carmageddon-XInput.cmd",
-            "Start-Carmageddon-16x9.cmd",
-            "Start-Carmageddon-16x9-XInput.cmd",
-            "Controller\Carmageddon-XInput-Native.ps1",
-            "Controller\Carmageddon-XInput.ps1"
+            "README.md",
+            "README.de.md",
+            "RELEASE-NOTES.md",
+            "_Modernizer\Install-Modernizer.ps1",
+            "_Modernizer\Uninstall-Modernizer.ps1",
+            "_Modernizer\Uninstall-Modernizer.cmd",
+            "_Modernizer\Runtime4x3\dethrace-4x3-v0.10.1.exe",
+            "_Modernizer\dethrace-16x9-v1.5.exe",
+            "_Modernizer\Start-Carmageddon.cmd",
+            "_Modernizer\Start-Carmageddon-XInput.cmd",
+            "_Modernizer\Start-Carmageddon-16x9.cmd",
+            "_Modernizer\Start-Carmageddon-16x9-XInput.cmd",
+            "_Modernizer\Controller\Carmageddon-XInput-Native.ps1",
+            "_Modernizer\Controller\Carmageddon-XInput.ps1",
+            "_Modernizer\DamageHUD\patch-manifest.json"
           )
           foreach ($relative in $required) {
             if (-not (Test-Path -LiteralPath (Join-Path $out $relative) -PathType Leaf)) {
@@ -238,28 +253,18 @@ jobs:
             }
           }
 
-          $wideHash = (Get-FileHash (Join-Path $out "dethrace-16x9-v1.5.exe") -Algorithm SHA256).Hash
-          $stdHash = (Get-FileHash (Join-Path $out "Runtime4x3\dethrace-4x3-v0.10.1.exe") -Algorithm SHA256).Hash
-          @"
-          Carmageddon Dethrace Modernizer v19 in-place/GOG integration test
-
-          Widescreen runtime:
-          full Modernizer patch chain through cockpit renderer stability v19
-          SHA-256: $wideHash
-
-          Standard runtime:
-          upstream Dethrace v0.10.1 4:3
-          SHA-256: $stdHash
-
-          No original Carmageddon game data or cutscene videos are included.
-          "@ | Set-Content (Join-Path $out "BUILD-INFO.txt") -Encoding UTF8
-
-          $zip = Join-Path $PWD "dist\Carmageddon-Dethrace-Modernizer-v19-InPlace-GOG-Test.zip"
+          New-Item -ItemType Directory -Path $dist -Force | Out-Null
+          $zip = Join-Path $dist "Carmageddon-Dethrace-Modernizer-v1.0-rc1.zip"
           Compress-Archive -Path (Join-Path $out "*") -DestinationPath $zip -Force
 
-      - name: Upload v19 installer integration test
+          Write-Host "PACKAGE=$zip"
+          Write-Host "INSTALLER_SHA256=$installerHash"
+          Write-Host "RUNTIME_4X3_SHA256=$h4"
+          Write-Host "RUNTIME_16X9_SHA256=$h16"
+
+      - name: Upload v1.0-rc1 package
         uses: actions/upload-artifact@v4
         with:
-          name: Carmageddon-Dethrace-Modernizer-v19-InPlace-GOG-Test
-          path: dist/Carmageddon-Dethrace-Modernizer-v19-InPlace-GOG-Test.zip
+          name: Carmageddon-Dethrace-Modernizer-v1.0-rc1
+          path: dist/Carmageddon-Dethrace-Modernizer-v1.0-rc1.zip
           if-no-files-found: error
