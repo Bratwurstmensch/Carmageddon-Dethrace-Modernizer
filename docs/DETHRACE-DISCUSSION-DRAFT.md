@@ -10,7 +10,11 @@ Hello Dethrace maintainers and contributors,
 
 I've been working on a Windows-focused community project called **Carmageddon Dethrace Modernizer**, built on Dethrace v0.10.1:
 
+Repository:
 https://github.com/Bratwurstmensch/Carmageddon-Dethrace-Modernizer
+
+Current v1.0-rc1 draft PR:
+https://github.com/Bratwurstmensch/Carmageddon-Dethrace-Modernizer/pull/1
 
 The current v1.0 release-candidate work combines several changes that may also be useful upstream:
 
@@ -23,7 +27,7 @@ The current v1.0 release-candidate work combines several changes that may also b
 - OGG-first / WAV-fallback CD-audio support;
 - Carmageddon + Splat Pack support.
 
-The Modernizer itself also contains project-specific Windows installer work for user-owned game data, including GOG/eXoDOS-style sources, direct CUE/BIN SMK extraction and lossless Red Book audio extraction. No original Carmageddon or Splat Pack game data is redistributed.
+The Modernizer itself also contains project-specific Windows installer work for user-owned game data, including GOG/eXoDOS-style sources, direct CUE/BIN SMK extraction and lossless Red Book audio extraction. No original Carmageddon or Splat Pack game data is intended to be redistributed. No public binary release has been published yet; this discussion is intentionally happening first.
 
 The public source/build path has now been rebuilt through GitHub Actions and manually smoke-tested. The 4:3 runtime is stable in the tested scenarios. The 16:9 path is generally functional but still has a documented limitation: cockpit left/right look / rapid view switching can crash, especially near the beginning of a race. I do not want to hide that limitation.
 
