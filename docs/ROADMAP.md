@@ -25,8 +25,8 @@
 ## Before the first public binary release
 
 - [ ] synchronize the repository installer source byte-for-byte with the manually tested RC9 package;
-- [ ] run/inspect the new v1.0-rc1 GitHub Actions runtime build;
-- [ ] resolve or document any reproducible-build differences;
+- [x] run/inspect the new v1.0-rc1 GitHub Actions runtime build;
+- [x] smoke-test the reproducibly built runtimes and document expected byte/hash differences plus the reproduced 16:9 cockpit limitation;
 - [ ] ask Dethrace maintainers for clarification on the repository's mixed GPLv3 vs older README licensing wording;
 - [ ] prepare final v1.0-rc1 release notes and artifact;
 - [ ] perform one final clean-source install / launch / uninstall smoke test from the publishable package.
