@@ -45,10 +45,11 @@ def main() -> int:
     }
     if (pDest_y + pOffset_y >= 0) {
 """
-    text = replace_once(text, old16, new16, "16-bit strip source-y support")
-
-    # Same code exists once more in the indexed path.
-    text = replace_once(text, old16, new16, "8-bit strip source-y support")
+    count = text.count(old16)
+    if count != 2:
+        raise SystemExit(f"strip source-y support: expected exactly two matches, found {count}")
+    text = text.replace(old16, new16, 1)
+    text = text.replace(old16, new16, 1)
 
     old_call = """        CopyStripImage(
             gBack_screen,
