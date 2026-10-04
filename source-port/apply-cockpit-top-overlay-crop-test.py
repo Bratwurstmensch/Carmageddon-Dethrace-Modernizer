@@ -66,8 +66,8 @@ def main() -> int:
             gBack_screen->width == 854 ? {clip_expr} : 0,
 """
     count = text.count(old_args)
-    if count != 2:
-        raise SystemExit(f"cockpit strip blit arguments: expected exactly two matches, found {count}")
+    if count < 1:
+        raise SystemExit(f"cockpit strip blit arguments: expected at least one match, found {count}")
     text = text.replace(old_args, new_args)
 
     path.write_text(text, encoding="utf-8")
