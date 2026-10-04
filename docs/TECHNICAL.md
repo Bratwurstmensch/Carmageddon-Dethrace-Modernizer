@@ -1,111 +1,131 @@
 # Technical notes
 
-## Validated v1.5 proof-of-concept
+## Release-candidate baseline
 
-The final private/tested v1.5 executable is byte-identical to the previously validated `v1.5b TEST` build. Only its filename and launcher references were changed during final packaging.
+Carmageddon Dethrace Modernizer **v1.0-rc1** is based on **Dethrace v0.10.1**.
 
-Reference hashes:
+The current release candidate is tied to the manually validated **RC9** behavior rather than to every later experiment in the development branches.
 
-- base executable SHA-256: `595f9efecd8d6c63be0a1d310977680bdd052aff7530784d0b1182b2025158a8`
-- validated v1.5 executable SHA-256: `132cbc140e73bb3e1d640be915c9269bc0b317e5d50a67105ccaa7a8d73a1ec4`
+Reference RC9 runtime hashes:
 
-The binary itself is intentionally not committed to this repository.
+- 16:9: `1df66ba28020f08635773a992e1254ce1b746a11f7a4d77598aff236d7f8ddf6`
+- 4:3: `80dd90f4a74b6caaae19fb336cbd86e5ce0dc3058c509d0da691ecf1511dc9f7`
 
-## Confirmed behavior
+See [RELEASE-CANDIDATE.md](RELEASE-CANDIDATE.md) for the full manual validation matrix.
 
-The proof-of-concept was validated with the main game and Splat Pack.
+## 16:9 presentation
 
-It implements:
+The widescreen path changes the HiRes/OpenGL presentation to **854×480**.
 
-1. centered RGB565 menu/video copies,
-2. centered indexed menu/video copies,
-3. full-width interface clearing for the 854-pixel output,
-4. corrected mouse-coordinate mapping for the centered 640-pixel menu surface,
-5. centering of event/head-up slots 4, 5, 6, 9, 10 and 11 from x=320 to x=427 when the 854-pixel output path is active.
+Key behavior includes:
 
-The on-disk HEADUP.TXT and CAR files are not rewritten by this mechanism.
+- Hor+ 3D presentation through the active render aspect;
+- centered original 640-wide menu/video surfaces;
+- full-width framebuffer clearing;
+- corrected mouse-coordinate mapping for the centered 320×200 logical menu;
+- repositioned/centered race and HUD elements;
+- full-frame 854×480 3D cockpit world behind the original 4:3 cockpit artwork;
+- final right-edge alignment of the 16:9 rear-view render surface.
 
-## Dethrace source areas used during investigation
+The cockpit bitmap itself is original fixed 4:3 artwork. The Modernizer does not synthesize replacement art.
 
-The work was investigated against **Dethrace v0.10.1**, especially:
+## Shared runtime improvements
 
-- `common/displays.c`
-  - `EarnCredits2`
-  - `DoFancyHeadup`
-- `common/structur.c`
-  - checkpoint path leading to `DoFancyHeadup`
-- `common/loading.c`
-  - `LoadHeadups`
-  - HEADUP anchor loading
+Both 4:3 and 16:9 Modernizer runtimes include:
 
-The exact proof-of-concept RVA changes are preserved in [../patches/v1.5-patch-manifest.json](../patches/v1.5-patch-manifest.json).
+- 500-unit high-resolution far plane;
+- protection against race data unexpectedly shortening that Modernizer far plane;
+- full principal opponent-car models at distance;
+- distant pedestrian/object sprite rendering out to the Modernizer distance while retaining the original short gameplay/AI activation radius;
+- expanded lollipop render capacity;
+- native analog XInput;
+- RC9 CD-audio OGG/WAV compatibility.
 
-## Source-port validation
+## Native analog XInput
 
-The v1.5 behavior has now been reproduced from clean **Dethrace v0.10.1** source using the source-port patcher in this repository.
+The release-candidate controller patch is:
 
-Validation status:
+```text
+source-port/apply-native-analog-xinput-v13.py
+```
 
-- GitHub Actions Windows x64 build: **passed**
-- Carmageddon main game visual/runtime test: **passed**
-- Splat Pack visual/runtime test: **passed**
-- 16:9 3D presentation: **passed**
-- centered menus/videos: **passed**
-- corrected centered-menu mouse mapping: **passed**
-- centered countdown/checkpoint/bonus/points messages: **passed**
-- top HUD positioning: **passed**
+Validated driving inputs:
 
-## Public implementation plan
+- left stick: analog steering;
+- RT: analog accelerate;
+- LT: analog brake/reverse;
+- face/shoulder/stick buttons: normal driving functions.
 
-The preferred public form is **not** a mystery binary patch.
+Action Replay remains intentionally keyboard/mouse-oriented.
 
-The remaining goals are:
+## RC9 CD audio
 
-1. keep the validated source port reproducible,
-2. keep original Carmageddon data outside the repository,
-3. provide a deterministic installer/packager that works from user-owned data,
-4. integrate the German-data workflow without redistributing original copyrighted assets,
-5. publish source and release artifacts in a GPL-compliant way.
+Upstream Dethrace v0.10.1 follows the GOG convention and checks for `MUSIC/Track02.ogg`.
 
-## Controller layer
+The Modernizer eXoDOS workflow extracts original Red Book audio as lossless PCM WAV, so RC9 makes two isolated runtime changes:
 
-The current Windows XInput helper is intentionally small and dependency-free. It reads controller slot 1 through `xinput1_4.dll` and generates the original keyboard controls through Win32 keyboard events.
+1. `AudioBackend_InitCDA()` accepts either `Track02.ogg` or `Track02.wav`.
+2. `AudioBackend_PlayCDA()` tries `Track0N.ogg` first, then `Track0N.wav`.
 
-The tested launcher configuration additionally uses:
+Source patch:
 
-`--fps=60 --physics-step-time=10`
+```text
+source-port/apply-rc9-cdda-wav-fallback.py
+```
 
-The normal non-controller launchers use:
+This behavior was confirmed in-game with both Carmageddon and Splat Pack.
 
-`-hires --opengl`
+## eXoDOS CUE/BIN installer work
 
+The tested RC9 installer can discover common Carmageddon and Splat Pack CUE/BIN layouts, including the eXoDOS filename `SPLAT PACK.CUE`.
 
-## Installer validation
+For supported MODE1/MODE2 layouts it:
 
-The v0.1 Windows installer was validated on 2026-10-02 against an existing Carmageddon/Dethrace installation that already contained earlier Modernizer files.
+- parses the CUE sheet;
+- locates the data track and INDEX 01;
+- reads ISO9660 directly from the BIN image;
+- extracts SMK cutscenes;
+- extracts Red Book AUDIO tracks losslessly to WAV;
+- writes main-game music under `MUSIC`;
+- writes Splat Pack music under `CARSPLAT\MUSIC`.
 
-Observed result:
+No virtual drive, Daemon Tools or external archive extractor is required for that path.
 
-- installation completed successfully,
-- `DATA/GENERAL.TXT` detection passed,
-- Splat Pack was detected automatically,
-- main-game and Splat Pack launchers remained functional,
-- pre-existing Modernizer files were treated as replaceable/backup-managed files,
-- uninstall completed successfully,
-- the installer state directory was removed after uninstall,
-- original `dethrace.exe` and original game data were left untouched.
+## Damage HUD
 
-File timestamps are not used as installation-state evidence; the installer tracks prior existence and backups in its install manifest.
+The **manually tested RC9** release-candidate behavior uses an installer-side, source-verified Damage HUD data correction.
 
+The installer preflights applicable car data and recognizes both:
 
-## 854-wide A/P/O HUD alignment
+- the previously supported representation;
+- the alternate encrypted representation confirmed by the eXoDOS source.
 
-The original high-resolution graphics data positions the Armour / Power / Offense block against the right edge of a 640-pixel surface. With the Modernizer 854-pixel widescreen graphics width, leaving those compiled coordinates unchanged makes the A/P/O block appear too far toward the center.
+In the successful eXoDOS test it reported 49 changed files, including 21 files matched through the alternate encrypted representation.
 
-The source port therefore adds the same 107-pixel widescreen offset to:
+A later development branch explored moving the same correction into the engine. That experiment is not the v1.0-rc1 reference until it receives equivalent real-game validation.
 
-- the A/P/O dim rectangle,
-- the A/P/O letter X position,
-- and every A/P/O bar X position.
+## German / Uncut
 
-The adjustment is conditional on the 854-pixel graphics width, so the standard 4:3 runtime is unchanged.
+German integration is data-driven and remains experimental.
+
+The installer only applies transformations to verified source revisions. Unsupported revisions are declined instead of being modified heuristically.
+
+The public repository does not contain original Carmageddon German assets.
+
+## Reproducible runtime build
+
+The authoritative release-candidate pipeline is:
+
+```text
+.github/workflows/build-v1.0-rc1-runtimes.yml
+```
+
+It checks out clean Dethrace v0.10.1 trees, applies the release-candidate source chain and builds separate 4:3 and 16:9 Windows runtimes.
+
+Historical source scripts are kept for traceability. The workflow, not the presence of an experimental script, defines what belongs to v1.0-rc1.
+
+## Project boundary
+
+The Modernizer deliberately separates generally useful Dethrace runtime changes from project-specific packaging/data handling.
+
+Potential upstream engine changes are tracked in [UPSTREAM.md](UPSTREAM.md). Installer, localization and user-owned game-data transformations remain Modernizer-specific.
