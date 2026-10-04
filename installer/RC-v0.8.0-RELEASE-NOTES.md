@@ -24,3 +24,7 @@ The tested paths cover Carmageddon and Splat Pack where applicable, including XI
 ## Release model
 
 The installer is target-first. Source installations are read-only, and no complete original Carmageddon or Splat Pack game data is included.
+
+## Known issue
+
+- In the 16:9 runtime, a crash can occur when switching into cockpit view and immediately looking left/right before the race-start countdown has begun. Once the race/countdown is underway, this has not reproduced in current testing. As a workaround, avoid rapid cockpit/look-view changes during the pre-countdown start phase.
