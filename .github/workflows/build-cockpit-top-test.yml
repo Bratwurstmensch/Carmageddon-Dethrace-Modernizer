@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
   push:
     branches:
-      - chatgpt/cockpit-top-normalization-test-20261004
+      - chatgpt/mirror-final-alignment-test-20261004
     paths:
       - "source-port/apply-cockpit-top-normalization-test.py"
       - "source-port/apply-cockpit-top-overlay-crop-test.py"
