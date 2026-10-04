@@ -19,11 +19,14 @@ The repository also contains a reproducible GitHub Actions pipeline. Compiler/to
 
 | Area | Result | Notes |
 | --- | --- | --- |
-| Carmageddon 16:9 runtime | PASS | Real-game test |
-| Splat Pack 16:9 runtime | PASS | Real-game test |
-| Carmageddon 4:3 runtime | PASS | Modernizer parity path |
-| Splat Pack 4:3 runtime | PASS | Modernizer parity path |
+| Carmageddon 16:9 runtime | PASS WITH KNOWN LIMITATION | Stable outside the known cockpit/look crash described below |
+| Splat Pack 16:9 runtime | PASS WITH KNOWN LIMITATION | Stable outside the known cockpit/look crash described below |
+| Carmageddon 4:3 runtime | PASS | Stable in the final Actions-runtime smoke test |
+| Splat Pack 4:3 runtime | PASS | Stable in the final Actions-runtime smoke test |
 | Native analog XInput | PASS | Left-stick steering; analog RT/LT |
+| Initial player-name text entry | KEYBOARD REQUIRED | XInput does not provide text entry; normally only needed during initial setup |
+| 16:9 cockpit/look stability | KNOWN ISSUE | Looking left/right in cockpit can crash, particularly near the beginning of a race |
+| 4:3 cockpit/look stability | PASS | No equivalent crash observed in the final smoke test |
 | 500-unit HiRes draw distance | PASS | Goldstandard behavior |
 | Full-detail opponent cars | PASS | Principal model retained at distance |
 | Distant pedestrian/object rendering | PASS | Extended rendering without extending stock gameplay activation range |
@@ -40,6 +43,19 @@ The repository also contains a reproducible GitHub Actions pipeline. Compiler/to
 | Splat Pack WAV music playback | PASS | RC9 OGG-first/WAV-fallback runtime |
 | Original source folders modified | NO | Sources treated as read-only |
 | German/Uncut on tested eXoDOS Splat revision | NOT SUPPORTED | Installer safely declined the unverified revision |
+
+## Reproducible GitHub Actions runtime smoke test
+
+The release-candidate workflow was also built through GitHub Actions and the resulting executables were manually tested in the already validated RC9 installation.
+
+Actions build SHA-256 values:
+
+| Runtime | SHA-256 |
+| --- | --- |
+| 16:9 | `1300b268d5e0431d52853e3f73e864f971ff1c0879eefc5846cc83152d9e33b5` |
+| 4:3 | `a5f5a25ca38d08fda7b3f934674c3e97371bb7f47daa879f0851f5f3c84b0f8b` |
+
+Observed behavior matched the manually built RC9 baseline: the 4:3 runtime was stable, while the 16:9 runtime retained the known cockpit/look crash tendency, especially around race start. Outside that issue, the tested scenarios remained functional. This confirms that the public source/build path reproduces the relevant RC9 behavior even though compiler/toolchain metadata makes the executables byte-different from the manually built RC9 reference.
 
 ## Observed eXoDOS installer result
 
