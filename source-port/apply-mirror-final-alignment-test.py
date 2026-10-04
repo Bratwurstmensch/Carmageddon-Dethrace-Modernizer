@@ -40,10 +40,12 @@ def main() -> int:
 
     text = replace_once(
         text,
+        "        gRearview_screen->base_x = gScreen_wobble_x + gProgram_state.current_car.mirror_left\n"
+        "            + (gBack_screen->width == 854 ? 173 : 0);",
         "        gRearview_screen->base_x = gBack_screen->width == 854\n"
         "            ? gBack_screen->width - gRearview_screen->width\n"
         "            : gScreen_wobble_x + gProgram_state.current_car.mirror_left;",
-        "rearview legacy X alignment anchor",
+        "rearview legacy X right-edge alignment",
     )
 
     path.write_text(text, encoding="utf-8")
