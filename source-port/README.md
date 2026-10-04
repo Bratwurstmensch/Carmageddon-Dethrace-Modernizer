@@ -1,56 +1,122 @@
-# v1.5 source port
+# Modernizer source-port patches
 
-This directory converts the already tested v1.5 binary proof-of-concept into reproducible source changes against **Dethrace v0.10.1**.
+This directory contains reproducible source transformations against **Dethrace v0.10.1**.
 
-The source port has passed CI compilation and real-game visual/runtime testing with both Carmageddon and Splat Pack on Windows.
+The project started with the validated v1.5 widescreen proof-of-concept and then grew through iterative source-level work for draw distance, distant detail, cockpit rendering, mirror placement, native analog XInput and CD-audio compatibility.
 
-## What the patcher changes
+## Release-candidate philosophy
 
-The patcher edits three upstream files:
+The historical patch scripts are intentionally kept instead of being silently rewritten into one opaque mega-patch. They provide an audit trail for the development process.
 
-- `src/DETHRACE/pc-all/allsys.c`
-  - changes the high-resolution graphics spec from 640×480 to 854×480,
-  - centers the doubled 640×400 low-resolution interface at x=107,
-  - clears the complete 854×480 interface destination before drawing,
-  - maps mouse coordinates back into the centered 320×200 logical menu.
-- `src/DETHRACE/common/grafdata.c`
-  - changes the high-resolution graphics-data width from 640 to 854 so `CalcGrafDataIndex()` continues to match the selected graphics mode.
-- `src/DETHRACE/common/loading.c`
-  - shifts the five top/right HUD slots by +107 at load time,
-  - shifts their dim rectangles together with them,
-  - changes centre-anchored event slots 4, 5, 6, 9, 10 and 11 from x=320 to x=427.
-
-No CAR-file damage-coordinate modification is included. That earlier experiment was reverted during development and is not part of the stable v1.5 behavior.
-
-## Why 854×480 is Hor+
-
-Dethrace already derives the 3D camera aspect from the active render width and height. Once the high-resolution mode is genuinely 854×480, the camera therefore uses the wider aspect without requiring a separate FOV override.
-
-## Applying locally
-
-Start from a clean checkout of Dethrace v0.10.1, then run:
+For **v1.0-rc1**, the authoritative build order is encoded in:
 
 ```text
-python apply-v1.5-source-port.py <path-to-clean-dethrace-v0.10.1>
+.github/workflows/build-v1.0-rc1-runtimes.yml
 ```
 
-The script intentionally checks that every expected v0.10.1 source fragment occurs exactly once. It aborts rather than silently patching an unexpected source revision.
+Do not assume that every experimental script in this directory belongs in the final runtime. The workflow is the release-candidate source of truth.
 
-## Data files
+## 4:3 release-candidate chain
 
-The source port accepts both original HEADUP data and the already modified HEADUP files created by the earlier private Modernizer tests. For the five right-side HUD slots it detects whether the X coordinate is still inside the original 640-wide range before applying the +107 shift, so those local test files are not shifted twice.
+Starting from a clean Dethrace v0.10.1 checkout:
 
-For a future public release, original/unmodified game data remains the preferred input. Original Carmageddon and Splat Pack data are not part of this repository.
+```text
+apply-4x3-modernizer-parity.py
+apply-native-analog-xinput-v13.py
+apply-rc9-cdda-wav-fallback.py
+```
 
+The 4:3 parity patch keeps the original aspect ratio while adding the shared Modernizer runtime improvements:
 
-## Validation result
+- 500-unit HiRes far plane;
+- no race-specific reduction of the Modernizer far plane;
+- full principal opponent-car models at distance;
+- distant pedestrian/object rendering while retaining the original gameplay activation radius;
+- enlarged lollipop render queue.
 
-Validated on 2026-10-02:
+## 16:9 release-candidate chain
 
-- clean Dethrace v0.10.1 source checkout patched successfully,
-- Windows x64 build completed successfully in GitHub Actions,
-- main game test passed,
-- Splat Pack test passed,
-- menus/videos, mouse mapping, 16:9 presentation and HUD/race-message placement matched the expected v1.5 behavior.
+The 16:9 runtime is built from the validated widescreen/Goldstandard progression:
 
-The source port is therefore considered the confirmed implementation of the v1.5 widescreen work.
+```text
+apply-v1.5-source-port.py
+apply-current-test.py
+apply-current-fixes-v2.py
+apply-overlay-alignment-v3.py
+apply-cockpit-final-overlays-v4.py
+apply-cockpit-finetune-v5.py
+apply-cockpit-finetune-v6.py
+apply-cockpit-finetune-v7.py
+apply-cockpit-stability-v8.py
+apply-cockpit-final-v9.py
+apply-cockpit-final-v10.py
+apply-cockpit-stability-v11.py
+apply-cockpit-final-v12.py
+apply-native-analog-xinput-v13.py
+apply-cockpit-crashdiag-v14.py
+apply-pratcam-stability-v15.py
+apply-pratcam-directblit-v16.py
+apply-pratcam-directblit-lock-v17.py
+apply-ped-completion-guard-v18.py
+apply-release-candidate-1.py
+apply-cockpit-top-normalization-test.py
+apply-cockpit-top-overlay-crop-test.py
+apply-mirror-final-alignment-test.py
+apply-rc9-cdda-wav-fallback.py
+```
+
+Some filenames still contain `test` because they preserve their development history. Their content on the release branch corresponds to the final manually validated fullscreen-cockpit / mirror path.
+
+## RC9 CD-audio patch
+
+`apply-rc9-cdda-wav-fallback.py` is intentionally small and isolated.
+
+It changes only the Dethrace CD-audio file lookup:
+
+- `AudioBackend_InitCDA()`: CD audio is available when either `MUSIC/Track02.ogg` or `MUSIC/Track02.wav` exists.
+- `AudioBackend_PlayCDA()`: prefer `Track0N.ogg`; if absent, try `Track0N.wav`.
+
+This preserves normal GOG behavior and enables lossless WAV tracks extracted from original CUE/BIN CD images.
+
+The patch was manually validated with both Carmageddon and Splat Pack in RC9.
+
+## Native analog XInput
+
+`apply-native-analog-xinput-v13.py` adds the tested controller path used by both release-candidate runtimes.
+
+The normal driving layout includes analog steering and analog triggers. Action Replay remains keyboard/mouse-oriented because its control surface is substantially larger and conflicts with the normal driving layout.
+
+## Widescreen notes
+
+The 16:9 path uses a genuine 854×480 HiRes/OpenGL render target.
+
+The original UI and cockpit art remains 4:3 source material. The Modernizer centers/adapts those 2D surfaces while allowing the 3D world to fill the widened frame.
+
+The final cockpit path renders the 3D world across the complete 854×480 framebuffer behind the cockpit art. The final rear-view path right-aligns the 3D rear-view render surface.
+
+## Installer-side work
+
+Not every Modernizer feature belongs in the Dethrace runtime.
+
+The Windows installer separately handles:
+
+- source discovery and validation;
+- backup/rollback/uninstall state;
+- German/Uncut local data integration;
+- GOG/loose-file media discovery;
+- eXoDOS CUE/BIN ISO9660 cutscene extraction;
+- Red Book audio extraction;
+- source-verified Damage HUD data correction.
+
+Those features should not be mixed into upstream Dethrace engine pull requests.
+
+## Upstreamable pieces
+
+See [../docs/UPSTREAM.md](../docs/UPSTREAM.md).
+
+The strongest isolated upstream candidates are:
+
+1. RC9 OGG-first/WAV-fallback CD audio;
+2. native analog XInput;
+3. focused draw-distance/LOD changes;
+4. later, a consolidated widescreen patch series if upstream maintainers want it.
