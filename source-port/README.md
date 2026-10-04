@@ -84,7 +84,7 @@ The patch was manually validated with both Carmageddon and Splat Pack in RC9.
 
 `apply-native-analog-xinput-v13.py` adds the tested controller path used by both release-candidate runtimes.
 
-The normal driving layout includes analog steering and analog triggers. Action Replay remains keyboard/mouse-oriented because its control surface is substantially larger and conflicts with the normal driving layout.
+The normal driving layout includes analog steering and analog triggers. Action Replay remains keyboard/mouse-oriented because its control surface is substantially larger and conflicts with the normal driving layout. The initial player-name text entry also still requires a keyboard; the XInput layer intentionally does not emulate text entry.
 
 ## Widescreen notes
 
@@ -93,6 +93,8 @@ The 16:9 path uses a genuine 854×480 HiRes/OpenGL render target.
 The original UI and cockpit art remains 4:3 source material. The Modernizer centers/adapts those 2D surfaces while allowing the 3D world to fill the widened frame.
 
 The final cockpit path renders the 3D world across the complete 854×480 framebuffer behind the cockpit art. The final rear-view path right-aligns the 3D rear-view render surface.
+
+The final release-candidate smoke test still reproduced a 16:9 stability limitation: cockpit left/right look / rapid view switching can crash, especially near the beginning of a race. The 4:3 runtime did not reproduce this issue in the same test and is the recommended option for cockpit-heavy play.
 
 ## Installer-side work
 
