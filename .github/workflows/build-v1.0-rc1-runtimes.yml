@@ -2,12 +2,6 @@ name: Build v1.0-rc1 runtimes
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-      - release/v1.0-rc1
-    paths:
-      - "source-port/**"
-      - ".github/workflows/build-v1.0-rc1-runtimes.yml"
 
 jobs:
   windows-x64:
