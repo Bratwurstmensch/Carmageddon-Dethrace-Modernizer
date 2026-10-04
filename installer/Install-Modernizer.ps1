@@ -11,8 +11,8 @@ $OutputEncoding = [Console]::OutputEncoding
 $ErrorActionPreference = "Stop"
 Set-StrictMode -Version Latest
 
-$ModernizerVersion = "0.9.0-v19-integration-test"
-$EngineVersion = "v1.5-source-port"
+$ModernizerVersion = "0.9.0-rc2-installer-polish"
+$EngineVersion = "v1.5-goldstandard-rc1"
 $PackageRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 $MainDeltaRoot = Join-Path $PackageRoot "German\Main"
 $SplatDeltaRoot = Join-Path $PackageRoot "German\Splat"
@@ -917,11 +917,9 @@ try {
         foreach ($entry in @($mainManifest.files)) {
             $relative = "DATA\" + ([string]$entry.path)
             $source = Join-Path $mainStage ([string]$entry.path)
-            $destination = Join-Path $GameDir $relative
-            if ((Test-Path -LiteralPath $destination -PathType Leaf) -and
-                (Get-Sha256 $destination) -eq ([string]$entry.target_sha256).ToLowerInvariant()) {
-                continue
-            }
+            # Target-first installation starts from the validated original copy.
+            # Do not hash every English destination just to prove it is not
+            # already the German target; replace it directly from verified stage.
             Install-One $source $relative
         }
     }
@@ -930,11 +928,6 @@ try {
         foreach ($entry in @($splatManifest.files)) {
             $relative = "CARSPLAT\DATA\" + ([string]$entry.path)
             $source = Join-Path $splatStage ([string]$entry.path)
-            $destination = Join-Path $GameDir $relative
-            if ((Test-Path -LiteralPath $destination -PathType Leaf) -and
-                (Get-Sha256 $destination) -eq ([string]$entry.target_sha256).ToLowerInvariant()) {
-                continue
-            }
             Install-One $source $relative
         }
     }
@@ -1019,7 +1012,10 @@ catch {
                 $backupPath = Join-Path $backupDir ([string]$record.backupPath)
                 if (Test-Path -LiteralPath $backupPath -PathType Leaf) {
                     New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
-                    Copy-Item -LiteralPath $backupPath -Destination $destination -Force
+                    if (Test-Path -LiteralPath $destination -PathType Leaf) {
+                        Remove-Item -LiteralPath $destination -Force
+                    }
+                    Move-Item -LiteralPath $backupPath -Destination $destination -Force
                 }
             }
             elseif (Test-Path -LiteralPath $destination -PathType Leaf) {
