@@ -7,6 +7,7 @@ on:
       - release/v1.0-rc1
     paths:
       - "installer/**"
+      - ".gitattributes"
       - "source-port/**"
       - "README.md"
       - "README.de.md"
