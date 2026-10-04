@@ -32,7 +32,16 @@ jobs:
           target = pathlib.Path("installer/Install-Modernizer.ps1")
 
           encoded = "".join(payload.read_text(encoding="ascii").split())
-          restored = zlib.decompress(base64.b64decode(encoded))
+          encoded += "=" * (-len(encoded) % 4)
+          compressed = base64.b64decode(encoded)
+
+          try:
+              restored = zlib.decompress(compressed)
+          except zlib.error:
+              # Accept a raw DEFLATE stream as well; the payload is an exact
+              # source backup and older creation code did not record wrapper metadata.
+              restored = zlib.decompress(compressed, -zlib.MAX_WBITS)
+
           target.write_bytes(restored)
 
           print(f"Restored {len(restored)} bytes to {target}")
