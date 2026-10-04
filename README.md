@@ -10,6 +10,7 @@ It combines a true widescreen presentation option, modern XInput controls, incre
 ## Highlights
 
 - **True 16:9 gameplay mode** at 854×480 in HiRes/OpenGL mode.
+- **Fullscreen 16:9 cockpit 3D rendering** across the complete 854×480 frame, removing the old top/bottom black bars.
 - **Original 4:3 mode** for players who prefer the classic presentation.
 - **Modern XInput controller support** for Xbox-compatible controllers.
 - **Native analog steering** on the left stick.
@@ -34,13 +35,13 @@ The 16:9 runtime is the more modern presentation and is recommended if you norma
 
 It provides the full widescreen view together with the Modernizer draw-distance, detail and controller improvements.
 
-### 4:3 — recommended for cockpit-focused play
+### 16:9 cockpit and 4:3 artwork
 
-Carmageddon's cockpit artwork was authored as **2D 4:3 artwork**. It cannot be cleanly expanded into genuine 16:9 without inventing image data that does not exist in the original assets.
+The 16:9 cockpit now renders the **3D world across the complete 854×480 frame behind the cockpit artwork**, eliminating the artificial black areas above and below the original 4:3 windshield render rectangle.
 
-The Modernizer centers and adapts the cockpit as far as practical, but the underlying 4:3 nature is still visible—especially when looking left or right.
+The cockpit artwork itself is still fixed **2D 4:3 artwork**. The Modernizer does not stretch or invent missing side artwork, so this limitation is still most visible while looking left or right.
 
-If the cockpit view is your preferred way to play, the **4:3 runtime is recommended**. It still includes the Modernizer's increased draw distance, distant-detail improvements and modern XInput/analog controls.
+The 4:3 runtime remains available for players who prefer the completely original cockpit framing.
 
 ## Controller layout
 
@@ -68,11 +69,11 @@ No AntiMicroX or external controller-mapping application is required.
 
 ## Known limitations
 
-### 16:9 cockpit
+### 16:9 cockpit artwork
 
-The cockpit is based on fixed 4:3 2D artwork. The Modernizer can center and position it for widescreen play, but it cannot turn the original cockpit artwork into native 16:9 artwork.
+The 3D world now fills the complete 854×480 frame in cockpit view, with no artificial top/bottom black bars from the original 4:3 render window.
 
-The limitation is most obvious while looking left or right. For players who primarily use cockpit view, the 4:3 runtime gives the most coherent presentation.
+The cockpit overlay itself remains fixed 4:3 2D artwork. Side-looking views therefore still show the limits of the original assets.
 
 ### Pre-countdown cockpit crash
 
@@ -162,6 +163,7 @@ The widescreen runtime includes the validated work for:
 - centered 640-wide menu/video content;
 - corrected mouse mapping;
 - centered map and race overlays;
+- fullscreen cockpit 3D rendering behind the original 4:3 overlay;
 - cockpit positioning;
 - rear-view placement;
 - right-edge A/P/O and Damage HUD alignment.
