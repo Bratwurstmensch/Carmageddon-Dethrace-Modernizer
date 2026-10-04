@@ -56,6 +56,7 @@ jobs:
       - name: Apply isolated cockpit viewport-top test
         run: |
           python modernizer/source-port/apply-cockpit-top-normalization-test.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-top-overlay-crop-test.py dethrace-wide
           git -C dethrace-wide diff --check
 
       - name: Set up Ninja
@@ -149,9 +150,11 @@ jobs:
 
           $hash = (Get-FileHash (Join-Path $out "dethrace-16x9-cockpit-top-test.exe") -Algorithm SHA256).Hash.ToLowerInvariant()
           @"
-          Experimental cockpit viewport-top normalization test
+          Experimental cockpit full-opening test
           Base: validated 16:9 Goldstandard RC1 chain
-          Only additional change: in 854-wide cockpit mode, render_top values above 50 are capped at 50.
+          Additional changes:
+          - 854-wide cockpit 3D render_top forced to 0 (successful lower-area diagnostic)
+          - cockpit strip-image rows above the original windshield opening are skipped in 16:9
           4:3 behavior is untouched.
 
           EXE SHA-256: $hash
