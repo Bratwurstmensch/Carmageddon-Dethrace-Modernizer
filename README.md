@@ -65,13 +65,15 @@ See [docs/RELEASE-CANDIDATE.md](docs/RELEASE-CANDIDATE.md) for the validation ma
 
 The normal driving layout intentionally does **not** remap Dethrace's larger Action Replay control scheme. Keyboard/mouse is recommended for Replay mode.
 
+A keyboard is also still required when Carmageddon asks for the player's name during initial setup. After that one-time text entry, the tested normal driving/menu flow can be handled with the controller mapping above.
+
 ## 16:9 and 4:3
 
 ### 16:9
 
 The widescreen runtime is the modern presentation path. It renders the 3D world across the complete 854×480 frame and keeps the original 640-wide 2D interface/cockpit assets centered where appropriate.
 
-The cockpit artwork itself remains original 4:3 artwork, so looking left/right can still expose the limitations of the source assets.
+The cockpit artwork itself remains original 4:3 artwork. In addition, practical release-candidate testing found that the 16:9 cockpit/look path can still crash while looking left/right, especially when switching views near the beginning of a race. For cockpit-heavy play, use the 4:3 runtime.
 
 ### 4:3
 
@@ -135,7 +137,9 @@ See [docs/UPSTREAM.md](docs/UPSTREAM.md) for the relevant upstream issues and wh
 
 ## Known limitations
 
+- **16:9 cockpit/look stability:** the 16:9 runtime can crash when looking left/right in cockpit mode, particularly when switching views near the start of a race. The 4:3 runtime remained stable in the same release-candidate testing and is recommended for cockpit-heavy play.
 - Original cockpit artwork is fixed 4:3 artwork and cannot become native 16:9 without new art.
+- **Initial player-name entry requires a keyboard.** This is normally encountered only during initial setup; the controller mapping does not provide text entry.
 - German/Uncut integration remains experimental and source-revision-specific.
 - Action Replay still uses its original keyboard/mouse-oriented control scheme.
 - This project currently targets Windows for its tested installer/controller workflow.
