@@ -6,7 +6,7 @@ The validated Goldstandard already expands the cockpit 3D viewport to the full
 
 Splat Pack cockpit data can use a substantially lower windshield opening than
 the main-game Eagle/Hawk data, producing an extra black band in widescreen.
-For this isolated test only, cap the widescreen cockpit render_top at 50 pixels.
+For this diagnostic test only, force the widescreen cockpit render_top to 0 pixels.
 
 4:3 behavior is untouched.
 """
@@ -48,19 +48,19 @@ def main() -> int:
              * Splat Pack cockpit data can define a noticeably lower top edge
              * than the main-game cockpit, leaving an additional black strip in
              * widescreen. Keep car-specific values that are already 50 or less,
-             * but cap larger values at the main-game-style 50px opening.
+             * and force the 3D render viewport to begin at the very top of the 854x480 frame.
              * The 4:3 path below remains completely unchanged. */
             cockpit_render_top = gProgram_state.current_car.render_top[gProgram_state.cockpit_image_index];
 
             gProgram_state.current_render_left = 0;
-            gProgram_state.current_render_top = cockpit_render_top > 50 ? 50 : cockpit_render_top;
+            gProgram_state.current_render_top = 0;
             gProgram_state.current_render_right = gGraf_specs[gGraf_spec_index].total_width;
         } else {
 """
 
     text = replace_once(text, old, new, "16:9 cockpit viewport block")
     path.write_text(text, encoding="utf-8")
-    print("Applied isolated 16:9 cockpit render-top cap test (max 50px)")
+    print("Applied diagnostic 16:9 cockpit render-top test (forced 0px)")
     return 0
 
 
