@@ -1,203 +1,155 @@
 # Carmageddon Dethrace Modernizer
 
-**Carmageddon Dethrace Modernizer** is a Windows-focused quality-of-life package for running the original **Carmageddon** and **Splat Pack** through [Dethrace](https://github.com/dethrace-labs/dethrace).
+A Windows-focused quality-of-life and compatibility package for running the original **Carmageddon** and **Splat Pack** with [Dethrace](https://github.com/dethrace-labs/dethrace).
 
-It combines a true widescreen presentation option, modern XInput controls, increased draw distance, improved distant detail, an original-aspect-ratio 4:3 runtime, optional German/Uncut integration, and a guided target-first installer.
+The project is developed and tested by **Bratwurstmensch** with extensive assistance from **ChatGPT by OpenAI**.
 
-> **No original Carmageddon or Splat Pack game data is included.**  
+> **No original Carmageddon or Splat Pack game data is included.**
 > You need your own legally obtained game data.
 
-## Highlights
+## v1.0 release-candidate status
 
-- **True 16:9 gameplay mode** at 854×480 in HiRes/OpenGL mode.
-- **Original 4:3 mode** for players who prefer the classic presentation.
-- **Modern XInput controller support** for Xbox-compatible controllers.
-- **Native analog steering** on the left stick.
-- **Analog acceleration and braking/reverse** on the right and left triggers.
-- **500-unit high-resolution draw distance**.
-- **Reduced distant pedestrian/object pop-in** while keeping the original short gameplay/AI activation radius.
-- **Full-detail opponent car models** retained at distance instead of switching to simplified models.
-- **Centered 16:9 menus, map, videos and race overlays**.
-- **Corrected 16:9 mouse coordinates** in centered menu surfaces.
-- **Source-verified 16:9 Damage HUD correction**.
-- **Carmageddon + Splat Pack support**.
-- **Optional German/Uncut integration (experimental)** from the user's own legally owned German data.
-- **Non-destructive target-first installer**: source installations remain untouched.
+The current public-preparation branch is **v1.0-rc1**. Runtime work is feature-frozen around the successfully tested **RC9** build.
 
-## 16:9 or 4:3?
+Validated on Windows with Carmageddon and Splat Pack:
 
-Both runtimes are included because they serve different preferences.
+- true 16:9 gameplay at 854×480 in HiRes/OpenGL mode;
+- original-aspect-ratio 4:3 Modernizer runtime;
+- fullscreen 16:9 cockpit 3D viewport behind the original 4:3 cockpit artwork;
+- right-edge-aligned 16:9 rear-view mirror;
+- centered menus, map, videos and race overlays;
+- corrected mouse mapping for the centered menu surface;
+- native analog XInput steering;
+- analog RT acceleration and LT brake/reverse;
+- 500-unit high-resolution draw distance;
+- full-detail opponent cars retained at distance;
+- reduced distant pedestrian/object pop-in while preserving the original short gameplay activation radius;
+- Carmageddon and Splat Pack launch paths;
+- installer backup/rollback/uninstall handling;
+- optional experimental German/Uncut integration from user-owned data;
+- eXoDOS-style CUE/BIN cutscene extraction;
+- eXoDOS-style Red Book CD-audio extraction to lossless WAV;
+- Dethrace OGG-first / WAV-fallback CD-audio playback;
+- source-verified 16:9 Damage HUD correction, including the tested alternate encrypted eXoDOS data representation.
 
-### 16:9 — recommended for third-person / external-camera play
+## Tested RC9 runtime hashes
 
-The 16:9 runtime is the more modern presentation and is recommended if you normally drive using the external camera.
+The successfully tested RC9 runtime executables have these SHA-256 hashes:
 
-It provides the full widescreen view together with the Modernizer draw-distance, detail and controller improvements.
+- **16:9:** `1df66ba28020f08635773a992e1254ce1b746a11f7a4d77598aff236d7f8ddf6`
+- **4:3:** `80dd90f4a74b6caaae19fb336cbd86e5ce0dc3058c509d0da691ecf1511dc9f7`
 
-### 4:3 — recommended for cockpit-focused play
+The RC9 test used the eXoDOS-style Carmageddon source with both main-game and Splat Pack CUE/BIN images. Cutscenes, music playback and the 16:9 Damage HUD were all confirmed working.
 
-Carmageddon's cockpit artwork was authored as **2D 4:3 artwork**. It cannot be cleanly expanded into genuine 16:9 without inventing image data that does not exist in the original assets.
-
-The Modernizer centers and adapts the cockpit as far as practical, but the underlying 4:3 nature is still visible—especially when looking left or right.
-
-If the cockpit view is your preferred way to play, the **4:3 runtime is recommended**. It still includes the Modernizer's increased draw distance, distant-detail improvements and modern XInput/analog controls.
+See [docs/RELEASE-CANDIDATE.md](docs/RELEASE-CANDIDATE.md) for the validation matrix.
 
 ## Controller layout
 
-The XInput launchers use the same modern layout in both the 16:9 and 4:3 runtimes.
-
-| Controller input | Action |
+| Input | Action |
 | --- | --- |
 | Left stick | Analog steering |
-| Right trigger | Analog accelerate |
-| Left trigger | Analog brake / reverse |
+| RT | Analog accelerate |
+| LT | Analog brake / reverse |
 | A | Handbrake |
 | B | Wheelspin |
 | X | Repair |
 | Y | Recover |
 | Back / View | Map |
 | Start / Menu | Escape / pause/menu |
-| D-pad | Arrow keys / menu navigation |
+| D-pad | Menu / arrow-key navigation |
 | Right stick left/right | Look left/right |
 | Right stick up | Look forward |
 | LB / RB | Look left/right |
-| Right-stick click | Toggle cockpit view |
+| Right-stick click | Toggle cockpit |
 | Left-stick click | Horn |
 
-No AntiMicroX or external controller-mapping application is required.
+The normal driving layout intentionally does **not** remap Dethrace's larger Action Replay control scheme. Keyboard/mouse is recommended for Replay mode.
 
-## Known limitations
+## 16:9 and 4:3
 
-### 16:9 cockpit
+### 16:9
 
-The cockpit is based on fixed 4:3 2D artwork. The Modernizer can center and position it for widescreen play, but it cannot turn the original cockpit artwork into native 16:9 artwork.
+The widescreen runtime is the modern presentation path. It renders the 3D world across the complete 854×480 frame and keeps the original 640-wide 2D interface/cockpit assets centered where appropriate.
 
-The limitation is most obvious while looking left or right. For players who primarily use cockpit view, the 4:3 runtime gives the most coherent presentation.
+The cockpit artwork itself remains original 4:3 artwork, so looking left/right can still expose the limitations of the source assets.
 
-### Pre-countdown cockpit crash
+### 4:3
 
-A crash can occur in the 16:9 runtime if you switch into cockpit view **before the race-start countdown has begun** and immediately look left or right.
+The separate 4:3 runtime keeps the original presentation while retaining the Modernizer gameplay/detail improvements and native analog XInput support.
 
-Current workaround: wait until the countdown/race has started before rapidly changing cockpit/look views.
+## GOG and eXoDOS-style sources
 
-This issue has not been observed during normal driving after the race has begun in current testing.
+The installer supports normal loose-file/GOG-style installations and the tested eXoDOS layout.
 
-### German/Uncut localization is experimental
+For eXoDOS-style CUE/BIN sources it can:
 
-The German/Uncut option works by validating and locally transforming data from the user's own supported German Carmageddon installation.
+- detect Carmageddon and Splat Pack CD images;
+- parse supported MODE1/MODE2 data-track layouts;
+- read ISO9660 directly from the BIN image;
+- extract the original SMK cutscenes without mounting the disc;
+- extract Red Book AUDIO tracks losslessly as 44.1 kHz / 16-bit / stereo WAV;
+- install main-game music under `MUSIC\Track0N.wav`;
+- install Splat Pack music under `CARSPLAT\MUSIC\Track0N.wav`.
 
-It is intentionally marked **experimental**. Minor visual/localization issues remain, including some menu flicker or imperfect presentation in places. The normal English installation is the recommended default.
+The RC9 runtime keeps the existing GOG convention first: `Track0N.ogg` is preferred when present; otherwise `Track0N.wav` is used.
+
+## German / Uncut
+
+German/Uncut integration is **experimental** and works only with verified source revisions.
+
+The public project does not redistribute original German game assets. The installer validates user-owned source data and applies local transformations.
+
+A currently tested eXoDOS Splat Pack revision is not yet supported by the German localization transform. In that case the installer safely declines the unsupported German/Uncut path instead of applying an unverified patch.
 
 ## Installation
 
-Run:
+The release package is intended to be started with:
 
 ```text
 Install-Modernizer.cmd
 ```
 
-The installer uses a **target-first** workflow:
+Default component selection is **16:9 + XInput**. The source installations are treated as read-only; the Modernizer creates its own finished installation and tracks rollback/uninstall state.
 
-1. choose a new/empty target folder;
-2. choose the desired components;
-3. select the original/English Carmageddon installation;
-4. if German/Uncut was selected, select the supported German installation;
-5. all selected source paths are validated **before the large copy/install phase begins**;
-6. review the preflight summary and start installation.
+## Source-port structure
 
-If an invalid source folder is selected, the installer lets you choose another folder instead of forcing you to restart the complete installation.
+The repository contains reproducible source patchers against **Dethrace v0.10.1** in [source-port/](source-port/).
 
-The source installations are treated as read-only.
+The tested RC9 CD-audio fix is documented and reproducible through:
 
-### Component selection
+```text
+source-port/apply-rc9-cdda-wav-fallback.py
+```
 
-- **1** — 16:9 widescreen runtime
-- **2** — XInput controller support
-- **3** — German/Uncut localization (**experimental**)
+The historical development scripts are intentionally retained because they document how the final widescreen, cockpit, mirror, detail and controller behavior was reached. See [source-port/README.md](source-port/README.md).
 
-Examples:
+## Upstream relevance
 
-- `12` — 16:9 + XInput
-- `123` — 16:9 + XInput + German/Uncut
-- `2` — 4:3 + XInput
+Several parts of the Modernizer directly overlap long-standing Dethrace feature requests, especially:
 
-Pressing **Enter** at component selection defaults to **16:9 + XInput**.
+- native Xbox/XInput controller support;
+- widescreen presentation;
+- higher draw distance.
 
-## Installed launchers
+See [docs/UPSTREAM.md](docs/UPSTREAM.md) for the relevant upstream issues and which changes are suitable candidates for clean upstream pull requests.
 
-Depending on selected components and detected Splat Pack data, the target folder can contain:
+## Known limitations
 
-- `Start-Carmageddon.cmd` — 4:3
-- `Start-Carmageddon-XInput.cmd` — 4:3 + XInput
-- `Start-Carmageddon-16x9.cmd` — 16:9
-- `Start-Carmageddon-16x9-XInput.cmd` — 16:9 + XInput
-- equivalent `Start-CARSPLAT...` launchers for Splat Pack
-
-The package deliberately contains **two game runtimes**:
-
-- `Runtime4x3\dethrace-4x3-v0.10.1.exe` — original-aspect-ratio Modernizer runtime
-- `dethrace-16x9-v1.5.exe` — validated 16:9 Goldstandard runtime
-
-This keeps the stable 16:9 implementation isolated from the 4:3 presentation while allowing both to share the same Modernizer gameplay/detail improvements.
-
-## What the Modernizer changes
-
-### Draw distance
-
-The high-resolution runtime uses a **500-unit far plane** and prevents individual race settings from unexpectedly shortening the Modernizer draw distance.
-
-### Distant pedestrians and objects
-
-The original short gameplay/AI activation distance is preserved, while distant pedestrian/object sprites can still be rendered farther away. This reduces obvious pop-in without extending their gameplay activation range.
-
-### Opponent car detail
-
-Opponent cars retain their full principal model instead of switching to lower-detail car actors based on distance.
-
-### 16:9 presentation
-
-The widescreen runtime includes the validated work for:
-
-- 854×480 HiRes/OpenGL output;
-- centered 640-wide menu/video content;
-- corrected mouse mapping;
-- centered map and race overlays;
-- cockpit positioning;
-- rear-view placement;
-- right-edge A/P/O and Damage HUD alignment.
-
-## Carmageddon and Splat Pack
-
-The installer automatically detects supported Splat Pack data when present and installs the matching launchers and integration.
-
-You do not need to select separate main-game and Splat Pack folders manually when they are part of a supported installation layout.
-
-## Project status
-
-The gameplay/runtime work is considered **feature-frozen for the release candidate**. The 16:9 Goldstandard and the 4:3 parity runtime have both been real-world tested.
-
-The remaining release work is installer/documentation validation rather than additional gameplay experimentation, unless a genuine release-blocking problem is discovered.
+- Original cockpit artwork is fixed 4:3 artwork and cannot become native 16:9 without new art.
+- German/Uncut integration remains experimental and source-revision-specific.
+- Action Replay still uses its original keyboard/mouse-oriented control scheme.
+- This project currently targets Windows for its tested installer/controller workflow.
 
 ## Relationship to Dethrace
 
-This project builds on the work of the [Dethrace contributors](https://github.com/dethrace-labs/dethrace) and has been developed against **Dethrace v0.10.1**.
+This project builds on the work of the Dethrace contributors and has been developed against **Dethrace v0.10.1**.
 
-This repository is not an official Dethrace project.
+It is **not an official Dethrace project**.
 
-## Credits
+The repository is licensed under **GNU GPL v3.0**. Before the first public binary release, the project is also seeking a brief upstream clarification because Dethrace's repository currently contains a GPLv3 LICENSE while older README wording still references public-domain/non-commercial terms.
 
-The Modernizer project is by **Bratwurstmensch**.
+## Credits and legal
 
-Investigation, scripting, packaging and documentation were developed with extensive assistance from **ChatGPT by OpenAI**.
+Carmageddon, Splat Pack, their assets, audio, text and artwork belong to their respective rights holders. No original game data is included here.
 
-See [docs/CREDITS.md](docs/CREDITS.md) for additional attribution.
-
-## Legal
-
-Carmageddon and related assets belong to their respective rights holders. This repository is not affiliated with the Carmageddon rights holders and does not distribute original Carmageddon/Splat Pack game data.
-
-## License
-
-Modernizer code and tooling in this repository are released under the **GNU General Public License v3.0**. See [LICENSE](LICENSE).
-
-For Dethrace itself, refer to its repository and license notices.
+See [docs/CREDITS.md](docs/CREDITS.md) for attribution and [LICENSE](LICENSE) for the repository license.
