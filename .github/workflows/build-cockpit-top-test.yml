@@ -1,0 +1,165 @@
+name: Build cockpit viewport-top test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - chatgpt/cockpit-top-normalization-test-20261004
+    paths:
+      - "source-port/apply-cockpit-top-normalization-test.py"
+      - ".github/workflows/build-cockpit-top-test.yml"
+
+jobs:
+  windows-x64:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: bash
+
+    steps:
+      - name: Checkout Modernizer
+        uses: actions/checkout@v4
+        with:
+          path: modernizer
+
+      - name: Checkout Dethrace v0.10.1
+        uses: actions/checkout@v4
+        with:
+          repository: dethrace-labs/dethrace
+          ref: v0.10.1
+          submodules: recursive
+          path: dethrace-wide
+
+      - name: Apply validated 16:9 Goldstandard chain
+        run: |
+          python modernizer/source-port/apply-v1.5-source-port.py dethrace-wide
+          python modernizer/source-port/apply-current-test.py dethrace-wide
+          python modernizer/source-port/apply-current-fixes-v2.py dethrace-wide
+          python modernizer/source-port/apply-overlay-alignment-v3.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-overlays-v4.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v5.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v6.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-finetune-v7.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-stability-v8.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v9.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v10.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-stability-v11.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-final-v12.py dethrace-wide
+          python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-wide
+          python modernizer/source-port/apply-cockpit-crashdiag-v14.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-stability-v15.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-directblit-v16.py dethrace-wide
+          python modernizer/source-port/apply-pratcam-directblit-lock-v17.py dethrace-wide
+          python modernizer/source-port/apply-ped-completion-guard-v18.py dethrace-wide
+          python modernizer/source-port/apply-release-candidate-1.py dethrace-wide
+
+      - name: Apply isolated cockpit viewport-top test
+        run: |
+          python modernizer/source-port/apply-cockpit-top-normalization-test.py dethrace-wide
+          git -C dethrace-wide diff --check
+
+      - name: Set up Ninja
+        uses: aseprite/get-ninja@main
+
+      - name: Set up MSVC x64
+        uses: ilammy/msvc-dev-cmd@v1.13.0
+        with:
+          arch: x64
+
+      - name: Set up SDL
+        uses: libsdl-org/setup-sdl@main
+        with:
+          add-to-environment: true
+          build-type: Release
+          cmake-generator: Ninja
+          discriminator: x64
+          version: 3-latest
+          version-sdl2-compat: 2-head
+          version-sdl12-compat: 1-head
+
+      - name: Configure
+        run: |
+          cmake -S dethrace-wide -B dethrace-wide/build -GNinja \
+            -DCMAKE_BUILD_TYPE=RelWithDebInfo \
+            -DBUILD_TESTS=OFF \
+            -DDETHRACE_INSTALL=ON \
+            -DCMAKE_POLICY_DEFAULT_CMP0074=NEW \
+            -DDETHRACE_PLATFORM_SDL1=ON \
+            -DDETHRACE_PLATFORM_SDL2=ON \
+            -DDETHRACE_PLATFORM_SDL3=ON \
+            -DDETHRACE_PLATFORM_SDL_DYNAMIC=ON \
+            -DCMAKE_MSVC_RUNTIME_LIBRARY=MultiThreaded
+
+      - name: Build and install
+        run: |
+          cmake --build dethrace-wide/build --target dethrace
+          cmake --install dethrace-wide/build --prefix runtime
+
+      - name: Assemble drop-in test
+        shell: pwsh
+        run: |
+          $ErrorActionPreference = "Stop"
+          $out = Join-Path $PWD "test-package"
+          New-Item -ItemType Directory -Path $out -Force | Out-Null
+
+          $exe = Get-ChildItem -LiteralPath runtime -Filter dethrace.exe -File -Recurse | Select-Object -First 1
+          if (-not $exe) { throw "Built dethrace.exe not found" }
+          Copy-Item $exe.FullName (Join-Path $out "dethrace-16x9-cockpit-top-test.exe") -Force
+
+          Get-ChildItem -LiteralPath runtime -Filter "SDL*.dll" -File -Recurse |
+            ForEach-Object { Copy-Item $_.FullName $out -Force }
+
+          @'
+          @echo off
+          setlocal
+          title Carmageddon 16:9 Cockpit Top Test
+          cd /d "%~dp0"
+          set "ROOT=%CD%"
+          set "PATH=%ROOT%;%PATH%"
+          if not exist "%ROOT%\DATA\GENERAL.TXT" goto missing
+          "%ROOT%\dethrace-16x9-cockpit-top-test.exe" --dir "%ROOT%" -hires --opengl
+          set "RC=%ERRORLEVEL%"
+          if not "%RC%"=="0" pause
+          exit /b %RC%
+          :missing
+          echo Carmageddon DATA not found. Copy this test package into the installed Modernizer game folder.
+          pause
+          exit /b 2
+          '@ | Set-Content (Join-Path $out "Test-Carmageddon-16x9-CockpitTop.cmd") -Encoding ASCII
+
+          @'
+          @echo off
+          setlocal
+          title Carmageddon Splat Pack 16:9 Cockpit Top Test
+          cd /d "%~dp0"
+          set "ROOT=%CD%"
+          set "SPLAT=%ROOT%\CARSPLAT"
+          set "PATH=%ROOT%;%PATH%"
+          if not exist "%SPLAT%\DATA\RACES\CASTLE2.TXT" goto missing
+          cd /d "%SPLAT%"
+          "%ROOT%\dethrace-16x9-cockpit-top-test.exe" --dir "%SPLAT%" -hires --opengl
+          set "RC=%ERRORLEVEL%"
+          if not "%RC%"=="0" pause
+          exit /b %RC%
+          :missing
+          echo Splat Pack DATA not found. Copy this test package into the installed Modernizer game folder.
+          pause
+          exit /b 2
+          '@ | Set-Content (Join-Path $out "Test-CARSPLAT-16x9-CockpitTop.cmd") -Encoding ASCII
+
+          $hash = (Get-FileHash (Join-Path $out "dethrace-16x9-cockpit-top-test.exe") -Algorithm SHA256).Hash.ToLowerInvariant()
+          @"
+          Experimental cockpit viewport-top normalization test
+          Base: validated 16:9 Goldstandard RC1 chain
+          Only additional change: in 854-wide cockpit mode, render_top values above 50 are capped at 50.
+          4:3 behavior is untouched.
+
+          EXE SHA-256: $hash
+          "@ | Set-Content (Join-Path $out "TEST-INFO.txt") -Encoding UTF8
+
+      - name: Upload test package
+        uses: actions/upload-artifact@v4
+        with:
+          name: Carmageddon-16x9-CockpitTop-Test
+          path: test-package/**
+          if-no-files-found: error
