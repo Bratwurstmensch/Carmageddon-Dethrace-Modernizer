@@ -5,6 +5,8 @@ This release candidate combines the validated **16:9 Goldstandard runtime**, the
 ## Headline features
 
 - true 16:9 Carmageddon/Splat Pack gameplay option;
+- fullscreen 16:9 cockpit 3D rendering across the complete 854×480 frame;
+- removal of artificial cockpit top/bottom black bars from the old 4:3 render window;
 - original-aspect-ratio 4:3 Modernizer runtime;
 - native analog XInput steering;
 - analog RT acceleration and LT braking/reverse;
@@ -21,9 +23,9 @@ This release candidate combines the validated **16:9 Goldstandard runtime**, the
 
 ## Which runtime should I use?
 
-**16:9** is recommended for players who mainly use the third-person/external camera. It gives the most modern presentation.
+**16:9** now includes fullscreen cockpit 3D rendering as well as the modern widescreen presentation. The 3D world fills the complete 854×480 frame even in cockpit view.
 
-**4:3** is recommended for players who mainly use cockpit view. Carmageddon's cockpit is fixed 2D artwork authored for 4:3, so its limitations become visible in widescreen—especially while looking left/right.
+**4:3** remains available for players who prefer the completely original cockpit framing.
 
 Both runtimes include the Modernizer draw-distance, distant-detail and XInput/analog-control improvements.
 
@@ -65,9 +67,9 @@ Installer performance has also been improved through:
 
 ### 16:9 cockpit artwork
 
-The original cockpit is 2D 4:3 artwork. The Modernizer centers and adapts it for widescreen, but cannot create genuine missing 16:9 cockpit artwork. Side-looking views therefore make the 4:3 nature of the cockpit especially obvious.
+The 3D world now renders across the complete 854×480 frame behind the cockpit, removing the old top/bottom black bars.
 
-For cockpit-heavy play, use the 4:3 runtime.
+The original cockpit itself is still 2D 4:3 artwork. Side-looking views therefore still expose the limits of the original assets.
 
 ### Pre-countdown cockpit crash
 
@@ -90,6 +92,7 @@ No complete original Carmageddon or Splat Pack game data is included.
 Real-world testing has covered:
 
 - 16:9 runtime;
+- fullscreen 16:9 cockpit rendering in both Carmageddon and Splat Pack;
 - 16:9 + XInput;
 - 4:3 runtime;
 - 4:3 + XInput;
