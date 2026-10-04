@@ -1,21 +1,31 @@
-# Modernizer installer v0.1 (test)
+# Modernizer installer — v1.0-rc1
 
-This installer is intentionally conservative.
+The v1.0 release-candidate installer is a non-destructive, target-first Windows installer. It builds a finished Modernizer installation from the user's own legally obtained source data and leaves the source installation untouched.
 
-It installs the validated v1.5 source-port executable, launchers and XInput helpers into an existing Carmageddon/Dethrace folder. It does **not** modify original game data and it does **not** overwrite the normal `dethrace.exe`.
-
-## Installation behavior
+## Current installation behavior
 
 The installer:
 
-1. asks for the existing Dethrace/Carmageddon folder,
-2. verifies `DATA/GENERAL.TXT`,
-3. detects `CARSPLAT/DATA`,
-4. backs up any files that would be replaced,
-5. installs the Modernizer executable and launchers,
-6. stores an uninstall manifest under `.dethrace-modernizer/`.
+1. selects/validates the target directory;
+2. selects and validates the original/English Carmageddon source;
+3. detects main-game and optional Splat Pack data automatically;
+4. offers independent 16:9, XInput and experimental German/Uncut components;
+5. installs separate 4:3 and optional 16:9 Modernizer runtimes;
+6. imports supported loose/GOG media and tested eXoDOS-style CUE/BIN media;
+7. extracts SMK cutscenes directly from supported BIN/ISO9660 layouts;
+8. extracts Red Book AUDIO tracks losslessly to WAV;
+9. applies the source-verified 16:9 Damage HUD correction when appropriate;
+10. creates launchers/shortcuts and keeps rollback/uninstall state.
 
-Splat Pack launchers are only installed when `CARSPLAT/DATA` exists.
+The tested RC9 path supports both Carmageddon and Splat Pack and does not require mounting the original CD image.
+
+## v1.0-rc1 final smoke-test findings
+
+- 4:3 main game and Splat Pack: stable in the final smoke test.
+- 16:9 main game and Splat Pack: generally functional, with a documented cockpit/look crash tendency when looking left/right, especially near race start.
+- Native analog XInput: working.
+- Initial player-name text entry: keyboard required; controller text entry is not implemented.
+- Videos, WAV CD audio and the 16:9 Damage HUD path were confirmed in the tested eXoDOS-style RC9 installation.
 
 ## Uninstall
 
@@ -23,9 +33,9 @@ Run `Uninstall-Modernizer.cmd` from the game folder.
 
 Files that existed before installation are restored from the backup. Files created by the Modernizer are removed.
 
-## Not included yet
+## German / Uncut
 
-The German localization integration is deliberately not part of this first installer test. That workflow will be added separately after the base installer has been validated.
+German/Uncut integration is included as an **experimental** optional component and is applied only to verified source revisions. Unsupported revisions are declined rather than patched heuristically. Original German game assets are not redistributed.
 
 
 ## Uninstaller user experience
