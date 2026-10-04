@@ -36,8 +36,20 @@ function Select-Folder([string]$Description) {
     return $dialog.SelectedPath
 }
 
+$script:HashCache = @{}
+
 function Get-Sha256([string]$Path) {
-    return (Get-FileHash -LiteralPath $Path -Algorithm SHA256).Hash.ToLowerInvariant()
+    $item = Get-Item -LiteralPath $Path
+    $full = [System.IO.Path]::GetFullPath($item.FullName)
+    $cacheKey = $full + "|" + $item.Length + "|" + $item.LastWriteTimeUtc.Ticks
+
+    if ($script:HashCache.ContainsKey($cacheKey)) {
+        return [string]$script:HashCache[$cacheKey]
+    }
+
+    $hash = (Get-FileHash -LiteralPath $full -Algorithm SHA256).Hash.ToLowerInvariant()
+    $script:HashCache[$cacheKey] = $hash
+    return $hash
 }
 
 function Get-Manifest([string]$Path) {
@@ -53,6 +65,47 @@ function Restore-StaleInstall([string]$GameDir, [string]$StateDir, [string]$Pack
     Write-Host "An incomplete previous Modernizer installation was found." -ForegroundColor Yellow
     Write-Host "Restoring the previous state first..."
 
+    $journalFile = Join-Path $StateDir "transaction.journal"
+    if (Test-Path -LiteralPath $journalFile -PathType Leaf) {
+        try {
+            $journalRecords = New-Object System.Collections.Generic.List[object]
+            foreach ($line in @(Get-Content -LiteralPath $journalFile -ErrorAction Stop)) {
+                if ([string]::IsNullOrWhiteSpace($line)) { continue }
+                [void]$journalRecords.Add(($line | ConvertFrom-Json))
+            }
+
+            [object[]]$transactionRecords = @($journalRecords | ForEach-Object { $_ })
+            [array]::Reverse($transactionRecords)
+            foreach ($record in $transactionRecords) {
+                $destination = Join-Path $GameDir ([string]$record.path)
+                if ([bool]$record.existedBefore -and $record.backupPath) {
+                    $backupPath = Join-Path $backupRoot ([string]$record.backupPath)
+                    if (Test-Path -LiteralPath $backupPath -PathType Leaf) {
+                        New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
+                        if (Test-Path -LiteralPath $destination -PathType Leaf) {
+                            Remove-Item -LiteralPath $destination -Force
+                        }
+                        Move-Item -LiteralPath $backupPath -Destination $destination -Force
+                    }
+                    # If the journal entry was appended immediately before the
+                    # move and the process died first, the original destination
+                    # is still intact and there is nothing to restore.
+                }
+                elseif (Test-Path -LiteralPath $destination -PathType Leaf) {
+                    Remove-Item -LiteralPath $destination -Force
+                }
+            }
+            Remove-Item -LiteralPath $StateDir -Recurse -Force
+            Write-Host "Previous state restored from the transaction journal." -ForegroundColor Green
+            return
+        }
+        catch {
+            Write-Host ("Transaction journal recovery failed: " + $_.Exception.Message) -ForegroundColor Red
+            throw
+        }
+    }
+
+    # Compatibility with earlier test installers.
     $transactionFile = Join-Path $StateDir "transaction.json"
     if (Test-Path -LiteralPath $transactionFile -PathType Leaf) {
         try {
@@ -67,7 +120,10 @@ function Restore-StaleInstall([string]$GameDir, [string]$StateDir, [string]$Pack
                         throw "Backup file missing: $backupPath"
                     }
                     New-Item -ItemType Directory -Path (Split-Path -Parent $destination) -Force | Out-Null
-                    Copy-Item -LiteralPath $backupPath -Destination $destination -Force
+                    if (Test-Path -LiteralPath $destination -PathType Leaf) {
+                        Remove-Item -LiteralPath $destination -Force
+                    }
+                    Move-Item -LiteralPath $backupPath -Destination $destination -Force
                 }
                 elseif (Test-Path -LiteralPath $destination -PathType Leaf) {
                     Remove-Item -LiteralPath $destination -Force
@@ -223,7 +279,7 @@ function Read-ComponentSelection([string]$Preset) {
         Write-Host "Which components do you want to install?" -ForegroundColor Cyan
         Write-Host "  [1] 16:9 widescreen source port"
         Write-Host "  [2] XInput controller support"
-        Write-Host "  [3] German/Uncut localization"
+        Write-Host "  [3] German/Uncut localization (experimental)"
         Write-Host ""
         Write-Host "Examples: 12 = 16:9 + XInput, 123 = everything, 3 = German/Uncut only"
         Write-Host "ENTER = 16:9 + XInput"
@@ -397,14 +453,31 @@ function Test-PathInside([string]$Child, [string]$Parent) {
     return $childFull.StartsWith($parentFull, [System.StringComparison]::OrdinalIgnoreCase)
 }
 
-function Copy-DirectoryContents([string]$SourceRoot, [string]$DestinationRoot) {
+function Copy-DirectoryContents([string]$SourceRoot, [string]$DestinationRoot, [string]$Label = "game data") {
     New-Item -ItemType Directory -Path $DestinationRoot -Force | Out-Null
-    foreach ($item in @(Get-ChildItem -LiteralPath $SourceRoot -Force)) {
-        if ($item.Name -ieq ".dethrace-modernizer" -or $item.Name -ieq ".modernizer") {
-            continue
+    $stopwatch = [System.Diagnostics.Stopwatch]::StartNew()
+
+    $robocopy = Get-Command robocopy.exe -ErrorAction SilentlyContinue
+    if ($null -ne $robocopy) {
+        Write-Host ("Copying " + $Label + " with Windows Robocopy...")
+        & $robocopy.Source $SourceRoot $DestinationRoot /E /COPY:DAT /DCOPY:T /R:1 /W:1 /NFL /NDL /NJH /NJS /NP /XD ".dethrace-modernizer" ".modernizer"
+        $code = $LASTEXITCODE
+        if ($code -ge 8) {
+            throw "Robocopy failed while copying $Label (exit code $code)."
         }
-        Copy-Item -LiteralPath $item.FullName -Destination $DestinationRoot -Recurse -Force
     }
+    else {
+        Write-Host ("Copying " + $Label + "...")
+        foreach ($item in @(Get-ChildItem -LiteralPath $SourceRoot -Force)) {
+            if ($item.Name -ieq ".dethrace-modernizer" -or $item.Name -ieq ".modernizer") {
+                continue
+            }
+            Copy-Item -LiteralPath $item.FullName -Destination $DestinationRoot -Recurse -Force
+        }
+    }
+
+    $stopwatch.Stop()
+    Write-Host ("  Done in {0:hh\:mm\:ss}." -f $stopwatch.Elapsed) -ForegroundColor Green
 }
 
 # ---------------------------------------------------------------------------
@@ -439,17 +512,44 @@ Write-Host ""
 Write-Host "Selected:" -ForegroundColor Cyan
 Write-Host ("  16:9:        " + $(if ($Install16x9) { "YES" } else { "no" }))
 Write-Host ("  XInput:      " + $(if ($InstallXInput) { "YES" } else { "no" }))
-Write-Host ("  German:      " + $(if ($InstallGerman) { "YES" } else { "no" }))
+Write-Host ("  German:      " + $(if ($InstallGerman) { "YES (experimental)" } else { "no" }))
 
-if ([string]::IsNullOrWhiteSpace($OriginalSource)) {
-    $OriginalSource = Read-PathOrBrowse `
-        "Original/English Carmageddon installation (source; remains untouched):" `
-        "Select the original / English Carmageddon installation"
+if ($InstallGerman) {
+    Write-Host ""
+    Write-Host "German/Uncut is experimental." -ForegroundColor Yellow
+    Write-Host "Known minor menu/localization visual issues may remain."
 }
-$OriginalSource = Normalize-InputPath $OriginalSource
-$base = Resolve-BaseInstallation $OriginalSource
-if ($null -eq $base) {
-    Fail "No Carmageddon DATA\GENERAL.TXT was found in the original/English source."
+
+# Validate the package runtimes before touching any game data.
+$baseExe = Join-Path $PackageRoot "Runtime4x3\dethrace-4x3-v0.10.1.exe"
+if (-not (Test-Path -LiteralPath $baseExe -PathType Leaf)) {
+    Fail "Runtime4x3\dethrace-4x3-v0.10.1.exe is missing from the Modernizer package."
+}
+if ($Install16x9) {
+    $sourceExe = Join-Path $PackageRoot "dethrace-16x9-v1.5.exe"
+    if (-not (Test-Path -LiteralPath $sourceExe -PathType Leaf)) {
+        Fail "dethrace-16x9-v1.5.exe is missing from the Modernizer package."
+    }
+}
+
+# Resolve the original source now, before any large copy starts.
+$base = $null
+while ($null -eq $base) {
+    if ([string]::IsNullOrWhiteSpace($OriginalSource)) {
+        $OriginalSource = Read-PathOrBrowse `
+            "Original/English Carmageddon installation (source; remains untouched):" `
+            "Select the original / English Carmageddon installation"
+    }
+
+    $OriginalSource = Normalize-InputPath $OriginalSource
+    $base = Resolve-BaseInstallation $OriginalSource
+    if ($null -eq $base) {
+        Write-Host ""
+        Write-Host "The selected folder is not a supported Carmageddon installation." -ForegroundColor Red
+        $retry = Read-Host "Press ENTER to choose another folder, or type C to cancel"
+        if ($retry -match '^[Cc]') { exit 2 }
+        $OriginalSource = $null
+    }
 }
 
 if ((Test-PathInside $GameDir $base.MainRoot) -or (Test-PathInside $base.MainRoot $GameDir)) {
@@ -461,25 +561,81 @@ if ($null -ne $base.SplatRoot) {
     }
 }
 
-Write-Host ""
-Write-Host "Original source detected:" -ForegroundColor Cyan
-Write-Host "  Main game: $($base.MainRoot)"
-if ($null -ne $base.SplatRoot) {
-    Write-Host "  Splat Pack: $($base.SplatRoot)"
-}
-else {
-    Write-Host "  Splat Pack: not found"
+$mainManifest = $null
+$splatManifest = $null
+$sourceRoot = $null
+$splatSourceRoot = $null
+
+if ($InstallGerman) {
+    $mainManifest = Get-Manifest (Join-Path $MainDeltaRoot "manifest.json")
+    $splatManifest = Get-Manifest (Join-Path $SplatDeltaRoot "manifest.json")
+
+    while ($InstallGerman -and $null -eq $sourceRoot) {
+        if ([string]::IsNullOrWhiteSpace($GermanSource)) {
+            $GermanSource = Read-PathOrBrowse `
+                "German Carmageddon installation (experimental source; remains untouched):" `
+                "Select the German Carmageddon installation"
+        }
+
+        $GermanSource = Normalize-InputPath $GermanSource
+        $sourceRoot = Resolve-MainSourceRoot $GermanSource $mainManifest
+        if ($null -eq $sourceRoot) {
+            Write-Host ""
+            Write-Host "The selected folder is not the supported German Carmageddon version." -ForegroundColor Red
+            $answer = Read-Host "ENTER = choose another folder, S = skip German/Uncut, C = cancel"
+            if ($answer -match '^[Cc]') { exit 2 }
+            if ($answer -match '^[Ss]') {
+                $InstallGerman = $false
+                $GermanSource = $null
+                $mainManifest = $null
+                $splatManifest = $null
+                break
+            }
+            $GermanSource = $null
+        }
+    }
+
+    if ($InstallGerman -and $null -ne $base.SplatRoot) {
+        $splatSourceRoot = Resolve-SplatSourceRoot $OriginalSource $splatManifest
+        if ($null -eq $splatSourceRoot) {
+            Write-Host ""
+            Write-Host "The detected Splat Pack revision is not supported by the experimental German patch." -ForegroundColor Red
+            $answer = Read-Host "S = continue without German/Uncut, C = cancel"
+            if ($answer -match '^[Ss]') {
+                $InstallGerman = $false
+                $GermanSource = $null
+                $sourceRoot = $null
+                $mainManifest = $null
+                $splatManifest = $null
+            }
+            else {
+                exit 2
+            }
+        }
+    }
 }
 
 Write-Host ""
+Write-Host "Preflight complete:" -ForegroundColor Cyan
+Write-Host "  Target:       $GameDir"
+Write-Host "  Main source:  $($base.MainRoot)"
+Write-Host ("  Splat Pack:   " + $(if ($null -ne $base.SplatRoot) { $base.SplatRoot } else { "not found" }))
+Write-Host ("  16:9:         " + $(if ($Install16x9) { "YES" } else { "no" }))
+Write-Host ("  XInput:       " + $(if ($InstallXInput) { "YES" } else { "no" }))
+Write-Host ("  German:       " + $(if ($InstallGerman) { "YES - experimental ($sourceRoot)" } else { "no" }))
+Write-Host ""
+$continue = Read-Host "Start installation now? [Y/n]"
+if ($continue -match '^[Nn]') { exit 2 }
+
+Write-Host ""
 Write-Host "Copying the original version into the target directory..."
-Copy-DirectoryContents $base.MainRoot $GameDir
+Copy-DirectoryContents $base.MainRoot $GameDir "main game"
 
 # Some layouts (for example CARMA + sibling CARSPLAT) keep Splat outside the
 # main-game root. Copy that sibling into the conventional target location.
 if ($null -ne $base.SplatRoot -and -not (Test-PathInside $base.SplatRoot $base.MainRoot)) {
     $targetSplatRoot = Join-Path $GameDir "CARSPLAT"
-    Copy-DirectoryContents $base.SplatRoot $targetSplatRoot
+    Copy-DirectoryContents $base.SplatRoot $targetSplatRoot "Splat Pack"
 }
 
 $mainData = Join-Path $GameDir "DATA"
@@ -491,29 +647,10 @@ if (-not (Test-Path -LiteralPath $general -PathType Leaf)) {
 $splatData = Join-Path $GameDir "CARSPLAT\DATA"
 $splatDetected = Test-Path -LiteralPath (Join-Path $splatData "RACES\CASTLE2.TXT") -PathType Leaf
 
-$baseExe = Join-Path $PackageRoot "Runtime4x3\dethrace-4x3-v0.10.1.exe"
-if (-not (Test-Path -LiteralPath $baseExe -PathType Leaf)) {
-    Fail "Runtime4x3\dethrace-4x3-v0.10.1.exe is missing from the Modernizer package."
-}
-
-if ($Install16x9) {
-    $sourceExe = Join-Path $PackageRoot "dethrace-16x9-v1.5.exe"
-    if (-not (Test-Path -LiteralPath $sourceExe -PathType Leaf)) {
-        Fail "dethrace-16x9-v1.5.exe is missing from the Modernizer package."
-    }
-}
-
-$mainManifest = $null
-$splatManifest = $null
-if ($InstallGerman) {
-    $mainManifest = Get-Manifest (Join-Path $MainDeltaRoot "manifest.json")
-    $splatManifest = Get-Manifest (Join-Path $SplatDeltaRoot "manifest.json")
-}
-
 $stateDir = Join-Path $GameDir ".dethrace-modernizer"
 $backupDir = Join-Path $stateDir "backup"
 $stageDir = Join-Path $stateDir "staging"
-$transactionPath = Join-Path $stateDir "transaction.json"
+$transactionPath = Join-Path $stateDir "transaction.journal"
 New-Item -ItemType Directory -Path $backupDir -Force | Out-Null
 New-Item -ItemType Directory -Path $stageDir -Force | Out-Null
 
@@ -525,53 +662,25 @@ $mainStage = Join-Path $stageDir "MAIN"
 $splatStage = Join-Path $stageDir "SPLAT"
 
 if ($InstallGerman) {
-    $mainAlreadyFinal = Test-TargetSet $mainData $mainManifest
-    if ($mainAlreadyFinal) {
-        $mainStatus = "already-final"
+    Write-Host ""
+    Write-Host "German main-game source detected: $sourceRoot"
+    Write-Host "Building the validated German main-game set..."
+    Build-MainStage $sourceRoot $mainStage $mainManifest
+    if (-not (Test-TargetSet $mainStage $mainManifest)) {
+        throw "Main-game staging could not be fully verified."
     }
-    else {
-        if ([string]::IsNullOrWhiteSpace($GermanSource)) {
-            $GermanSource = Read-PathOrBrowse `
-                "German Carmageddon installation (source; remains untouched):" `
-                "Select the German Carmageddon installation"
-        }
-        $GermanSource = Normalize-InputPath $GermanSource
-        $sourceRoot = Resolve-MainSourceRoot $GermanSource $mainManifest
-        if ($null -eq $sourceRoot) {
-            throw "No supported DATA profile was found in the selected German version."
-        }
-
-        Write-Host ""
-        Write-Host "German main-game source detected: $sourceRoot"
-        Write-Host "Building the validated German main-game set..."
-        Build-MainStage $sourceRoot $mainStage $mainManifest
-        if (-not (Test-TargetSet $mainStage $mainManifest)) {
-            throw "Main-game staging could not be fully verified."
-        }
-        $mainFinalRoot = $mainStage
-        $mainStatus = "generated"
-    }
+    $mainFinalRoot = $mainStage
+    $mainStatus = "generated"
 
     if ($splatDetected) {
-        $splatAlreadyFinal = Test-TargetSet $splatData $splatManifest
-        if ($splatAlreadyFinal) {
-            $splatStatus = "already-final"
+        Write-Host ""
+        Write-Host "Original Splat Pack source detected: $splatSourceRoot"
+        Write-Host "Building the validated German Splat Pack set..."
+        Build-SplatStage $mainFinalRoot $splatSourceRoot $splatStage $splatManifest
+        if (-not (Test-TargetSet $splatStage $splatManifest)) {
+            throw "Splat Pack staging could not be fully verified."
         }
-        else {
-            $splatSourceRoot = Resolve-SplatSourceRoot $OriginalSource $splatManifest
-            if ($null -eq $splatSourceRoot) {
-                throw "The selected original version contains Splat Pack, but its Splat data revision is not supported by this test build."
-            }
-
-            Write-Host ""
-            Write-Host "Original Splat Pack source detected: $splatSourceRoot"
-            Write-Host "Building the validated German Splat Pack set..."
-            Build-SplatStage $mainFinalRoot $splatSourceRoot $splatStage $splatManifest
-            if (-not (Test-TargetSet $splatStage $splatManifest)) {
-                throw "Splat Pack staging could not be fully verified."
-            }
-            $splatStatus = "generated"
-        }
+        $splatStatus = "generated"
     }
     else {
         $splatStatus = "not-detected"
@@ -616,14 +725,11 @@ if ($InstallXInput) {
 }
 
 $records = New-Object System.Collections.Generic.List[object]
+$journalEncoding = New-Object System.Text.UTF8Encoding($false)
 
-function Save-Transaction {
-    [object[]]$transactionRecords = @($records | ForEach-Object { $_ })
-    [pscustomobject]@{
-        modernizerVersion = $ModernizerVersion
-        startedAt = (Get-Date).ToString("o")
-        files = $transactionRecords
-    } | ConvertTo-Json -Depth 6 | Set-Content -LiteralPath $transactionPath -Encoding UTF8
+function Append-TransactionRecord($Record) {
+    $json = $Record | ConvertTo-Json -Compress
+    [System.IO.File]::AppendAllText($transactionPath, $json + [Environment]::NewLine, $journalEncoding)
 }
 
 function Install-One([string]$Source, [string]$RelativePath) {
@@ -633,19 +739,27 @@ function Install-One([string]$Source, [string]$RelativePath) {
 
     $existed = Test-Path -LiteralPath $destination -PathType Leaf
     $backupRelative = $null
+    $backupPath = $null
     if ($existed) {
         $backupRelative = $RelativePath
         $backupPath = Join-Path $backupDir $backupRelative
         New-Item -ItemType Directory -Path (Split-Path -Parent $backupPath) -Force | Out-Null
-        Copy-Item -LiteralPath $destination -Destination $backupPath -Force
     }
 
-    [void]$records.Add([pscustomobject]@{
+    $record = [pscustomobject]@{
         path = $RelativePath
         existedBefore = [bool]$existed
         backupPath = $backupRelative
-    })
-    Save-Transaction
+    }
+    [void]$records.Add($record)
+    Append-TransactionRecord $record
+
+    if ($existed) {
+        # The backup lives on the same target volume. Moving the original file
+        # is effectively instantaneous and avoids copying the whole game twice.
+        Move-Item -LiteralPath $destination -Destination $backupPath -Force
+    }
+
     Copy-Item -LiteralPath $Source -Destination $destination -Force
 }
 
@@ -826,11 +940,24 @@ try {
     }
 
     if ($InstallGerman) {
-        if (-not (Test-TargetSet $mainData $mainManifest)) {
-            throw "Installed German main-game set could not be verified."
+        # Stage outputs were already SHA-256 verified. After the local copy we
+        # only need a fast structural check here; re-hashing the complete set
+        # would read the same ~GB of data yet again.
+        foreach ($entry in @($mainManifest.files)) {
+            $installed = Join-Path $mainData ([string]$entry.path)
+            if (-not (Test-Path -LiteralPath $installed -PathType Leaf) -or
+                (Get-Item -LiteralPath $installed).Length -ne [int64]$entry.target_size) {
+                throw "Installed German main-game file is missing or has the wrong size: $($entry.path)"
+            }
         }
-        if ($splatDetected -and -not (Test-TargetSet $splatData $splatManifest)) {
-            throw "Installed German Splat Pack set could not be verified."
+        if ($splatDetected) {
+            foreach ($entry in @($splatManifest.files)) {
+                $installed = Join-Path $splatData ([string]$entry.path)
+                if (-not (Test-Path -LiteralPath $installed -PathType Leaf) -or
+                    (Get-Item -LiteralPath $installed).Length -ne [int64]$entry.target_size) {
+                    throw "Installed German Splat Pack file is missing or has the wrong size: $($entry.path)"
+                }
+            }
         }
     }
 
