@@ -1,10 +1,12 @@
-name: Build Modernizer installer v19 integration test
+name: Build Modernizer stable package
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - chatgpt/installer-v19-integration-20261004
+      - main
+      - release/v1.0-rc1
+      - chatgpt/4x3-damage-hud-fix-20261007
     paths:
       - "installer/**"
       - "package/**"
@@ -39,6 +41,12 @@ jobs:
           ref: v0.10.1
           submodules: recursive
           path: dethrace-wide
+
+      - name: Apply stable 4x3 Modernizer parity
+        run: python modernizer/source-port/apply-4x3-modernizer-parity.py dethrace-standard
+
+      - name: Apply native analog XInput to 4x3 runtime
+        run: python modernizer/source-port/apply-native-analog-xinput-v13.py dethrace-standard
 
       - name: Apply validated v1.5 widescreen source port
         run: python modernizer/source-port/apply-v1.5-source-port.py dethrace-wide
@@ -93,12 +101,6 @@ jobs:
 
       - name: Apply Pratcam direct-blit lock v17
         run: python modernizer/source-port/apply-pratcam-directblit-lock-v17.py dethrace-wide
-
-      - name: Apply pedestrian completion guard v18
-        run: python modernizer/source-port/apply-ped-completion-guard-v18.py dethrace-wide
-
-      - name: Apply RC1 authoritative pedestrian completion
-        run: python modernizer/source-port/apply-release-candidate-1.py dethrace-wide
 
       - name: Apply cockpit renderer stability v19
         run: |
@@ -245,10 +247,11 @@ jobs:
 
           Widescreen runtime:
           full Modernizer patch chain through cockpit renderer stability v19
+          retired pedestrian-completion guard is intentionally NOT applied
           SHA-256: $wideHash
 
           Standard runtime:
-          upstream Dethrace v0.10.1 4:3
+          Modernizer 4:3 parity runtime with restored shared-data Damage HUD alignment
           SHA-256: $stdHash
 
           No original Carmageddon game data or cutscene videos are included.
