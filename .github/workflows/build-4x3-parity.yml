@@ -1,10 +1,10 @@
-name: Build 4x3 Modernizer parity test
+name: Build 4x3 Damage HUD fix test
 
 on:
   workflow_dispatch:
   push:
     branches:
-      - chatgpt/4x3-modernizer-parity-20261004
+      - chatgpt/4x3-damage-hud-fix-20261007
     paths:
       - "source-port/**"
       - ".github/workflows/build-4x3-parity.yml"
@@ -100,13 +100,14 @@ jobs:
           $exe = Get-Item -LiteralPath test-package\Runtime4x3\dethrace-4x3-v0.10.1.exe
           $hash = (Get-FileHash -LiteralPath $exe.FullName -Algorithm SHA256).Hash
           @"
-          4:3 Modernizer parity test
+          4:3 Modernizer Damage HUD fix test
 
           Aspect ratio: original 4:3
           Draw distance: 500 units in high-resolution mode
           Opponent LOD: full principal models
           Distant pedestrian/object sprites: Goldstandard behavior
           Native XInput: left stick steering, RT accelerate, LT brake/reverse
+          Shared-data fix: restores stock 4:3 Damage HUD coordinates when 16:9 CAR data is detected
 
           SHA-256: $hash
           "@ | Set-Content -LiteralPath test-package\BUILD-INFO-4x3.txt -Encoding UTF8
@@ -114,6 +115,6 @@ jobs:
       - name: Upload test runtime
         uses: actions/upload-artifact@v4
         with:
-          name: Carmageddon-Modernizer-4x3-Parity-Test
+          name: Carmageddon-Modernizer-4x3-DamageHUD-Fix-Test
           path: test-package/**
           if-no-files-found: error
