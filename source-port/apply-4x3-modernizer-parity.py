@@ -39,6 +39,63 @@ def patch_loading(path: Path) -> None:
         "    gCamera_angle = GetAScalar(f);",
         "500-unit camera far plane",
     )
+
+    old_damage_block = """        pCar_spec->dim_count[0] = GetAnInt(h);
+        for (i = 0; i < COUNT_OF(pCar_spec->dim_count); i++) {
+            for (j = 0; j < pCar_spec->dim_count[i]; j++)
+                GetFourInts(
+                    h,
+                    &pCar_spec->dim_left[i][j],
+                    &pCar_spec->dim_top[i][j],
+                    &pCar_spec->dim_right[i][j],
+                    &pCar_spec->dim_bottom[i][j]);
+        }
+        PathCat(the_path, gApplication_path, gGraf_specs[gGraf_spec_index].data_dir_name);"""
+
+    new_damage_block = """        pCar_spec->dim_count[0] = GetAnInt(h);
+        for (i = 0; i < COUNT_OF(pCar_spec->dim_count); i++) {
+            for (j = 0; j < pCar_spec->dim_count[i]; j++)
+                GetFourInts(
+                    h,
+                    &pCar_spec->dim_left[i][j],
+                    &pCar_spec->dim_top[i][j],
+                    &pCar_spec->dim_right[i][j],
+                    &pCar_spec->dim_bottom[i][j]);
+        }
+
+        /*
+         * The combined Modernizer installation shares one CAR-data set between
+         * the 16:9 and 4:3 runtimes. The 16:9 installer shifts the external
+         * damage HUD by +214 pixels so it remains right-edge anchored at 854.
+         * Detect those shifted coordinates here and restore the stock 640-wide
+         * positions for the 4:3 runtime only.
+         *
+         * Clean/original CAR data stays untouched because its coordinates are
+         * already inside the 640-pixel frame.
+         */
+        if (gGraf_spec_index == 1) {
+            if (pCar_spec->damage_x_offset >= 640) {
+                pCar_spec->damage_x_offset -= 214;
+            }
+            if (pCar_spec->damage_background_x >= 640) {
+                pCar_spec->damage_background_x -= 214;
+            }
+            for (j = 0; j < pCar_spec->dim_count[0]; j++) {
+                if (pCar_spec->dim_right[0][j] > 640) {
+                    pCar_spec->dim_left[0][j] -= 214;
+                    pCar_spec->dim_right[0][j] -= 214;
+                }
+            }
+        }
+
+        PathCat(the_path, gApplication_path, gGraf_specs[gGraf_spec_index].data_dir_name);"""
+
+    text = replace_once(
+        text,
+        old_damage_block,
+        new_damage_block,
+        "4:3 shared-data damage HUD compensation",
+    )
     path.write_text(text, encoding="utf-8")
 
 
