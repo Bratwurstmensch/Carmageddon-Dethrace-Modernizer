@@ -15,11 +15,22 @@ The long-term goal is a reproducible, user-friendly modernizer that can combine:
 
 ## Release candidate
 
-The current public release-candidate branch is: `release-candidate-v0.8.0-rc2`.
+The current stabilized release-candidate branch is: `release/v1.0-rc1`.
 
 RC1 uses a **target-first** installer: users choose a new/empty target directory, then select optional 16:9, XInput and German/Uncut components. Source installations are read-only. A standard Dethrace v0.10.1 4:3 runtime is included in every target, while the validated v1.5 widescreen runtime is installed only when 16:9 is selected.
 
 The core `2`, `3`, `12` and `123` component paths have now passed real-world validation. RC2 is a release-cleanup build: the functional game and patch paths remain unchanged, while the remaining installer-facing text has been normalized to English.
+
+## Stable validation update — 2026-10-07
+
+The current tested baseline is intentionally frozen unless a new reproducible issue is found.
+
+- Main game: complete-race smoke test passed.
+- Splat Pack: complete-race smoke test passed.
+- 16:9: stable after retiring the experimental pedestrian-completion guard.
+- Cockpit: no further changes are planned for the validated baseline.
+- 4:3: external Damage HUD background and flashing damage-unit overlays are restored when shared 16:9-shifted CAR data is detected.
+- The historical `apply-ped-completion-guard-v18.py` and `apply-release-candidate-1.py` scripts remain in the repository for development history only and are not part of stable build workflows.
 
 ## Current status
 
