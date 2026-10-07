@@ -74,14 +74,32 @@ def patch_loading(path: Path) -> None:
          * already inside the 640-pixel frame.
          */
         if (gGraf_spec_index == 1) {
-            if (pCar_spec->damage_x_offset >= 640) {
-                pCar_spec->damage_x_offset -= 214;
-            }
-            if (pCar_spec->damage_background_x >= 640) {
-                pCar_spec->damage_background_x -= 214;
-            }
+            int widescreen_damage_data = pCar_spec->damage_background_x >= 640;
+
+            /*
+             * The external dim rectangle is an even stronger signal because a
+             * valid stock 4:3 rectangle cannot extend past x=640. Use either
+             * marker to decide whether this CAR file carries the +214 shift.
+             */
             for (j = 0; j < pCar_spec->dim_count[0]; j++) {
                 if (pCar_spec->dim_right[0][j] > 640) {
+                    widescreen_damage_data = 1;
+                    break;
+                }
+            }
+
+            if (widescreen_damage_data) {
+                /*
+                 * damage_background_x positions the static damage-panel image,
+                 * while damage_x_offset is the origin used by every flashing
+                 * damage-unit sprite. The latter can still be below 640 after
+                 * a +214 widescreen shift, so testing it independently misses
+                 * exactly the half-fixed case seen in the 4:3 runtime.
+                 */
+                pCar_spec->damage_x_offset -= 214;
+                pCar_spec->damage_background_x -= 214;
+
+                for (j = 0; j < pCar_spec->dim_count[0]; j++) {
                     pCar_spec->dim_left[0][j] -= 214;
                     pCar_spec->dim_right[0][j] -= 214;
                 }
