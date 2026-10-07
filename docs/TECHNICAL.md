@@ -109,3 +109,40 @@ The source port therefore adds the same 107-pixel widescreen offset to:
 - and every A/P/O bar X position.
 
 The adjustment is conditional on the 854-pixel graphics width, so the standard 4:3 runtime is unchanged.
+
+## Stable baseline — 2026-10-07
+
+The current stable baseline was validated in real gameplay with one complete race in both Carmageddon and Splat Pack.
+
+### Pedestrian completion regression
+
+An experimental pedestrian-completion guard introduced during late cockpit/debug work was confirmed to be the source of false early race completion ("all pedestrians wasted"). Bypassing that guard restored normal race completion without requiring additional cockpit changes.
+
+Stable build policy:
+
+- do **not** apply `apply-ped-completion-guard-v18.py`;
+- do **not** apply `apply-release-candidate-1.py`;
+- retain the original Dethrace pedestrian race-completion path;
+- preserve the otherwise validated 16:9/cockpit code unchanged unless a separate reproducible problem appears.
+
+Reference manually validated no-guard 16:9 test executable:
+
+- SHA-256: `e9d0d64cf1151e178a84af69c11af4534f78449cbe0dd457aa578a0ea6d86817`
+
+### 4:3 shared-data Damage HUD compatibility
+
+The combined installation uses CAR data whose external Damage HUD coordinates are shifted by +214 pixels for the 854-wide runtime. The 4:3 runtime now detects that shared widescreen data and restores the stock 640-wide coordinates at load time.
+
+Both parts of the Damage HUD are compensated together:
+
+- the static Damage HUD background / dim rectangle;
+- the `damage_x_offset` origin used by the flashing per-component damage sprites.
+
+The first compatibility test restored only the static background in some cars because a shifted `damage_x_offset` can still remain below x=640. The validated v2 logic therefore uses the unmistakably shifted background/dim geometry as the detection signal and then reverses the +214 shift for the complete external Damage HUD.
+
+Reference validated 4:3 v2 test executable:
+
+- SHA-256: `7e65b4c72d529fd76eabe7389a956f8b58955f5ea8469c35dd5a77ccff29b7c8`
+
+The stable 4:3 build path applies `apply-4x3-modernizer-parity.py` followed by `apply-native-analog-xinput-v13.py`.
+
